@@ -1,24 +1,140 @@
 <?php
-namespace Magento\Xxyyzz\Page\Customer;
+namespace Magento\Xxyyzz\Page\Customers;
 
 use Magento\Xxyyzz\Page\AbstractAdminPage;
+use Magento\Xxyyzz\Helper\AdminUrlList;
 
-class AdminCustomerPage extends AbstractAdminPage
+class AdminCustomersPage extends AbstractAdminPage
 {
-    /**
-     * Include url of current page.
-     */
-    public static $URL = '/admin/customer/index/';
+    public function goToTheAdminAllCustomersGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAllCustomersGrid);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminCustomerForIdPage($customerId)
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage((AdminUrlList::$adminCustomerForCustomerIdPage . $customerId));
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddCustomerPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddCustomerPage);
+        $I->waitForPageLoad();
+    }
+
+    public function shouldBeOnTheAdminAllCustomersGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAllCustomersGrid);
+        self::verifyGlobalAdminPageTitle('Customers');
+    }
+
+    public function shouldBeOnTheAdminCustomerForIdPage($customerId, $customerName)
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminCustomerForCustomerIdPage . $customerId));
+        self::verifyGlobalAdminPageTitle($customerName);
+    }
+
+    public function shouldBeOnTheAdminAddCustomerPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddCustomerPage);
+        self::verifyGlobalAdminPageTitle('New Customer');
+    }
+
+    public static $deleteCustomerButton = '#customer-edit-delete-button';
+    public static $createOrderButton    = '#order';
+    public static $resetPasswordButton  = '#resetPassword';
+    public static $forceSignInButton    = '#invalidateToken';
+
+    public function clickOnAddNewCustomerButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminAddButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnAddCustomerBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnAddCustomerResetButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminResetButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnAddCustomerSaveAndContinueButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveAndContinueButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnAddCustomerSaveCustomerButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnDeleteCustomerButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$deleteCustomerButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnResetButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminResetButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnCreateOrderButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$createOrderButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnResetPasswordButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$resetPasswordButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnForceSignInButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$forceSignInButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnSaveAndContinueEditButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveAndContinueButton);
+        $I->waitForPageLoad();
+    }
+    public function clickOnSaveCustomerButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveButton);
+        $I->waitForPageLoad();
+    }
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
-    public static $saveCustomerButton            = '#save';
-    public static $deleteCustomerButton          = '#customer-edit-delete-button';
-    public static $createOrderButton             = '#customer-edit-delete-button';
-    public static $resetPasswordButton           = '#resetPassword';
-    public static $forceSignInButton             = '#invalidateToken';
-
     public static $customerInformationMainArea   = '.admin__page-nav';
     public static $customerViewLink              = '#tab_block_customer_edit_tab_view';
     public static $accountInformationLink        = '#tab_customer';
@@ -74,44 +190,6 @@ class AdminCustomerPage extends AbstractAdminPage
     // TODO: Add Selectors for the "Newsletter" section and controls
     // TODO: Add Selectors for the "Product Reviews" section and controls
     // TODO: Add Selectors for the "Wish List" section and controls
-
-    public function clickOnAddCustomerButton()
-    {
-        $I = $this->acceptanceTester;
-        self::clickOnAdminAddButton();
-        $I->waitForPageLoad();
-    }
-
-    public function clickOnSaveCustomerButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$saveCustomerButton);
-        $I->waitForPageLoad();
-    }
-    
-    public function clickOnDeleteCustomerButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$deleteCustomerButton);
-    }
-
-    public function clickOnCreateOrderButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$createOrderButton);
-    }
-
-    public function clickOnResetPasswordButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$resetPasswordButton);
-    }
-
-    public function clickOnForceSignInButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$forceSignInButton);
-    }
 
     public function clickOnCustomerViewLink()
     {
@@ -620,7 +698,7 @@ class AdminCustomerPage extends AbstractAdminPage
 
     public function addBasicCustomerWithAddress($customerDetails)
     {
-        self::clickOnAddCustomerButton();
+        self::clickOnAddNewCustomerButton();
 
         self::clickOnAddressesLink();
         self::clickOnAddNewAddressButton();
@@ -651,6 +729,6 @@ class AdminCustomerPage extends AbstractAdminPage
         self::selectAssociateToWebsiteMainWebsite();
         self::selectGroupGeneral();
 
-        self::clickOnAdminSaveButton();
+        self::clickOnSaveCustomerButton();
     }
 }
