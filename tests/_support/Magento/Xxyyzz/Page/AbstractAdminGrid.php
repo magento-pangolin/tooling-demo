@@ -4,8 +4,91 @@ namespace Magento\Xxyyzz\Page;
 use Magento\Xxyyzz\AcceptanceTester;
 use Codeception\Exception\ElementNotFound;
 
-class AdminGridPage
+abstract class AbstractAdminGrid
 {
+    public static $globalPageTitle                       = '.page-title';
+
+    /**
+     * Admin Grid Controls Selectors - All Controls that appear below the Grey header bar and above the Grid Column Names.
+     */
+    public static $primaryGridMainArea                   = '.admin__old';
+    public static $secondaryGridMainArea                 = '';
+
+
+
+    public static $gridSearchByKeywordField              = '#fulltext';
+    public static $gridSearchByKeywordSearchButton       = '#fulltext + .action-submit';
+
+    public static $gridFiltersButton                     = 'button[data-action=grid-filter-expand]';
+    public static $gridFiltersExpandedMenu               = '.admin__data-grid-filters-wrap._show';
+    public static $gridFiltersCancelButton               = 'button[data-action=grid-filter-cancel]';
+    public static $gridFiltersApplyFiltersButton         = 'button[data-action=grid-filter-apply]';
+
+    // TODO: Add all of the Filter columns here.
+
+    public static $gridFiltersClearAllButton             = 'button[data-action=grid-filter-reset]';
+
+    public static $gridCurrentViewButton                 = '.admin__data-grid-action-bookmarks .admin__action-dropdown';
+    public static $gridCurrentViewDropDownOption         = '.admin__data-grid-action-bookmarks .action-dropdown-menu-link';
+    public static $gridCurrentViewSaveViewAsLink         = '.admin__data-grid-action-bookmarks .action-dropdown-menu-item-last';
+    public static $gridViewSaveNewViewField              = '.admin__data-grid-action-bookmarks .admin__control-text';
+    public static $gridViewSaveNewViewSaveButton         = '.admin__data-grid-action-bookmarks .action-submit';
+
+    public static $gridColumnsButton                     = '.admin__data-grid-action-columns';
+    public static $gridColumnsCurrentVisibleCount        = '.admin__data-grid-action-columns .admin__action-dropdown-menu-header';
+    public static $gridColumnCheckbox                    = "//label[contains(@class, 'admin__field-label')][contains(text(), 'Action')]/parent::div/input";
+    public static $gridColumnHeaderName                  = '.admin__data-grid-action-columns .admin__field-label';
+    public static $gridColumnsResetButton                = '.admin__data-grid-action-columns .admin__action-dropdown-footer-secondary-actions';
+    public static $gridColumnsCancelButton               = '.admin__data-grid-action-columns .admin__action-dropdown-footer-main-actions';
+
+    public static $gridExportCurrentViewButton           = '.admin__data-grid-action-export';
+    public static $gridExportCurrentViewLinks            = '.admin__data-grid-action-export-menu .admin__field-label';
+    public static $gridExportCurrentViewCancelButton     = '.admin__data-grid-action-export-menu .action-tertiary';
+    public static $gridExportCurrentViewExportButton     = '.admin__data-grid-action-export-menu .action-secondary';
+
+    public static $gridActionsButton                     = '.action-select-wrap';
+
+    public static $gridCurrentRecordsCount               = '';
+
+    public static $gridRowsPerPageCountButton            = '.admin__data-grid-pager-wrap .selectmenu';
+    public static $gridRowsPerPageMenuItem               = '.admin__data-grid-pager-wrap .selectmenu-items .selectmenu-item-action';
+    public static $gridRowsPerPageCustomLink             = '.admin__data-grid-pager-wrap .selectmenu-items .selectmenu-item-action:last';
+    public static $gridRowsPerPageCustomRowsField        = '.admin__data-grid-pager-wrap .selectmenu-items .admin__control-text';
+    public static $gridRowsPerPageCustomSaveButton       = '.admin__data-grid-pager-wrap .selectmenu-items .action-save';
+
+    public static $gridGoBackAPageButton                 = '.action-previous';
+    public static $gridPageNumberField                   = '.admin__data-grid-pager .admin__control-text';
+    public static $gridOutOfPageNumber                   = '.admin__data-grid-pager .admin__control-support-text';
+    public static $gridGoToNextPageButton                = '.action-next';
+
+    /**
+     * Admin Inline Search Controls Selectors - All of the Search Fields that appear inside the grid  on the top row of the grid.
+     */
+    public static $gridInlineSearchButton                = '';
+    public static $gridInlineResetFilterButton           = '';
+    public static $gridInlineRowsPerPageCountButton      = '';
+    public static $gridInlineRowsPerPageMenuItem         = '';
+    public static $gridInlineRowsPerPageCustomLink       = '';
+    public static $gridInlineRowsPerPageCustomRowsField  = '';
+    public static $gridInlineRowsPerPageCustomSaveButton = '';
+
+    public static $gridHeaderCheckboxColumn              = '.data-grid-multicheck-cell';
+    public static $gridHeaderNameColumn                  = '.data-grid-th';
+
+    /**
+     * @var AcceptanceTester
+     */
+    protected $acceptanceTester;
+
+    public function __construct(AcceptanceTester $I)
+    {
+        $this->acceptanceTester = $I;
+    }
+
+    /**
+     * REDO ALL OF THE FOLLOWING
+     */
+
     /**
      * Include url of
      *
@@ -80,17 +163,6 @@ class AdminGridPage
 
     public static $checkboxInGridNthRow
         = '.admin__data-grid-outer-wrap>.admin__data-grid-wrap tbody tr:nth-child(%s) .admin__control-checkbox';
-    
-    /**
-     * @var AcceptanceTester
-     */
-    protected $acceptanceTester;
-
-    public function __construct(AcceptanceTester $I)
-    {
-        $this->acceptanceTester = $I;
-        $this->pageLoadTimeout = $I->getConfiguration('pageload_timeout');
-    }
 
     public static function of(AcceptanceTester $I)
     {
@@ -176,7 +248,7 @@ class AdminGridPage
                 break;
             case 'textfield':
             default:
-            $I->fillField($selector, $value);
+                $I->fillField($selector, $value);
         }
         $I->click(self::$filtersApplyButton);
         $I->waitForPageLoad();
@@ -188,7 +260,7 @@ class AdminGridPage
      * @param int $n
      * @param array $texts
      */
-    public function seeInCurrentGridNthRow(int $n, array $texts)
+    public function seeInCurrentGridNthRow($n, array $texts)
     {
         $I = $this->acceptanceTester;
         $I->waitForPageLoad();
@@ -216,7 +288,7 @@ class AdminGridPage
      *
      * @param int $n
      */
-    public function checkCheckboxInCurrentNthRow(int $n)
+    public function checkCheckboxInCurrentNthRow($n)
     {
         $I = $this->acceptanceTester;
         $I->waitForPageLoad();

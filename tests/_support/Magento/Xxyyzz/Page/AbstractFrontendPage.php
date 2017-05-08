@@ -13,35 +13,22 @@ abstract class AbstractFrontendPage
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
-    public static $pageTitle                        = '.page-title';
+    public static $pageTitle         = '.page-title';
 
-    public static $welcomeMessage                   = '.greet.welcome>span';
-    public static $signInLink                       = '.authorization-link a';
-    public static $createAccountLink                = '.header.links>li:nth-child(4)';
+    public static $welcomeMessage    = '.greet.welcome>span';
+    public static $signInLink        = '.authorization-link a';
+    public static $createAccountLink = '.header.links>li:nth-child(4)';
 
-    public static $pageFooterContent                = '.footer.content';
+    public static $pageFooterContent = '.footer.content';
 
     /**
      * @var AcceptanceTester
      */
     protected $acceptanceTester;
 
-    /**
-     * Page load timeout in seconds.
-     *
-     * @var string
-     */
-    protected $pageLoadTimeout;
-
     public function __construct(AcceptanceTester $I)
     {
         $this->acceptanceTester = $I;
-        $this->pageLoadTimeout = $I->getConfiguration('pageload_timeout');
-    }
-
-    public static function of(AcceptanceTester $I)
-    {
-        return new static($I);
     }
 
     /**

@@ -71,4 +71,9 @@ class RoboFile extends \Robo\Tasks
         $this->_exec('codecept run --env chrome --group catalog');
         $this->allureReport();
     }
+
+    function folder($args = '')
+    {
+        $this->taskExec('codecept run acceptance --env chrome')->args($args)->run();
+    }
 }

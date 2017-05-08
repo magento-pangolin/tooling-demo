@@ -11,63 +11,51 @@ abstract class AbstractAdminPage
     public static $URL = '/admin/admin/';
 
     /**
-     * Declare UI map for this page here. CSS or XPath allowed.
+     * Global Admin Page Header Selectors
      */
-    public static $systemMessage                  = '.message-system';
+    public static $globalSystemMessage               = '.message-system';
 
-    public static $pageTitle                      = '.page-title';
-    public static $globalSearchButton             = '#search-global';
-    public static $globalSearchInput              = '.search-global-input';
+    public static $globalPageTitle                   = '.page-title';
 
-    public static $adminNotificationsLink         = '.notifications-action';
-    public static $adminNotificationsCounter      = '.notifications-counter';
-    public static $adminNotificationsMenu         = '.notifications-wrapper .admin__action-dropdown-menu';
-    public static $adminNotificationMenuItem      = '.notifications-wrapper .notifications-entry';
+    public static $globalSearchButton                = '#search-global';
+    public static $globalSearchField                 = '.search-global-input';
 
-    public static $userActionsMenuLink            = '.admin-user .admin__action-dropdown';
-    public static $adminAccountSetting            = '.admin-user-name';
-    public static $customerView                   = '.store-front';
-    public static $adminSignOut                   = '.account-signout';
+    public static $adminNotificationsLink            = '.notifications-action';
+    public static $adminNotificationsCounter         = '.notifications-counter';
+    public static $adminNotificationsMenu            = '.notifications-wrapper .admin__action-dropdown-menu';
 
-    public static $successMessage                 = '.message.message-success.success';
+    public static $globalAdminActionsMenuLink        = '.admin-user .admin__action-dropdown';
+    public static $globalAccountSetting              = '.admin-user-name';
+    public static $globalCustomerView                = '.store-front';
+    public static $globalAdminSignOut                = '.account-signout';
 
-    public static $popupLoadingSpinner            = '.popup.popup-loading';
+    public static $globalSuccessMessage              = '.message.message-success.success';
 
-    public static $pageMainActionsArea            = '.page-main-actions';
-    public static $pageMainActionsBack            = '#back';
-    public static $pageMainActionsReset           = '#reset';
-    public static $pageMainActionsSaveAndContinue = '#save_and_continue';
-    public static $pageMainActionsSave            = '#save';
-    public static $pageMainActionsAdd             = '#add';
-
+    /**
+     * Generic Admin Controls Selectors
+     */
+    public static $genericAdminBackButton            = '#back';
+    public static $genericAdminResetButton           = '#reset';
+    public static $genericAdminDeleteButton          = '#delete';
+    public static $genericAdminAddButton             = '#add';
+    public static $genericAdminSaveButton            = '#save';
+    public static $genericAdminSaveAndContinueButton = '#save_and_continue';
+    public static $genericAdminPrintButton           = '#print';
+    public static $genericAdminSendEmailButton       = '#send_notification';
+    public static $genericAdminShowReportButton      = '#filter_form_submit';
+    
+    public static $storeViewDropDownMenu             = '#store-change-button';
+    
     /**
      * @var AcceptanceTester
      */
     protected $acceptanceTester;
 
-    /**
-     * Page load timeout in seconds.
-     *
-     * @var string
-     */
-    protected $pageLoadTimeout;
-
     public function __construct(AcceptanceTester $I)
     {
         $this->acceptanceTester = $I;
-        $this->pageLoadTimeout = $I->getConfiguration('pageload_timeout');
     }
 
-    public static function of(AcceptanceTester $I)
-    {
-        return new static($I);
-    }
-
-    /**
-     * Basic route example for your current URL
-     * You can append any additional parameter to URL
-     * and use it in tests like: Page\Edit::route('/123-post');
-     */
     public static function route($param)
     {
         return static::$URL.$param;
@@ -81,10 +69,51 @@ abstract class AbstractAdminPage
         $I->seeInCurrentUrl($pageUrl);
     }
 
-    public function seeInPageTitle($name)
+    public function pressEnterOnTheKeyboard()
     {
         $I = $this->acceptanceTester;
-        $I->see($name, self::$pageTitle);
+        $I->pressKey(self::$globalSearchField, \WebDriverKeys::ENTER);
+    }
+
+    public function clickOnCollapsibleAreaOnAdminAddOrEditPage($areaName)
+    {
+        $I = $this->acceptanceTester;
+        $I->click('//div[@class="fieldset-wrapper-title"]/strong/span[contains(text(), "' . $areaName . '")]');
+    }
+
+    public function expandCollapsibleAreaOnAdminAddOrEditPage($areaIndex)
+    {
+        $I = $this->acceptanceTester;
+        $context = sprintf('.fieldset-wrapper[data-index=%s]', $areaIndex);
+        try {
+            $I->seeElement($context . ' .fieldset-wrapper-title[data-state-collapsible=closed]');
+            $I->click($context . ' .admin__collapsible-title>span');
+        } catch (\PHPUnit_Framework_AssertionFailedError $e) {
+        }
+    }
+
+    public function closeCollapsibleAreaOnAdminAddOrEditPage($areaIndex)
+    {
+        $I = $this->acceptanceTester;
+        $context = sprintf('.fieldset-wrapper[data-index=%s]', $areaIndex);
+        try {
+            $I->seeElement($context . ' .fieldset-wrapper-title[data-state-collapsible=open]');
+            $I->click($context . ' .admin__collapsible-title>span');
+        } catch (\PHPUnit_Framework_AssertionFailedError $e) {
+        }
+    }
+
+    public function seeGlobalAdminSuccessMessage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeElement(self::$globalSuccessMessage);
+    }
+
+
+    public function verifyGlobalAdminPageTitle($adminPageTitle)
+    {
+        $I = $this->acceptanceTester;
+        $I->see($adminPageTitle, self::$globalPageTitle);
     }
 
     public function clickOnTheGlobalSearchButton()
@@ -96,13 +125,7 @@ abstract class AbstractAdminPage
     public function enterGlobalSearchValue($searchValue)
     {
         $I = $this->acceptanceTester;
-        $I->fillField(self::$globalSearchInput, $searchValue);
-    }
-
-    public function pressEnterOnTheKeyboard()
-    {
-        $I = $this->acceptanceTester;
-        $I->pressKey(self::$globalSearchInput, \WebDriverKeys::ENTER);
+        $I->fillField(self::$globalSearchField, $searchValue);
     }
 
     public function performGlobalSearchFor($searchValue)
@@ -112,94 +135,108 @@ abstract class AbstractAdminPage
         self::pressEnterOnTheKeyboard();
     }
 
-    public function clickOnUserActionMenuLink()
+
+    public function clickOnGlobalUserActionsMenuLink()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$userActionsMenuLink);
+        $I->click(self::$globalAdminActionsMenuLink);
     }
 
     public function clickOnAdminAccountSetting()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$adminAccountSetting);
+        $I->click(self::$globalAccountSetting);
     }
 
-    public function clickOnCustomerView()
+    public function clickOnAdminCustomerView()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$customerView);
+        $I->click(self::$globalCustomerView);
     }
 
-    public function clickOnSignOut()
+    public function clickOnAdminSignOut()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$adminSignOut);
+        $I->click(self::$globalAdminSignOut);
     }
 
-    public function clickOnAdminBackButton()
+    
+    public function clickOnGenericStoreViewButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$pageMainActionsBack);
+        $I->click(self::$storeViewDropDownMenu);
+    }
+    
+    public function selectStoreViewFromGenericStoreViewDropDown($storeView)
+    {
+        $I = $this->acceptanceTester;
+        $I->selectOption(self::$storeViewDropDownMenu, $storeView);
+        $I->waitForPageLoad();
+    }
+    
+    public function selectDefaultStoreViewFromGenericStoreViewDropDown()
+    {
+        self::selectStoreViewFromGenericStoreViewDropDown('Default Store View');
+    }
+    
+
+    public function clickOnGenericAdminBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
     }
 
-    public function clickOnAdminResetButton()
+    public function clickOnGenericAdminResetButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$pageMainActionsReset);
+        $I->click(self::$genericAdminResetButton);
     }
 
-    public function clickOnAdminSaveAndContinueEdit()
+    public function clickOnGenericAdminDeleteButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$pageMainActionsSaveAndContinue);
+        $I->click(self::$genericAdminDeleteButton);
+    }
+
+    public function clickOnGenericAdminAddButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminAddButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnAdminSaveButton()
+    public function clickOnGenericAdminSaveButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$pageMainActionsSave);
+        $I->click(self::$genericAdminSaveButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnAdminAddButton()
+    public function clickOnGenericAdminSaveAndContinueEditButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$pageMainActionsAdd);
+        $I->click(self::$genericAdminSaveAndContinueButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnCollapsibleArea($areaName)
+    public function clickOnGenericAdminPrintButton()
     {
         $I = $this->acceptanceTester;
-        $I->click('//div[@class="fieldset-wrapper-title"]/strong/span[contains(text(), "' . $areaName . '")]');
+        $I->click(self::$genericAdminPrintButton);
+        $I->waitForPageLoad();
     }
 
-    public function expandCollapsibleArea($areaIndex)
+    public function clickOnGenericAdminSendEmailButton()
     {
         $I = $this->acceptanceTester;
-        $context = sprintf('.fieldset-wrapper[data-index=%s]', $areaIndex);
-        try {
-            $I->seeElement($context . ' .fieldset-wrapper-title[data-state-collapsible=closed]');
-            $I->click($context . ' .admin__collapsible-title>span');
-        } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-        }
+        $I->click(self::$genericAdminSendEmailButton);
+        $I->waitForPageLoad();
     }
 
-    public function closeCollapsibleArea($areaIndex)
+    public function clickOnGenericAdminShowReportButton()
     {
         $I = $this->acceptanceTester;
-        $context = sprintf('.fieldset-wrapper[data-index=%s]', $areaIndex);
-        try {
-            $I->seeElement($context . ' .fieldset-wrapper-title[data-state-collapsible=open]');
-            $I->click($context . ' .admin__collapsible-title>span');
-        } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-        }
-    }
-
-    public function seeSuccessMessage()
-    {
-        $I = $this->acceptanceTester;
-        $I->seeElement(self::$successMessage);
+        $I->click(self::$genericAdminShowReportButton);
+        $I->waitForPageLoad();
     }
 }
