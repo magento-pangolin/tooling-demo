@@ -39,9 +39,6 @@ class LogoutAfterLoginCest
      */
     public function shouldBeAbleToLogout(AdminStep $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('logout of the Admin area and land on the Login page');
-        
         $I->loginAsAdmin();
         $I->goToTheAdminLogoutPage();
         $I->shouldBeOnTheAdminLoginPage();

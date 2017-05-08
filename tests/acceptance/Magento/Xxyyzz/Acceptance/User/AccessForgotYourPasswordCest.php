@@ -1,8 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\User;
 
-use Magento\Xxyyzz\Page\Backend\AdminLogin;
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Page\Backend\AdminLoginPage;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -26,7 +25,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class AccessForgotYourPasswordCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AdminLoginPage $I)
     {
         $I->goToTheAdminLoginPage();
     }
@@ -35,24 +34,19 @@ class AccessForgotYourPasswordCest
      * Allure annotations
      * @Title("You should land on the Forgot Your Password page.")
      * @Description("You should be able to access the Forgot Your Password page.")
-     * @Severity(level = SeverityLevel::CRITICAL)
+     * @Severity(level = SeverityLevel::TRIVIAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
-     * @Parameter(name = "AdminLogin", value = "$adminLogin")
+     * @Parameter(name = "AdminLoginPage", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
-     * @param AdminLogin $adminLogin
+     * @param AdminLoginPage $I
      * @return void
      */
-    public function shouldLandOnTheForgotYourPasswordPage(AdminStep $I, AdminLogin $adminLogin)
+    public function shouldLandOnTheForgotYourPasswordPage(AdminLoginPage $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('see if I can access the Forgot Your Password page');
-        $adminLogin->clickOnForgotYourPassword();
+        $I->clickOnForgotYourPassword();
         $I->shouldBeOnTheAdminForgotYourPasswordPage();
-        $adminLogin->shouldSeeTheForgotYourPasswordFields();
-        $I->see('Password Help');
+        $I->shouldSeeTheForgotYourPasswordFields();
     }
 
     /**
@@ -61,20 +55,16 @@ class AccessForgotYourPasswordCest
      * @Description("You should land on the Login page after clicking on 'Back to Sign In'.")
      * @Severity(level = SeverityLevel::TRIVIAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
-     * @Parameter(name = "AdminLogin", value = "$adminLogin")
+     * @Parameter(name = "AdminLoginPage", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
-     * @param AdminLogin $adminLogin
+     * @param AdminLoginPage $I
      * @return void
      */
-    public function shouldLandOnTheLoginPageWhenBackToSignInIsClicked(AdminStep $I, AdminLogin $adminLogin)
+    public function shouldLandOnTheLoginPageWhenBackToSignInIsClicked(AdminLoginPage $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('see if I can access the Login page from the Forgot Your Password page');
-        $adminLogin->clickOnForgotYourPassword();
-        $adminLogin->clickOnBackToSignIn();
+        $I->clickOnForgotYourPassword();
+        $I->clickOnBackToSignIn();
         $I->shouldBeOnTheAdminLoginPage();
     }
 
@@ -84,23 +74,19 @@ class AccessForgotYourPasswordCest
      * @Description("You should land on the Login page after clicking on the Logo.")
      * @Severity(level = SeverityLevel::TRIVIAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
-     * @Parameter(name = "AdminLogin", value = "$adminLogin")
+     * @Parameter(name = "AdminLoginPage", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
-     * @param AdminLogin $adminLogin
+     * @param AdminLoginPage $I
      * @return void
      */
-    public function shouldLandOnTheLoginPageWhenTheLogoIsClicked(AdminStep $I, AdminLogin $adminLogin)
+    public function shouldLandOnTheLoginPageWhenTheLogoIsClicked(AdminLoginPage $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('see if I can access the Login page by clicking on the Logo');
-        $adminLogin->clickOnMagentoLogo();
+        $I->clickOnMagentoLogo();
         $I->shouldBeOnTheAdminLoginPage();
 
-        $adminLogin->clickOnForgotYourPassword();
-        $adminLogin->clickOnMagentoLogo();
+        $I->clickOnForgotYourPassword();
+        $I->clickOnMagentoLogo();
         $I->shouldBeOnTheAdminLoginPage();
     }
 }

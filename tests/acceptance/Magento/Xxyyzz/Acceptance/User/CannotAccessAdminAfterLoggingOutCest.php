@@ -1,6 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\User;
 
+use Magento\Xxyyzz\Page\Backend\AdminLoginPage;
 use Magento\Xxyyzz\Step\Backend\AdminStep;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
@@ -31,27 +32,26 @@ class CannotAccessAdminAfterLoggingOutCest
      * @Description("Attempt to access an Admin page after Logging Out.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminLoginPage", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminStep $adminStep
+     * @param AdminLoginPage $I
      * @return void
      */
-    public function shouldNotBeAbleToAccessAdminAfterLogout(AdminStep $I)
+    public function shouldNotBeAbleToAccessAdminAfterLogout(AdminStep $adminStep, AdminLoginPage $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('make sure you cannot access Admin pages after logging out');
-        
-        $I->loginAsAdmin();
+        $adminStep->loginAsAdmin();
         $I->goToTheAdminLogoutPage();
 
-        $I->goToRandomAdminPage();
+        $adminStep->goToRandomAdminPage();
         $I->shouldBeOnTheAdminLoginPage();
 
-        $I->goToRandomAdminPage();
+        $adminStep->goToRandomAdminPage();
         $I->shouldBeOnTheAdminLoginPage();
 
-        $I->goToRandomAdminPage();
+        $adminStep->goToRandomAdminPage();
         $I->shouldBeOnTheAdminLoginPage();
     }
 }

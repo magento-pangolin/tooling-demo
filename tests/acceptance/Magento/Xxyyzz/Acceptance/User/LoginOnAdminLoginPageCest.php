@@ -40,9 +40,6 @@ class LoginOnAdminLoginPageCest
      */
     public function shouldBeAbleToLogin(AdminStep $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('verify that I can login via the Admin Login page');
-        
         $I->loginAsAdmin();
         $I->shouldBeOnTheAdminDashboardPage();
     }

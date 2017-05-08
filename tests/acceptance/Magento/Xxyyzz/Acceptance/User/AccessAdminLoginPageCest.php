@@ -1,7 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\User;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Page\Backend\AdminLoginPage;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -31,19 +31,15 @@ class AccessAdminLoginPageCest
      * @Description("You should land on the Admin Login Page when you attempt to access it.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminLoginPage", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminLoginPage $I
      * @return void
      */
-    public function shouldBeAbleToAccessTheAdminLoginPage(AdminStep $I)
+    public function shouldBeAbleToAccessTheAdminLoginPage(AdminLoginPage $I)
     {
-        $I->am('an Admin');
-        $I->wantTo('verify that I can access the Admin Login page');
-
         $I->goToTheAdminLoginPage();
         $I->shouldBeOnTheAdminLoginPage();
-        $I->lookForwardTo('being on the Admin Login page');
     }
 }
