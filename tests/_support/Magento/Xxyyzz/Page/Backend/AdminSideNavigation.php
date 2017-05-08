@@ -792,64 +792,17 @@ class AdminSideNavigation extends AbstractAdminPage
         $I->wait(1);
     }
 
-    public function shouldSeeTheSalesNavMainArea()
+    public function shouldSeeTheSalesNavMenu()
     {
         $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavMainArea);
-    }
-
-    public function shouldSeeTheSalesNavTitle()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavTitle);
-    }
-
-    public function shouldSeeTheSalesNavOrders()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavOrders);
-    }
-
-    public function shouldSeeTheSalesNavInvoices()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavInvoices);
-    }
-
-    public function shouldSeeTheSalesNavShipments()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavShipments);
-    }
-
-    public function shouldSeeTheSalesNavCreditMemos()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavCreditMemos);
-    }
-
-    public function shouldSeeTheSalesNavBillingAgreements()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavBillingAgreements);
-    }
-
-    public function shouldSeeTheSalesNavTransactions()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$salesNavTransactions);
-    }
-
-    public function shouldSeeTheSalesNavMenu()
-    {
-        $this->shouldSeeTheSalesNavMainArea();
-        $this->shouldSeeTheSalesNavTitle();
-        $this->shouldSeeTheSalesNavOrders();
-        $this->shouldSeeTheSalesNavInvoices();
-        $this->shouldSeeTheSalesNavShipments();
-        $this->shouldSeeTheSalesNavCreditMemos();
-        $this->shouldSeeTheSalesNavBillingAgreements();
-        $this->shouldSeeTheSalesNavTransactions();
     }
 
     public function shouldSeeTheProductNavMenu()

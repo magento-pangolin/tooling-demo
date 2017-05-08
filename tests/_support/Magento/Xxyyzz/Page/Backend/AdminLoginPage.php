@@ -2,9 +2,44 @@
 namespace Magento\Xxyyzz\Page\Backend;
 
 use Magento\Xxyyzz\Page\AbstractAdminPage;
+use Magento\Xxyyzz\Helper\AdminUrlList;
 
-class AdminLogin extends AbstractAdminPage
+class AdminLoginPage extends AbstractAdminPage
 {
+    public function goToTheAdminLoginPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminLoginPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminLogoutPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminLogoutPage);
+        $I->waitForPageLoad();
+    }
+
+    public function shouldBeOnTheAdminLoginPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminLoginPage);
+    }
+
+    public function shouldBeOnTheAdminDashboardPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminDashboardPage);
+        self::verifyGlobalAdminPageTitle('Dashboard');
+    }
+
+    public function shouldBeOnTheAdminForgotYourPasswordPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminForgotYourPasswordPage);
+        $I->see('Password Help');
+    }
+
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
@@ -59,89 +94,24 @@ class AdminLogin extends AbstractAdminPage
 
     public function enterTheLoginCredentials($username, $password)
     {
-        $I = $this->acceptanceTester;
         $this->enterTheUsername($username);
         $this->enterThePassword($password);
     }
 
-    public function shouldSeeTheLoginMainArea()
+    public function shouldSeeTheLoginPageFields()
     {
         $I = $this->acceptanceTester;
         $I->seeElement(self::$mainArea);
-    }
-
-    public function shouldSeeTheLoginLogoLink()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$logoLink);
-    }
-
-    public function shouldSeeTheLoginLogoImage()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$logoImage);
-    }
-
-    public function shouldSeeTheLoginTitle()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$title);
-    }
-
-    public function shouldSeeTheLoginUsernameTitle()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$usernameTitle);
-    }
-
-    public function shouldSeeTheLoginUsernameField()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$username);
-    }
-
-    public function shouldSeeTheLoginPasswordTitle()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$passwordTitle);
-    }
-
-    public function shouldSeeTheLoginPasswordField()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$password);
-    }
-
-    public function shouldSeeTheLoginForgotPasswordLink()
-    {
         $I->seeElement(self::$forgotYourPassword);
-    }
-
-    public function shouldSeeTheLoginSignInButton()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$signIn);
-    }
-
-    public function shouldSeeTheLoginCopyrightText()
-    {
-        $I = $this->acceptanceTester;
         $I->seeElement(self::$copyRight);
-    }
-
-    public function shouldSeeTheLoginPageFields()
-    {
-        $this->shouldSeeTheLoginMainArea();
-        $this->shouldSeeTheLoginLogoLink();
-        $this->shouldSeeTheLoginLogoImage();
-        $this->shouldSeeTheLoginTitle();
-        $this->shouldSeeTheLoginUsernameTitle();
-        $this->shouldSeeTheLoginUsernameField();
-        $this->shouldSeeTheLoginPasswordTitle();
-        $this->shouldSeeTheLoginPasswordField();
-        $this->shouldSeeTheLoginForgotPasswordLink();
-        $this->shouldSeeTheLoginSignInButton();
-        $this->shouldSeeTheLoginCopyrightText();
     }
 
     public function enterTheEmailAddress($emailAddress)
