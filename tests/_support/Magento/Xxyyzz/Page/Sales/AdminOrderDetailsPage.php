@@ -1,68 +1,66 @@
 <?php
 namespace Magento\Xxyyzz\Page\Sales;
 
-use Magento\Xxyyzz\Page\AbstractAdminPage;
-
-class AdminOrderDetailsPage extends AbstractAdminPage
+class AdminOrderDetailsPage extends AdminOrdersPage
 {
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
-    public static $backButton = '#back';
-    public static $cancelButton = '#order-view-cancel-button';
-    public static $sendEmailButton = '#send_notification';
-    public static $holdButton = '#order-view-hold-button';
-    public static $invoiceButton = '#order_invoice';
-    public static $shipButton = '#order_ship';
-    public static $reorderButton = '#order_reorder';
-    public static $editButton = '#order_edit';
+    public static $backButton                      = '#back';
+    public static $cancelButton                    = '#order-view-cancel-button';
+    public static $sendEmailButton                 = '#send_notification';
+    public static $holdButton                      = '#order-view-hold-button';
+    public static $invoiceButton                   = '#order_invoice';
+    public static $shipButton                      = '#order_ship';
+    public static $reorderButton                   = '#order_reorder';
+    public static $editButton                      = '#order_edit';
 
     public static $youCreatedAnOrderSuccessMessage = '.message-success.success';
 
-    public static $informationSectionLink = '#sales_order_view_tabs_order_info';
-    public static $invoicesSectionLink = '#sales_order_view_tabs_order_invoices';
-    public static $creditMemosSectionLink = '#sales_order_view_tabs_order_creditmemos';
-    public static $shipmentsSectionLink = '#sales_order_view_tabs_order_shipments';
-    public static $commentsHistoryLink = '#sales_order_view_tabs_order_history';
+    public static $informationSectionLink          = '#sales_order_view_tabs_order_info';
+    public static $invoicesSectionLink             = '#sales_order_view_tabs_order_invoices';
+    public static $creditMemosSectionLink          = '#sales_order_view_tabs_order_creditmemos';
+    public static $shipmentsSectionLink            = '#sales_order_view_tabs_order_shipments';
+    public static $commentsHistoryLink             = '#sales_order_view_tabs_order_history';
 
     /**
      * Sales - Orders - "ORDER VIEW" - Information Selectors
      */
-    public static $orderIdTitle = '.order-information .title';
-    public static $orderDateText = "//th[contains(text(), 'Order Date')]/parent::tr/td";
-    public static $orderStatusText = '#order_status';
-    public static $purchasedFromText = "//th[contains(text(), 'Purchased From')]/parent::tr/td";
-    public static $customerNameText = '.order-account-information-table a[href*="customer/index/edit"]';
-    public static $emailText = '.order-account-information-table a[href*="mailto"]';
-    public static $customerGroupText = "//th[contains(text(), 'Customer Group')]/parent::tr/td";
+    public static $orderIdTitle                    = '.order-information .title';
+    public static $orderDateText                   = "//th[contains(text(), 'Order Date')]/parent::tr/td";
+    public static $orderStatusText                 = '#order_status';
+    public static $purchasedFromText               = "//th[contains(text(), 'Purchased From')]/parent::tr/td";
+    public static $customerNameText                = '.order-account-information-table a[href*="customer/index/edit"]';
+    public static $emailText                       = '.order-account-information-table a[href*="mailto"]';
+    public static $customerGroupText               = "//th[contains(text(), 'Customer Group')]/parent::tr/td";
 
-    public static $billingAddressEditLink = '.order-billing-address .actions a';
-    public static $billingAddressText = '.order-billing-address .admin__page-section-item-content';
+    public static $billingAddressEditLink          = '.order-billing-address .actions a';
+    public static $billingAddressText              = '.order-billing-address .admin__page-section-item-content';
 
-    public static $shippingAddressEditLink = '.order-shipping-address .actions a';
-    public static $shippingAddressText = '.order-shipping-address .admin__page-section-item-content';
+    public static $shippingAddressEditLink         = '.order-shipping-address .actions a';
+    public static $shippingAddressText             = '.order-shipping-address .admin__page-section-item-content';
 
-    public static $paymentTypeText = '.order-payment-method-title';
-    public static $orderCurrencyTypeText = '.order-payment-currency';
-    public static $paymentAdditionalText = '.order-payment-additional';
+    public static $paymentTypeText                 = '.order-payment-method-title';
+    public static $orderCurrencyTypeText           = '.order-payment-currency';
+    public static $paymentAdditionalText           = '.order-payment-additional';
 
-    public static $shippingMethodNameText = '.order-shipping-method strong';
-    public static $shippingMethodPriceText = '.order-shipping-method .price';
+    public static $shippingMethodNameText          = '.order-shipping-method strong';
+    public static $shippingMethodPriceText         = '.order-shipping-method .price';
 
     // TODO: Add the "Items Ordered" selectors
 
-    public static $orderStatusDropDown = '#history_status';
-    public static $orderCommentsField = '#history_comment';
-    public static $notifyCustomerByEmailCheckbox = '#history_notify';
-    public static $visibleOnStorefrontCheckbox = '#history_visible';
-    public static $submitCommentButton = '.order-history-comments-actions button';
+    public static $orderStatusDropDown             = '#history_status';
+    public static $orderCommentsField              = '#history_comment';
+    public static $notifyCustomerByEmailCheckbox   = '#history_notify';
+    public static $visibleOnStorefrontCheckbox     = '#history_visible';
+    public static $submitCommentButton             = '.order-history-comments-actions button';
 
-    public static $subtotalPriceText = "//td[contains(text(), 'Subtotal')]/parent::tr/td/span/span";
-    public static $shippingHandlingPriceText = "//td[contains(text(), 'Shipping & Handling')]/parent::tr";
-    public static $grandTotalPriceText = "//strong[contains(text(), 'Grand Total')]/parent::td/parent::tr";
-    public static $totalPaidPriceText = "//strong[contains(text(), 'Total Paid')]/parent::td/parent::tr";
-    public static $totalRefundedPriceText = "//strong[contains(text(), 'Total Refunded')]/parent::td/parent::tr";
-    public static $totalDuePriceText = "//strong[contains(text(), 'Total Due')]/parent::td/parent::tr";
+    public static $subtotalPriceText               = "//td[contains(text(), 'Subtotal')]/parent::tr/td/span/span";
+    public static $shippingHandlingPriceText       = "//td[contains(text(), 'Shipping & Handling')]/parent::tr";
+    public static $grandTotalPriceText             = "//strong[contains(text(), 'Grand Total')]/parent::td/parent::tr";
+    public static $totalPaidPriceText              = "//strong[contains(text(), 'Total Paid')]/parent::td/parent::tr";
+    public static $totalRefundedPriceText          = "//strong[contains(text(), 'Total Refunded')]/parent::td/parent::tr";
+    public static $totalDuePriceText               =  "//strong[contains(text(), 'Total Due')]/parent::td/parent::tr";
 
     // TODO: Add the "Invoices" section Selectors
     // TODO: Add the "Credit Memos" section Selectors

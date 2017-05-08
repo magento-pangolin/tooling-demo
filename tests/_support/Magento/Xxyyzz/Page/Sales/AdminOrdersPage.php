@@ -1,10 +1,146 @@
 <?php
 namespace Magento\Xxyyzz\Page\Sales;
 
+use Magento\Xxyyzz\Helper\AdminUrlList;
 use Magento\Xxyyzz\Page\AbstractAdminPage;
 
-class AdminOrderAddPage extends AbstractAdminPage
+class AdminOrdersPage extends AbstractAdminPage
 {
+    public function goToTheAdminOrdersGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminOrdersGrid);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminOrderForIdPage($orderId)
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage((AdminUrlList::$adminOrderByIdPage . $orderId));
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddOrderPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddOrderPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddOrderForCustomerIdPage($customerId)
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage((AdminUrlList::$adminAddOrderForCustomerIdPage . $customerId));
+        $I->waitForPageLoad();
+    }
+
+    public function shouldBeOnTheAdminOrdersGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminOrdersGrid);
+        self::verifyGlobalAdminPageTitle('Orders');
+    }
+
+    public function shouldBeOnTheAdminOrderForIdPage($orderId)
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminOrderByIdPage . $orderId));
+        self::verifyGlobalAdminPageTitle($orderId);
+    }
+
+    public function shouldBeOnTheAdminAddOrderPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddOrderPage);
+        self::verifyGlobalAdminPageTitle('Create New Order');
+    }
+
+    public function shouldBeOnTheAdminAddOrderForCustomerIdPage($customerId)
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminAddOrderForCustomerIdPage . $customerId));
+        self::verifyGlobalAdminPageTitle('Create New Order');
+    }
+
+    public static $ordersSelectCustomerBackButton = '#back_order_top_button';
+    public static $ordersSelectStoreCancelButton  = '#reset_order_top_button';
+    public static $ordersSubmitOrderButton        = '#submit_order_top_button';
+    public static $orderDetailsSendEmailButton    = '#send_notification';
+    public static $orderDetailsCreditMemoButton   = '#order_creditmemo';
+    public static $orderDetailsHoldButton         = '#order-view-hold-button';
+    public static $orderDetailsShipButton         = '#order_ship';
+    public static $orderDetailsReorderButton      = '#order_reorder';
+
+    public function clickOnCreateNewOrderButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminAddButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrdersSelectCustomerBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$ordersSelectCustomerBackButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrdersSelectStoreCancelButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$ordersSelectStoreCancelButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrdersSubmitOrderButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$ordersSubmitOrderButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsSendEmailButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$orderDetailsSendEmailButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsCreditMemoButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$orderDetailsCreditMemoButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsHoldButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$orderDetailsHoldButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsShipButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$orderDetailsShipButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnOrderDetailsReorderButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$orderDetailsReorderButton);
+        $I->waitForPageLoad();
+    }
+
     /**
      * Sales - Orders - "Please select a customer" search grid Selectors
      */
