@@ -1,9 +1,9 @@
 <?php
-namespace Magento\Xxyyzz\Page\Customer;
+namespace Magento\Xxyyzz\Page\Storefront\Luma;
 
 use Magento\Xxyyzz\Page\AbstractFrontendPage;
 
-class StorefrontCustomerAccountCreatePage extends AbstractFrontendPage
+class CustomerAccountCreatePage extends AbstractFrontendPage
 {
     /**
      * Include url of current page.
@@ -13,13 +13,13 @@ class StorefrontCustomerAccountCreatePage extends AbstractFrontendPage
     /**
      * Declare UI map for new customer data.
      */
-    public static $customerFirstName        = '#firstname';
-    public static $customerLastName         = '#lastname';
-    public static $newsletterSubscribe      = '#is_subscribed';
-    public static $customerEmail            = '#email_address';
-    public static $customerPassword         = '#password';
-    public static $customerConfirmPassword  = '#password-confirmation';
-    public static $createAccountSubmitButton= '.action.submit.primary';
+    public static $customerFirstName         = '#firstname';
+    public static $customerLastName          = '#lastname';
+    public static $newsletterSubscribe       = '#is_subscribed';
+    public static $customerEmail             = '#email_address';
+    public static $customerPassword          = '#password';
+    public static $customerConfirmPassword   = '#password-confirmation';
+    public static $createAccountSubmitButton = '.action.submit.primary';
 
     public function amOnCustomerAccountCreatePage()
     {

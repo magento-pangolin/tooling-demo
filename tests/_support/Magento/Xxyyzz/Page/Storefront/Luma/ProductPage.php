@@ -1,24 +1,24 @@
 <?php
-namespace Magento\Xxyyzz\Page\Catalog;
+namespace Magento\Xxyyzz\Page\Storefront\Luma;
 
 use Magento\Xxyyzz\Page\AbstractFrontendPage;
 
-class StorefrontProductPage extends AbstractFrontendPage
+class ProductPage extends AbstractFrontendPage
 {
-    public static $addToCartButton              = '#product-addtocart-button';
+    public static $addToCartButton        = '#product-addtocart-button';
 
     /**
      * Product data.
      */
-    public static $productName                  = '.base';
-    public static $productPrice                 = '.price';
-    public static $productStockStatus           = '.stock[title=Availability]>span';
-    public static $productSku                   = '.product.attribute.sku>.value';
+    public static $productName            = '.base';
+    public static $productPrice           = '.price';
+    public static $productStockStatus     = '.stock[title=Availability]>span';
+    public static $productSku             = '.product.attribute.sku>.value';
 
     /**
      * Product options data.
      */
-    public static $productOptionsDropDown       = '#product-options-wrapper .super-attribute-select';
+    public static $productOptionsDropDown = '#product-options-wrapper .super-attribute-select';
 
     public function amOnProductPage($categoryUrlKey)
     {

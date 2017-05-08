@@ -1,9 +1,9 @@
 <?php
-namespace Magento\Xxyyzz\Page\Customer;
+namespace Magento\Xxyyzz\Page\Storefront\Luma;
 
 use Magento\Xxyyzz\Page\AbstractFrontendPage;
 
-class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
+class CustomerAccountDashboardPage extends AbstractFrontendPage
 {
     /**
      * Include url of current page.
@@ -13,15 +13,15 @@ class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
     /**
      * Declare UI map for customer account dashboard page.
      */
-    public static $contactInfomationText            = '.box.box-information p';
-    public static $contactInfomationEditLink        = '.box.box-information .action.edit>span';
-    public static $contactInfomationForgotPwdLink   = '.box.box-information .action.change-password';
+    public static $contactInformationText          = '.box.box-information p';
+    public static $contactInformationEditLink      = '.box.box-information .action.edit>span';
+    public static $contactInformationForgotPwdLink = '.box.box-information .action.change-password';
 
-    public static $newsletterText                   = '.box.box-newsletter p';
-    public static $newsletterEditLink               = '.box.box-newsletter .action.edit>span';
+    public static $newsletterText                  = '.box.box-newsletter p';
+    public static $newsletterEditLink              = '.box.box-newsletter .action.edit>span';
 
-    protected $contactInfomationName;
-    protected $contactInfomationEmail;
+    protected $contactInformationName;
+    protected $contactInformationEmail;
 
     public function amOnCustomerAccountDashboardPage()
     {
@@ -35,14 +35,14 @@ class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
     {
         $this->setCustomerContactInformation();
         $I = $this->acceptanceTester;
-        $I->assertEquals($name, $this->contactInfomationName);
+        $I->assertEquals($name, $this->contactInformationName);
     }
 
     public function seeContactInformationEmail($email)
     {
         $this->setCustomerContactInformation();
         $I = $this->acceptanceTester;
-        $I->assertEquals($email, $this->contactInfomationEmail);
+        $I->assertEquals($email, $this->contactInformationEmail);
     }
 
     public function seeNewsletterText($text)
@@ -54,7 +54,7 @@ class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
     public function clickContactInformationEditLink()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$contactInfomationEditLink);
+        $I->click(self::$contactInformationEditLink);
         $I->waitForPageLoad();
         $I->seeInCurrentUrl('customer/account/edit');
     }
@@ -62,7 +62,7 @@ class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
     public function clickContactInformationForgotPasswordLink()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$contactInfomationForgotPwdLink);
+        $I->click(self::$contactInformationForgotPwdLink);
         $I->waitForPageLoad();
         $I->seeInCurrentUrl('customer/account/edit/changepass');
     }
@@ -77,11 +77,11 @@ class StorefrontCustomerAccountDashboardPage extends AbstractFrontendPage
 
     private function setCustomerContactInformation()
     {
-        if(!isset($this->contactInfomationName) || !isset($this->contactInfomationEmail)) {
+        if(!isset($this->contactInformationName) || !isset($this->contactInformationEmail)) {
             $I = $this->acceptanceTester;
-            $contacts = explode("\n", $I->grabTextFrom(self::$contactInfomationText));
-            $this->contactInfomationName = $contacts[0];
-            $this->contactInfomationEmail = $contacts[1];
+            $contacts = explode("\n", $I->grabTextFrom(self::$contactInformationText));
+            $this->contactInformationName = $contacts[0];
+            $this->contactInformationEmail = $contacts[1];
         }
     }
 }

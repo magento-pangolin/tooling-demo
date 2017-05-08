@@ -1,9 +1,9 @@
 <?php
-namespace Magento\Xxyyzz\Page\Customer;
+namespace Magento\Xxyyzz\Page\Storefront\Luma;
 
 use Magento\Xxyyzz\Page\AbstractFrontendPage;
 
-class StorefrontCustomerAccountLoginPage extends AbstractFrontendPage
+class CustomerAccountLoginPage extends AbstractFrontendPage
 {
     /**
      * Include url of current page.
@@ -13,12 +13,12 @@ class StorefrontCustomerAccountLoginPage extends AbstractFrontendPage
     /**
      * Declare UI map for customer login page.
      */
-    public static $customerLoginForm            = '#login-form';
-    public static $customerEmailField           = '#email';
-    public static $customerPasswordField        = '#pass';
-    public static $customerSignInButton         = '#send2';
-    public static $customerForgotPasswordLink   = '.action.remind>span';
-    public static $createNewAccountLink         = '.action.create.primary>span';
+    public static $customerLoginForm          = '#login-form';
+    public static $customerEmailField         = '#email';
+    public static $customerPasswordField      = '#pass';
+    public static $customerSignInButton       = '#send2';
+    public static $customerForgotPasswordLink = '.action.remind>span';
+    public static $createNewAccountLink       = '.action.create.primary>span';
 
     public function amOnCustomerAccountLoginPage()
     {
