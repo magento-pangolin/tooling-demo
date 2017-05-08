@@ -5,6 +5,7 @@ use Magento\Xxyyzz\AcceptanceTester;
 
 /**
  * @group skip
+ * @group sample
  */
 class LoginCest
 {

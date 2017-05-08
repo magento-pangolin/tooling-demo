@@ -32,7 +32,7 @@ class TestCest
      */
     public function accessTheProductsCatalogPage(AdminStep $I)
     {
-        $I->goToTheAdminCatalogPage();
+        $I->goToTheAdminCatalogGrid();
         $I->shouldBeOnTheAdminCatalogGrid();
     }
 }

@@ -11,6 +11,7 @@ class AdminCest
      * @env firefox
      * @env phantomjs
      * @group skip
+     * @group sample
      * @param Scenario $scenario
      * @param AdminStep $I
      * @return void
