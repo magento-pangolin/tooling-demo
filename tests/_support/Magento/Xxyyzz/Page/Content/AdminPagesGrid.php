@@ -1,25 +1,16 @@
 <?php
-namespace Magento\Xxyyzz\Page\Cms;
+namespace Magento\Xxyyzz\Page\Content;
 
-use Magento\Xxyyzz\Page\AdminGridPage;
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
-class AdminCmsGrid extends AdminGridPage
+class AdminPagesGrid extends AbstractAdminGrid
 {
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
-    public static $addNewPageButton = '#add';
-
-    public static $actionEdit       = '.action-menu-item[data-action="item-edit"]';
-    public static $actionDelete     = '.action-menu-item[data-action="item-delete"]';
-    public static $actionView       = '.action-menu-item[data-action="item-preview"]';
-
-    public function clickOnAddPageButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$addNewPageButton);
-        $I->waitForPageLoad();
-    }
+    public static $actionEdit   = '.action-menu-item[data-action="item-edit"]';
+    public static $actionDelete = '.action-menu-item[data-action="item-delete"]';
+    public static $actionView   = '.action-menu-item[data-action="item-preview"]';
 
     public function clickOnActionSelectLinkFor($keyText)
     {

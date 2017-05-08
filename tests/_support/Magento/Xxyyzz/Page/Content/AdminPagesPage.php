@@ -1,26 +1,98 @@
 <?php
-namespace Magento\Xxyyzz\Page\Cms;
+namespace Magento\Xxyyzz\Page\Content;
 
 use Magento\Xxyyzz\Page\AbstractAdminPage;
+use Magento\Xxyyzz\Helper\AdminUrlList;
 
-class AdminCmsPage extends AbstractAdminPage
+class AdminPagesPage extends AbstractAdminPage
 {
-    /**
-     * Include url of current page.
-     */
-    public static $URL = '/admin/cms/page/';
+    public function goToTheAdminPagesGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminPagesGrid);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminPageForIdPage($pageId)
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage((AdminUrlList::$adminPageForIdPage . $pageId));
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddPagePage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage((AdminUrlList::$adminAddPagePage));
+        $I->waitForPageLoad();
+    }
+
+    public function shouldBeOnTheAdminPagesGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminPagesGrid);
+        self::verifyGlobalAdminPageTitle('Pages');
+    }
+
+    public function shouldBeOnTheAdminPageForIdPage($pageId, $pageTitle)
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminPageForIdPage . $pageId));
+        self::verifyGlobalAdminPageTitle($pageTitle);
+    }
+
+    public function shouldBeOnTheAdminAddPagePage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminAddPagePage));
+        self::verifyGlobalAdminPageTitle('New Page');
+    }
+
+    public function clickOnPagesAddNewPageButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminAddButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnPageDetailsBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnPageDetailsDeletePageButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminDeleteButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnPageDetailsResetPageButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminResetButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnPageDetailsSaveAndContinueButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveAndContinueButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnPageDetailsSavePageButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminSaveButton);
+        $I->waitForPageLoad();
+    }
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
      */
-    public static $pageTitle                = '.page-title';
-    public static $cmsFormLoadingSpinner    = 'div[data-bind="scope: \'cms_page_listing.cms_page_listing\'"] .spinner';
-    public static $cmsBackButton            = '#back';
-    public static $cmsResetButton           = '#reset-button';
-    public static $cmsSaveAndContinueButton = '#save_and_continue';
-    public static $cmsAddNewPageButton      = '#add';
-    public static $savePageButton           = '#save';
-    public static $pageSavedSpinner         = '.popup.popup-loading';
     public static $pageSaveSuccessMessage   = '.messages .success';
 
     public static $cmsEnablePageToggle      = 'div[data-index="is_active"] .admin__actions-switch-label';
@@ -55,33 +127,6 @@ class AdminCmsPage extends AbstractAdminPage
     public static $toField                  = '.admin__control-text[name="custom_theme_to"]';
     public static $newThemeButton           = '.admin__control-select[name="custom_theme"]';
     public static $newLayoutButton          = '.admin__control-select[name="custom_root_template"]';
-
-    public function amOnAdminCmsPage($param = '')
-    {
-        $I = $this->acceptanceTester;
-        $I->amOnPage(self::route($param));
-        $I->waitForPageLoad();
-    }
-
-    public function amOnAdminCmsPageById($id)
-    {
-        $I = $this->acceptanceTester;
-        $I->amOnPage(self::$URL . 'edit/page_id/' . $id);
-        $I->waitForPageLoad();
-    }
-
-    public function seePageNameInPageTitle($name)
-    {
-        $I = $this->acceptanceTester;
-        $I->see($name, self::$pageTitle);
-    }
-
-    public function clickOnAddNewPageButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$cmsAddNewPageButton);
-        $I->waitForPageLoad();
-    }
 
     public function clickOnEnablePageToggle()
     {
@@ -420,13 +465,6 @@ class AdminCmsPage extends AbstractAdminPage
         self::verifyNewLayout('3 columns');
     }
 
-    public function clickOnSavePageButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->click(self::$savePageButton);
-        $I->waitForPageLoad();
-    }
-
     public function seeSaveSuccessMessage()
     {
         $I = $this->acceptanceTester;
@@ -435,32 +473,32 @@ class AdminCmsPage extends AbstractAdminPage
 
     public function clickOnPageContent()
     {
-        self::clickOnCollapsibleArea('Content');
+        self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Content');
     }
 
     public function clickOnPageSearchEngineOptimisation()
     {
-        self::clickOnCollapsibleArea('Search Engine Optimisation');
+        self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Search Engine Optimisation');
     }
 
     public function clickOnPagePageInWebsites()
     {
-        self::clickOnCollapsibleArea('Page in Websites');
+        self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Page in Websites');
     }
 
     public function clickOnPageDesign()
     {
-        self::clickOnCollapsibleArea('Design');
+        self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Design');
     }
 
     public function clickOnPageCustomDesignUpdate()
     {
-        self::clickOnCollapsibleArea('Custom Design Update');
+        self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Custom Design Update');
     }
 
     public function addBasicPage($pageDetails)
     {
-        self::clickOnAddNewPageButton();
+        self::clickOnPagesAddNewPageButton();
 
         self::clickOnPageContent();
 
@@ -471,6 +509,6 @@ class AdminCmsPage extends AbstractAdminPage
         self::clickOnPageSearchEngineOptimisation();
         self::enterUrlKey($pageDetails['urlKey']);
 
-        self::clickOnSavePageButton();
+        self::clickOnPageDetailsSavePageButton();
     }
 }
