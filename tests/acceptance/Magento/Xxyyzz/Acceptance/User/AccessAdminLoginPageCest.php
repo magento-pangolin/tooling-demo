@@ -12,7 +12,7 @@ use Yandex\Allure\Adapter\Model\SeverityLevel;
 use Yandex\Allure\Adapter\Annotation\TestCaseId;
 
 /**
- * Class LogoutAfterLoginCest
+ * Class AccessAdminLoginPageCest
  *
  * Allure annotations
  * @Features({"Admin Login"})
