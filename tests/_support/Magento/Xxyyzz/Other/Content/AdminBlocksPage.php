@@ -47,42 +47,42 @@ class AdminBlocksPage extends AbstractAdminPage
         self::verifyGlobalAdminPageTitle('New Block');
     }
 
-    public function clickOnBlocksAddNewBlockButton()
+    public function clickOnAddNewBlockButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminAddButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnBlockDetailsBackButton()
+    public function clickOnBlockBackButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminBackButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnBlockDetailsDeleteBlockButton()
+    public function clickOnBlockDeleteBlockButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminDeleteButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnBlockDetailsResetButton()
+    public function clickOnBlockResetButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminResetButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnBlockDetailsSaveAndContinueEditButton()
+    public function clickOnBlockSaveAndContinueEditButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminSaveAndContinueButton);
         $I->waitForPageLoad();
     }
 
-    public function clickOnBlockDetailsSaveBlockButton()
+    public function clickOnBlockSaveBlockButton()
     {
         $I = $this->acceptanceTester;
         $I->click(self::$genericAdminSaveButton);
