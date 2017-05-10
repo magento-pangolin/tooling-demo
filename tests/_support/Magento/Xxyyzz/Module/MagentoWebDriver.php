@@ -158,7 +158,7 @@ class MagentoWebDriver extends WebDriver
         $this->wait(1);
     }
 
-    public function waitForPageLoad($timeout = 15)
+    public function waitForPageLoad($timeout = 30)
     {
         $this->waitForJS('return document.readyState == "complete"', $timeout);
         $this->waitAjaxLoad($timeout);
@@ -179,7 +179,7 @@ class MagentoWebDriver extends WebDriver
      * @param string $locale
      * @return array
      */
-    public function formatMoney(float $money, $locale = 'en_US.UTF-8')
+    public function formatMoney($money, $locale = 'en_US.UTF-8')
     {
         $this->mSetLocale(LC_MONETARY, $locale);
         $money = money_format('%.2n', $money);
@@ -193,7 +193,7 @@ class MagentoWebDriver extends WebDriver
      * @param int $category
      * @param string $locale
     */
-    public function mSetLocale(int $category, $locale)
+    public function mSetLocale($category, $locale)
     {
         if (self::$localeAll[$category] == $locale) {
             return;

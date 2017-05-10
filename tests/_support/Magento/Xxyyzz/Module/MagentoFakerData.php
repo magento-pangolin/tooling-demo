@@ -137,7 +137,7 @@ class MagentoFakerData extends Sequence
             'website_id' => 1,
             'taxVatNumber' => \Faker\Provider\at_AT\Payment::vat(),
             'company' => $faker->company,
-            'phoneNumber' => $faker->phoneNumber,
+            'phoneNumber' => $faker->tollFreePhoneNumber,
             'address' => [
                 'address1' => $faker->streetAddress,
                 'address2' => $faker->streetAddress,
