@@ -2214,7 +2214,7 @@ class AdminStep extends AcceptanceTester
     {
         $I = $this;
         $I->seeInCurrentUrl(AdminUrlList::$adminWebSetupWizardPage);
-        $I->see('Setup Wizard', self::$adminPageTitle);
+        $I->see('Setup Wizard');
     }
 
     public function shouldBeOnTheAdminAllUsersGrid()
