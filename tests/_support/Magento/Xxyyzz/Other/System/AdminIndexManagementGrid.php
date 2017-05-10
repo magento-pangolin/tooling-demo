@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jstennett
- * Date: 5/4/17
- * Time: 2:25 PM
- */
+namespace Magento\Xxyyzz\Page;
+
+use Magento\Xxyyzz\Helper\AdminUrlList;
+
+class AdminIndexManagementGrid extends AbstractAdminGrid
+{
+
+}
