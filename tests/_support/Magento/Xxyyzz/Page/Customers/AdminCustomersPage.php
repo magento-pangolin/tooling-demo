@@ -480,6 +480,7 @@ class AdminCustomersPage extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$newAddressDefaultBilling);
+        $I->waitForLoadingMaskToDisappear();
     }
 
     public function verifyAddAddressDefaultBillingAddress($expectedState)
@@ -506,6 +507,7 @@ class AdminCustomersPage extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$newAddressDefaultShipping);
+        $I->waitForLoadingMaskToDisappear();
     }
 
     public function enterAddAddressPrefix($prefix)

@@ -252,6 +252,7 @@ class AdminPagesPage extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->selectOption(self::$storeViewMainArea, $storeView);
+        $I->waitForLoadingMaskToDisappear();
     }
 
     public function selectDefaultStoreView()
@@ -481,7 +482,7 @@ class AdminPagesPage extends AbstractAdminPage
         self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Search Engine Optimisation');
     }
 
-    public function clickOnPagePageInWebsites()
+    public function clickOnPageInWebsites()
     {
         self::clickOnCollapsibleAreaOnAdminAddOrEditPage('Page in Websites');
     }

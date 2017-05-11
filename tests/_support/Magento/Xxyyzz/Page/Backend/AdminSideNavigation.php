@@ -740,7 +740,7 @@ class AdminSideNavigation extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$systemNavToolsWebSetupWizard);
-        $I->waitForLoadingMaskToDisappear();
+        $I->wait(2);
     }
 
     public function clickOnAllUsersInTheSystemNavMenu()
@@ -789,7 +789,7 @@ class AdminSideNavigation extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$findPartnersExtensionsButton);
-        $I->wait(1);
+        $I->waitForPageLoad();
     }
 
     public function shouldSeeTheSalesNavMenu()

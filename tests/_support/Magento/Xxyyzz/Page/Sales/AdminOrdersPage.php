@@ -391,7 +391,7 @@ class AdminOrdersPage extends AbstractAdminPage
         $I = $this->acceptanceTester;
         $I->waitForLoadingMaskToDisappear();
         $I->click(self::$addProductsToOrderButton);
-        $I->waitForPageLoad();
+        $I->waitForLoadingMaskToDisappear();
     }
 
     public function enterIdSearchField($productId)
