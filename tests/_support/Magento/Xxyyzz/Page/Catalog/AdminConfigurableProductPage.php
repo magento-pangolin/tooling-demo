@@ -1,9 +1,7 @@
 <?php
-namespace Magento\Xxyyzz\Page\ConfigurableProduct;
+namespace Magento\Xxyyzz\Page\Catalog;
 
 use Magento\Xxyyzz\AcceptanceTester;
-use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
-use Magento\Xxyyzz\Page\AdminGridPage;
 use Codeception\Exception\ElementNotFound;
 
 class AdminConfigurableProductPage extends AdminProductPage
@@ -12,53 +10,55 @@ class AdminConfigurableProductPage extends AdminProductPage
      * Configurable product step wizard form.
      */
 
-    public static $configurableTitle = '//header/h1[text()[contains(.,"Create Product Configurations")]]';
+    public static $configurableTitle               = '//header/h1[text()[contains(.,"Create Product Configurations")]]';
     public static $createProductConfigurationsForm = '.steps-wizard.productFormConfigurable';
-    public static $nextButton = '.action-default.action-primary.action-next-step';
+    public static $nextButton                      = '.action-default.action-primary.action-next-step';
 
     /**
      * Page 1
      */
-    public static $filterAttributeCode = '.admin__form-field input[name=attribute_code]';
+    public static $filterAttributeCode             = '.admin__form-field input[name=attribute_code]';
 
     /**
      * Page 2
      */
-    public static $attributeSelectAllButton = 'div[data-attribute-title=%s] .action-select-all.action-tertiary';
-    public static $attributeDeSelectAllButton = 'div[data-attribute-title=%s] .action-deselect-all.action-tertiary';
-    public static $attributeCreateNewValueButton = 'div[data-attribute-title=%s] button[data-action=addOption]';
-    public static $newAttributeOptionText = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] input[type=text]';
-    public static $newAttributeOptionSave = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] button[data-action=save]';
-    public static $newAttributeOptionRemove = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] button[data-action=remove]';
-    public static $attributeOption = 'div[data-attribute-title=%s] li[data-attribute-option-title=%s]';
-    public static $attributeOptionCheckbox = 'div[data-attribute-title=%s] li[data-attribute-option-title=%s] .admin__control-checkbox';
+    public static $attributeSelectAllButton        = 'div[data-attribute-title=%s] .action-select-all.action-tertiary';
+    public static $attributeDeSelectAllButton      = 'div[data-attribute-title=%s] .action-deselect-all.action-tertiary';
+    public static $attributeCreateNewValueButton   = 'div[data-attribute-title=%s] button[data-action=addOption]';
+    public static $newAttributeOptionText          = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] input[type=text]';
+    public static $newAttributeOptionSave          = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] button[data-action=save]';
+    public static $newAttributeOptionRemove        = 'div[data-attribute-title=%s] li[data-attribute-option-title=""] button[data-action=remove]';
+    public static $attributeOption                 = 'div[data-attribute-title=%s] li[data-attribute-option-title=%s]';
+    public static $attributeOptionCheckbox         = 'div[data-attribute-title=%s] li[data-attribute-option-title=%s] .admin__control-checkbox';
 
     /**
      * Page 3
      */
-    public static $applySingleImageRadioButton = '#apply-single-set-radio';
-    public static $applyUniqueImageRadioButton = '#apply-unique-images-radio';
-    public static $skipImageRadioButton = '#skip-images-uploading-radio';
+    public static $applySingleImageRadioButton     = '#apply-single-set-radio';
+    public static $applyUniqueImageRadioButton     = '#apply-unique-images-radio';
+    public static $skipImageRadioButton            = '#skip-images-uploading-radio';
 
-    public static $applySinglePriceRadioButton = '#apply-single-price-radio';
-    public static $applySinglePriceField = '#apply-single-price-input';
-    public static $applyUniquePriceRadioButton = '#apply-unique-prices-radio';
-    public static $applyUniquePriceDropDown = '#select-each-price';
-    public static $applyUniquePriceField = '#apply-single-price-input-%s';
-    public static $skipPriceRadioButton = '#skip-pricing-radio';
+    public static $applySinglePriceRadioButton     = '#apply-single-price-radio';
+    public static $applySinglePriceField           = '#apply-single-price-input';
+    public static $applyUniquePriceRadioButton     = '#apply-unique-prices-radio';
+    public static $applyUniquePriceDropDown        = '#select-each-price';
+    public static $applyUniquePriceField           = '#apply-single-price-input-%s';
+    public static $skipPriceRadioButton            = '#skip-pricing-radio';
 
-    public static $applySingleQuantityRadioButton = '#apply-single-inventory-radio';
-    public static $applySingleQuantityField = '#apply-single-inventory-input';
-    public static $applyUniqueQuantityRadioButton = '#apply-unique-inventory-radio';
-    public static $applyUniqueQuantityDropDown = '#apply-single-price-input-qty';
-    public static $applyUniqueQuantityField = '#apply-qty-input-%s';
-    public static $skipQuantityRadioButton = '#skip-inventory-radio';
+    public static $applySingleQuantityRadioButton  = '#apply-single-inventory-radio';
+    public static $applySingleQuantityField        = '#apply-single-inventory-input';
+    public static $applyUniqueQuantityRadioButton  = '#apply-unique-inventory-radio';
+    public static $applyUniqueQuantityDropDown     = '#apply-single-price-input-qty';
+    public static $applyUniqueQuantityField        = '#apply-qty-input-%s';
+    public static $skipQuantityRadioButton         = '#skip-inventory-radio';
 
-    public static $configurableVariationsGrid = '.admin__dynamic-rows.data-grid';
-    private static $lastConfigurableVariation = '.admin__dynamic-rows.data-grid tbody>tr:last-child';
+    public static $configurableVariationsGrid      = '.admin__dynamic-rows.data-grid';
+    private static $lastConfigurableVariation      = '.admin__dynamic-rows.data-grid tbody>tr:last-child';
+
+    public static $createConfigurationsButton      = 'button[data-index="create_configurable_products_button"]';
 
     /**
-     * @var AdminGridPage
+     * @var AdminProductGridPage
      */
     public static $configurableAttributesGrid;
 
@@ -66,7 +66,7 @@ class AdminConfigurableProductPage extends AdminProductPage
     {
         parent::__construct($I);
         if (is_null(self::$configurableAttributesGrid)) {
-            self::$configurableAttributesGrid = new AdminGridPage($I);
+            self::$configurableAttributesGrid = new AdminProductGridPage($I);
         }
     }
 
@@ -82,7 +82,7 @@ class AdminConfigurableProductPage extends AdminProductPage
         self::$configurableAttributesGrid->searchAndFiltersByValue($code, self::$filterAttributeCode);
     }
 
-    public function checkCheckboxInCurrentNthRow(int $n)
+    public function checkCheckboxInCurrentNthRow($n)
     {
         self::$configurableAttributesGrid->checkCheckboxInCurrentNthRow($n);
     }
@@ -91,7 +91,7 @@ class AdminConfigurableProductPage extends AdminProductPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$nextButton);
-        $I->waitForPageLoad();
+        $I->waitForLoadingMaskToDisappear();
     }
 
     public function clickCreateNewAttributeValue($attribute)
@@ -194,6 +194,13 @@ class AdminConfigurableProductPage extends AdminProductPage
         $I->fillField(self::$applySingleQuantityField, $quantity);
     }
 
+    public function clickCreateConfigurationsButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->performOn(self::$createConfigurationsButton, ['click' => self::$createConfigurationsButton]);
+        $I->waitForPageLoad();
+    }
+
     /**
      * @param string $attribute
      */
@@ -291,7 +298,7 @@ class AdminConfigurableProductPage extends AdminProductPage
     /**
      * @param int $number
      */
-    public function assertNumberOfConfigurableVariations(int $number)
+    public function assertNumberOfConfigurableVariations($number)
     {
         $I = $this->acceptanceTester;
         $I->waitForPageLoad();

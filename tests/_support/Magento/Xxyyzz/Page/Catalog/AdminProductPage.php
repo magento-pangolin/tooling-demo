@@ -2,71 +2,291 @@
 namespace Magento\Xxyyzz\Page\Catalog;
 
 use Magento\Xxyyzz\Page\AbstractAdminPage;
+use Magento\Xxyyzz\Helper\AdminUrlList;
 
 class AdminProductPage extends AbstractAdminPage
 {
-    /**
-     * Include url of current page.
-     */
-    public static $URL = '/admin/catalog/product/';
-
-    /**
-     * Buttons in product page.
-     */
-    public static $productAddProductButton      = '#add_new_product-button';
-    public static $productSaveButton            = '#save-button';
-    public static $createConfigurationsButton   = 'button[data-index=create_configurable_products_button]';
-
-    /**
-     * Product data fields.
-     */
-    public static $productName                  = '.admin__field[data-index=name] input';
-    public static $productSku                   = '.admin__field[data-index=sku] input';
-    public static $productPricePrefix           = '.admin__field[data-index=price] .admin__addon-prefix>span';
-    public static $productPrice                 = '.admin__field[data-index=price] input';
-    public static $productQuantity              = '.admin__field[data-index=quantity_and_stock_status_qty] input';
-    public static $productStockStatus           = '.admin__field[data-index=quantity_and_stock_status] select';
-    public static $productTaxClass              = '.admin__field[data-index=tax_class_id] select';
-    public static $producAttributeSetMultiSelect= '.admin__field[data-index=attribute_set_id]';
-    public static $producAttributeMultiSelectText
-        = '.admin__field[data-index=attribute_set_id] .action-select.admin__action-multiselect>div';
-    public static $producCategoriesMultiSelect  = '.admin__field[data-index=category_ids]';
-    public static $producCategoriesMultiSelectText
-        = '.admin__field[data-index=category_ids] .admin__action-multiselect-crumb:nth-child(%s)>span';
-
-    /**
-     * Product form loading spinner.
-     */
-    public static $productFormLoadingSpinner
-        = '.admin__form-loading-mask[data-component="product_form.product_form"] .spinner';
-
-    public static $productUrlKey                   = '.admin__field[data-index=url_key] input';
-
-    public function amOnAdminNewProductPage()
+    public function goToTheAdminCatalogGrid()
     {
         $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminCatalogGrid);
         $I->waitForPageLoad();
-        $I->seeInCurrentUrl(static::$URL . 'new');
     }
 
-    public function amOnAdminEditProductPageById($id)
+    public function goToTheAdminProductForIdPage($productId)
     {
         $I = $this->acceptanceTester;
-        $I->amOnPage(self::route('edit/id/' . $id));
+        $I->amOnPage((AdminUrlList::$adminProductForIdPage . $productId));
         $I->waitForPageLoad();
     }
+
+    public function goToTheAdminAddSimpleProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddSimpleProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddConfigurableProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddConfigurableProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddGroupedProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddGroupedProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddVirtualProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddVirtualProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddBundledProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddBundleProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function goToTheAdminAddDownloadableProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->amOnPage(AdminUrlList::$adminAddDownloadableProductPage);
+        $I->waitForPageLoad();
+    }
+
+    public function shouldBeOnTheAdminCatalogGrid()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminCatalogGrid);
+        self::verifyGlobalAdminPageTitle('Catalog');
+    }
+
+    public function shouldBeOnTheAdminProductForIdPage($productId, $productName)
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl((AdminUrlList::$adminProductForIdPage . $productId));
+        self::verifyGlobalAdminPageTitle($productName);
+    }
+
+    public function shouldBeOnTheAdminAddSimpleProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddSimpleProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public function shouldBeOnTheAdminAddConfigurableProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddConfigurableProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public function shouldBeOnTheAdminAddGroupedProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddGroupedProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public function shouldBeOnTheAdminAddVirtualProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddVirtualProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public function shouldBeOnTheAdminAddBundledProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddBundleProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public function shouldBeOnTheAdminAddDownloadableProductPage()
+    {
+        $I = $this->acceptanceTester;
+        $I->seeInCurrentUrl(AdminUrlList::$adminAddDownloadableProductPage);
+        self::verifyGlobalAdminPageTitle('New Product');
+    }
+
+    public static $addProductButton              = '#add_new_product-button';
+    public static $addProductTypeButton          = '.action-toggle[data-ui-id="products-list-add-new-product-button-dropdown"]';
+    public static $addSingleProductOption        = '.item[data-ui-id="products-list-add-new-product-button-item-simple"]';
+    public static $addConfigurableProductOption  = '.item[data-ui-id="products-list-add-new-product-button-item-configurable"]';
+    public static $addGroupedProductOption       = '.item[data-ui-id="products-list-add-new-product-button-item-grouped"]';
+    public static $addVirtualProductOption       = '.item[data-ui-id="products-list-add-new-product-button-item-virtual"]';
+    public static $addBundleProductOption        = '.item[data-ui-id="products-list-add-new-product-button-item-bundle"]';
+    public static $addDownloadableProductOption  = '.item[data-ui-id="products-list-add-new-product-button-item-downloadable"]';
+    public static $productAddAttributeButton     = '#addAttribute';
+    public static $productSaveButton             = '#save-button';
+    public static $productSaveTypeButton         = '.action-toggle[data-ui-id="save-button-dropdown"]';
+    public static $productSaveAndNewOption       = '#save_and_new';
+    public static $productSaveAndDuplicateOption = '#save_and_duplicate';
+    public static $productSaveAndCloseOption     = '#save_and_close';
+
+    public static $addAttributeCancelButton      = 'button[class=""]';
+    public static $addAttributeAddSelectedButton = "//span[contains(text(), 'Add Selected')]/parent::button";
 
     public function clickOnAddProductButton()
     {
         $I = $this->acceptanceTester;
-        $I->click(self::$productAddProductButton);
+        $I->click(self::$addProductButton);
         $I->waitForPageLoad();
     }
+
+    public function clickOnAddProductTypeButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$addProductTypeButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddSingleProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addSingleProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddConfigurableProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addConfigurableProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddGroupedProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addGroupedProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddVirtualProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addVirtualProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddBundleProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addBundleProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddDownloadableProductOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnAddProductTypeButton();
+        $I->click(self::$addDownloadableProductOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductBackButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$genericAdminBackButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductAddAttributeButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$productAddAttributeButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductSaveButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$productSaveButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductSaveTypeButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$productSaveTypeButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductSaveAndNewOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnProductSaveTypeButton();
+        $I->click(self::$productSaveAndNewOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductSaveAndDuplicateOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnProductSaveTypeButton();
+        $I->click(self::$productSaveAndDuplicateOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnProductSaveAndCloseOption()
+    {
+        $I = $this->acceptanceTester;
+        self::clickOnProductSaveTypeButton();
+        $I->click(self::$productSaveAndCloseOption);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddAttributeCancelButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$addAttributeCancelButton);
+        $I->waitForPageLoad();
+    }
+
+    public function clickOnAddAttributeAddSelectedButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$addAttributeAddSelectedButton);
+        $I->waitForPageLoad();
+    }
+
+    /**
+     * Product data fields.
+     */
+    public static $productName                     = '.admin__field[data-index=name] input';
+    public static $productSku                      = '.admin__field[data-index=sku] input';
+    public static $productPricePrefix              = '.admin__field[data-index=price] .admin__addon-prefix>span';
+    public static $productPrice                    = '.admin__field[data-index=price] input';
+    public static $productQuantity                 = '.admin__field[data-index=quantity_and_stock_status_qty] input';
+    public static $productStockStatus              = '.admin__field[data-index=quantity_and_stock_status] select';
+    public static $productTaxClass                 = '.admin__field[data-index=tax_class_id] select';
+    public static $productAttributeSetMultiSelect  = '.admin__field[data-index=attribute_set_id]';
+    public static $productAttributeMultiSelectText
+        = '.admin__field[data-index=attribute_set_id] .action-select.admin__action-multiselect>div';
+    public static $productCategoriesMultiSelect    = '.admin__field[data-index=category_ids]';
+    public static $productCategoriesMultiSelectText
+        = '.admin__field[data-index=category_ids] .admin__action-multiselect-crumb:nth-child(%s)>span';
+
+    public static $productUrlKey                   = '.admin__field[data-index=url_key] input';
 
     public function seeProductAttributeSet($name)
     {
         $I = $this->acceptanceTester;
-        $I->assertEquals($name, $I->grabTextFrom(self::$producAttributeMultiSelectText));
+        $I->assertEquals($name, $I->grabTextFrom(self::$productAttributeMultiSelectText));
     }
 
     public function seeProductName($name)
@@ -107,7 +327,7 @@ class AdminProductPage extends AbstractAdminPage
         $I = $this->acceptanceTester;
         $count = 2;
         foreach ($names as $name) {
-            $I->assertEquals($name, $I->grabTextFrom(sprintf(self::$producCategoriesMultiSelectText, $count)));
+            $I->assertEquals($name, $I->grabTextFrom(sprintf(self::$productCategoriesMultiSelectText, $count)));
             $count += 1;
         }
     }
@@ -115,7 +335,7 @@ class AdminProductPage extends AbstractAdminPage
     public function seeProductUrlKey($urlKey)
     {
         $I = $this->acceptanceTester;
-        $this->expandCollapsibleArea('search-engine-optimization');
+        $this->expandCollapsibleAreaOnAdminAddOrEditPage('search-engine-optimization');
         $I->seeInField(self::$productUrlKey, $urlKey);
     }
 
@@ -123,7 +343,7 @@ class AdminProductPage extends AbstractAdminPage
     public function selectProductAttributeSet($name)
     {
         $I = $this->acceptanceTester;
-        $I->searchAndMultiSelectOption(self::$producAttributeSetMultiSelect, [$name]);
+        $I->searchAndMultiSelectOption(self::$productAttributeSetMultiSelect, [$name]);
     }
 
     public function fillFieldProductName($name)
@@ -158,7 +378,7 @@ class AdminProductPage extends AbstractAdminPage
 
     public function fillFieldProductUrlKey($urlKey)
     {
-        $this->expandCollapsibleArea('search-engine-optimization');
+        $this->expandCollapsibleAreaOnAdminAddOrEditPage('search-engine-optimization');
         $I = $this->acceptanceTester;
         $I->fillField(self::$productUrlKey, $urlKey);
     }
@@ -169,7 +389,7 @@ class AdminProductPage extends AbstractAdminPage
     public function selectProductCategories(array $names)
     {
         $I = $this->acceptanceTester;
-        $I->searchAndMultiSelectOption(self::$producCategoriesMultiSelect, $names, true);
+        $I->searchAndMultiSelectOption(self::$productCategoriesMultiSelect, $names, true);
     }
 
     public function saveProduct()
@@ -189,12 +409,5 @@ class AdminProductPage extends AbstractAdminPage
         self::selectProductCategories(array($categoryData['categoryName']));
 
         self::saveProduct();
-    }
-
-    public function clickCreateConfigurationsButton()
-    {
-        $I = $this->acceptanceTester;
-        $I->performOn(self::$createConfigurationsButton, ['click' => self::$createConfigurationsButton]);
-        $I->waitForPageLoad();
     }
 }
