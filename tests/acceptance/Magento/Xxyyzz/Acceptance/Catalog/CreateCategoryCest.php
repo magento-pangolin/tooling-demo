@@ -2,8 +2,8 @@
 namespace Magento\Xxyyzz\Acceptance\Catalog;
 
 use Magento\Xxyyzz\Step\Backend\AdminStep;
-use Magento\Xxyyzz\Page\Catalog\AdminCategoryPage;
-use Magento\Xxyyzz\Page\Catalog\StorefrontCategoryPage;
+use Magento\Xxyyzz\Page\Catalog\AdminCategoriesPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CategoryPage;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -21,7 +21,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Create a sub-Category"})
  *
  * Codeception annotations
- * @group catalog
+ * @group categories
  * @group add
  * @env chrome
  * @env firefox
@@ -45,34 +45,34 @@ class CreateCategoryCest
      * @Description("Create sub category with required fields")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
-     * @Parameter(name = "AdminCategoryPage", value = "$adminCategoryPage")
+     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminCategoryPage", value = "$I")
      * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
      *
      * Codeception annotations
-     * @param AdminStep $I
-     * @param AdminCategoryPage $adminCategoryPage
-     * @param StorefrontCategoryPage $storefrontCategoryPage
+     * @param AdminStep $adminStep
+     * @param AdminCategoriesPage $I
+     * @param CategoryPage $storefrontCategoryPage
      * @return void
      */
     public function createCategoryTest(
-        AdminStep $I,
-        AdminCategoryPage $adminCategoryPage,
-        StorefrontCategoryPage $storefrontCategoryPage
+        AdminStep $adminStep,
+        AdminCategoriesPage $I,
+        CategoryPage $storefrontCategoryPage
     ) {
-        $I->wantTo('create sub category with required fields in admin Category page.');
-        $category = $I->getCategoryApiData();
-
+        $adminStep->wantTo('create sub category with required fields in admin Category page.');
+        $category = $adminStep->getCategoryApiData();
+        
         $I->goToTheAdminCategoriesPage();
-        $adminCategoryPage->addSubCategory();
-        $adminCategoryPage->fillFieldCategoryName($category['name']);
+        $I->clickOnSddSubCategoryButton();
+        $I->fillFieldCategoryName($category['name']);
 
-        $adminCategoryPage->clickOnSearchEngineOptimization();
-        $adminCategoryPage->fillFieldCategoryUrlKey($category['custom_attributes'][0]['value']);
-        $adminCategoryPage->saveCategory();
-        $adminCategoryPage->seeSuccessMessage();
+        $I->clickOnSearchEngineOptimization();
+        $I->fillFieldCategoryUrlKey($category['custom_attributes'][0]['value']);
+        $I->saveCategory();
+        $I->seeGlobalAdminSuccessMessage();
 
-        $I->wantTo('verify created category in frontend category page.');
+        $adminStep->wantTo('verify created category in frontend category page.');
         $storefrontCategoryPage->amOnCategoryPage(str_replace('_', '-', $category['custom_attributes'][0]['value']));
         $storefrontCategoryPage->seeCategoryNameInTitleHeading($category['name']);
     }

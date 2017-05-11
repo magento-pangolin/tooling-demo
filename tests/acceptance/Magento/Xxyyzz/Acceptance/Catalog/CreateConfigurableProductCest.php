@@ -1,12 +1,11 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\ConfigurableProduct;
 
-use Magento\Xxyyzz\Page\ConfigurableProduct\AdminConfigurableProductPage;
+use Magento\Xxyyzz\Page\Catalog\AdminConfigurableProductPage;
 use Magento\Xxyyzz\Step\Backend\AdminStep;
-use Magento\Xxyyzz\Page\Catalog\AdminProductGridPage;
 use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
-use Magento\Xxyyzz\Page\Catalog\StorefrontCategoryPage;
-use Magento\Xxyyzz\Page\Catalog\StorefrontProductPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CategoryPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\ProductPage;
 use Magento\Xxyyzz\Step\Catalog\Api\CategoryApiStep;
 use Magento\Xxyyzz\Step\Catalog\Api\ProductApiStep;
 use Yandex\Allure\Adapter\Annotation\Features;
@@ -28,6 +27,8 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * Codeception annotations
  * @group configurable
  * @group add
+ * @group no_sample_data
+ * @group skip
  * @env chrome
  * @env firefox
  * @env phantomjs
@@ -64,7 +65,7 @@ class CreateConfigurableProductCest
      */
     protected $variationQuantity = [];
 
-    public function _before(AdminStep $I, CategoryApiStep $categoryApi, ProductApiStep $productApi)
+    public function _before(AdminStep $I, CategoryApiStep $categoryApi)
     {
         $I->loginAsAdmin();
         $this->category = $I->getCategoryApiData();
@@ -116,7 +117,7 @@ class CreateConfigurableProductCest
 
     public function _after(AdminStep $I)
     {
-        //$I->goToTheAdminLogoutPage();
+        $I->goToTheAdminLogoutPage();
     }
 
     /**
@@ -125,92 +126,92 @@ class CreateConfigurableProductCest
      * @Description("Create a configurable product and verify on the storefront.")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
-     * @Parameter(name = "AdminProductGridPage", value = "$adminProductGridPage")
-     * @Parameter(name = "AdminConfigurableProductPage", value = "$adminConfigurableProductPage")
+     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminProductPage", value = "$adminProductPage")
+     * @Parameter(name = "AdminConfigurableProductPage", value = "$I")
      * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
      * @Parameter(name = "StorefrontProductPage", value = "$storefrontProductPage")
      *
-     * @param AdminStep $I
-     * @param AdminProductGridPage $adminProductGridPage
-     * @param AdminConfigurableProductPage $adminConfigurableProductPage
-     * @param StorefrontCategoryPage $storefrontCategoryPage
-     * @param StorefrontProductPage $storefrontProductPage
+     * @param AdminStep $adminStep
+     * @param AdminProductPage $adminProductPage
+     * @param AdminConfigurableProductPage $I
+     * @param CategoryPage $storefrontCategoryPage
+     * @param ProductPage $storefrontProductPage
      * @return void
      */
     public function createConfigurableProductTest(
-        AdminStep $I,
-        AdminProductGridPage $adminProductGridPage,
-        AdminConfigurableProductPage $adminConfigurableProductPage,
-        StorefrontCategoryPage $storefrontCategoryPage,
-        StorefrontProductPage $storefrontProductPage
+        AdminStep $adminStep,
+        AdminProductPage $adminProductPage,
+        AdminConfigurableProductPage $I,
+        CategoryPage $storefrontCategoryPage,
+        ProductPage $storefrontProductPage
     ) {
-        $I->wantTo('create configurable product with required fields in admin product page.');
-        $adminProductGridPage->amOnAdminProductGridPage();
-        $adminProductGridPage->clickOnAddConfigurableProductOption();
-        $adminConfigurableProductPage->amOnAdminNewProductPage();
-        $adminConfigurableProductPage->fillFieldProductName($this->product['name']);
-        $adminConfigurableProductPage->fillFieldProductSku($this->product['sku']);
-        $adminConfigurableProductPage->fillFieldProductPrice($this->product['price']);
+        $adminStep->wantTo('create configurable product with required fields in admin product page.');
+        $adminProductPage->goToTheAdminCatalogGrid();
+        $adminProductPage->clickOnAddConfigurableProductOption();
+        $adminProductPage->shouldBeOnTheAdminAddConfigurableProductPage();
+        $I->fillFieldProductName($this->product['name']);
+        $I->fillFieldProductSku($this->product['sku']);
+        $I->fillFieldProductPrice($this->product['price']);
         if (isset($this->product['qty'])) {
-            $adminConfigurableProductPage->fillFieldProductQuantity($this->product['qty']);
+            $I->fillFieldProductQuantity($this->product['qty']);
         }
-        $adminConfigurableProductPage->selectProductStockStatus($this->product['stock_status']);
-        $adminConfigurableProductPage->selectProductCategories([$this->category['name']]);
-        $adminConfigurableProductPage->fillFieldProductUrlKey($this->product['url_key']);
+        $I->selectProductStockStatus($this->product['stock_status']);
+        $I->selectProductCategories([$this->category['name']]);
+        $I->fillFieldProductUrlKey($this->product['url_key']);
 
-        $I->wantTo('create configurations for product.');
-        $adminConfigurableProductPage->clickCreateConfigurationsButton();
+        $adminStep->wantTo('create configurations for product.');
+        $I->clickCreateConfigurationsButton();
 
-        $I->wantTo('on Create Product Configurations Wizard - Select Attributes...');
-        $adminConfigurableProductPage->filterAndSelectAttributeByCode(
+        $adminStep->wantTo('on Create Product Configurations Wizard - Select Attributes...');
+        $I->filterAndSelectAttributeByCode(
             strtolower($this->productVariations[0]['attribute_code'])
         );
-        $adminConfigurableProductPage->checkCheckboxInCurrentNthRow(1);
-        $adminConfigurableProductPage->clickNextButton();
+        $I->checkCheckboxInCurrentNthRow(1);
+        $I->clickNextButton();
 
-        $I->wantTo('on Create Product Configurations Wizard - Attributes Values...');
+        $adminStep->wantTo('on Create Product Configurations Wizard - Attributes Values...');
         for ($c = 0; $c < count($this->productVariations); $c++) {
-            $adminConfigurableProductPage->checkAndSelectAttributeOption(
+            $I->checkAndSelectAttributeOption(
                 $this->productVariations[$c]['attribute_code'],
                 $this->productVariations[$c]['attribute_value']
             );
         }
-        $adminConfigurableProductPage->clickNextButton();
+        $I->clickNextButton();
 
-        $I->wantTo('on Create Product Configurations Wizard - Bulk Images, Price and Quantity...');
-        $adminConfigurableProductPage->clickApplyUniquePriceRadioButton();
-        $adminConfigurableProductPage->selectAttributeToApplyUniquePrice(
+        $adminStep->wantTo('on Create Product Configurations Wizard - Bulk Images, Price and Quantity...');
+        $I->clickApplyUniquePriceRadioButton();
+        $I->selectAttributeToApplyUniquePrice(
             $this->productVariations[0]['attribute_code']
         );
-        $adminConfigurableProductPage->fillFieldWithUniquePrice($this->variationPrice);
-        $adminConfigurableProductPage->clickApplySingleQuantityRadioButton();
-        $adminConfigurableProductPage->fillFieldApplySingleQuantity($this->variationQuantity[0]);
-        $adminConfigurableProductPage->clickNextButton();
+        $I->fillFieldWithUniquePrice($this->variationPrice);
+        $I->clickApplySingleQuantityRadioButton();
+        $I->fillFieldApplySingleQuantity($this->variationQuantity[0]);
+        $I->clickNextButton();
 
-        $I->wantTo('on Create Product Configurations Wizard - Summary...');
-        $I->wantTo('generate configurable products.');
-        $adminConfigurableProductPage->clickNextButton();
+        $adminStep->wantTo('on Create Product Configurations Wizard - Summary...');
+        $adminStep->wantTo('generate configurable products.');
+        $I->clickNextButton();
 
-        $I->wantTo('see configurable product successfully saved message.');
-        $adminConfigurableProductPage->saveProduct();
-        $I->seeElement($adminConfigurableProductPage::$successMessage);
+        $adminStep->wantTo('see configurable product successfully saved message.');
+        $I->saveProduct();
+        $adminStep->seeElement($I::$globalSuccessMessage);
 
-        $I->wantTo('verify configurable product data in admin product page.');
-        $adminConfigurableProductPage->seeProductAttributeSet('Default');
-        $adminConfigurableProductPage->seeProductName($this->product['name']);
-        $adminConfigurableProductPage->seeProductSku($this->product['sku']);
-        $adminConfigurableProductPage->seeProductPriceDisabled();
-        $adminConfigurableProductPage->seeProductQuantityDisabled();
-        $adminConfigurableProductPage->seeProductStockStatus($this->product['stock_status']);
-        $adminConfigurableProductPage->seeProductCategories([$this->category['name']]);
-        $adminConfigurableProductPage->seeProductUrlKey(str_replace('_', '-', $this->product['url_key']));
-        $adminConfigurableProductPage->assertNumberOfConfigurableVariations(count($this->productVariations));
+        $adminStep->wantTo('verify configurable product data in admin product page.');
+        $I->seeProductAttributeSet('Default');
+        $I->seeProductName($this->product['name']);
+        $I->seeProductSku($this->product['sku']);
+        $I->seeProductPriceDisabled();
+        $I->seeProductQuantityDisabled();
+        $I->seeProductStockStatus($this->product['stock_status']);
+        $I->seeProductCategories([$this->category['name']]);
+        $I->seeProductUrlKey(str_replace('_', '-', $this->product['url_key']));
+        $I->assertNumberOfConfigurableVariations(count($this->productVariations));
         foreach ($this->productVariations as $variation) {
-            $adminConfigurableProductPage->seeInConfigurableVariations($variation);
+            $I->seeInConfigurableVariations($variation);
         }
 
-        $I->wantTo('verify configurable product data in frontend category page.');
+        $adminStep->wantTo('verify configurable product data in frontend category page.');
         $storefrontCategoryPage->amOnCategoryPage($this->category['url_key']);
         $storefrontCategoryPage->seeProductLinksInPage(
             $this->product['name'],
@@ -219,7 +220,7 @@ class CreateConfigurableProductCest
         $storefrontCategoryPage->seeProductNameInPage($this->product['name']);
         $storefrontCategoryPage->seeProductPriceInPage($this->product['name'], $this->variationPrice[0]);
 
-        $I->wantTo('verify configurable product data in frontend product page.');
+        $adminStep->wantTo('verify configurable product data in frontend product page.');
         $storefrontProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
         $storefrontProductPage->seeProductNameInPage($this->product['name']);
         $storefrontProductPage->seeProductPriceInPage($this->variationPrice[0]);

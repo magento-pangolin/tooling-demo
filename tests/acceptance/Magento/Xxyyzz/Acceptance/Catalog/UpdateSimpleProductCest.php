@@ -6,8 +6,8 @@ use Magento\Xxyyzz\Step\Catalog\Api\CategoryApiStep;
 use Magento\Xxyyzz\Step\Catalog\Api\ProductApiStep;
 use Magento\Xxyyzz\Page\Catalog\AdminProductGridPage;
 use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
-use Magento\Xxyyzz\Page\Catalog\StorefrontCategoryPage;
-use Magento\Xxyyzz\Page\Catalog\StorefrontProductPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CategoryPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\ProductPage;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -50,7 +50,6 @@ class UpdateSimpleProductCest
     public function _before(AdminStep $I, CategoryApiStep $categoryApi, ProductApiStep $productApi)
     {
         $I->loginAsAdmin();
-        $I->goToTheAdminCatalogPage();
         
         $this->category = $I->getCategoryApiData();
         $categoryApi->amAdminTokenAuthenticated();
@@ -87,62 +86,63 @@ class UpdateSimpleProductCest
      * @Description("Update simple product with required fields")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminStep", value = "$adminStep")
      * @Parameter(name = "AdminProductGridPage", value = "$adminProductGridPage")
-     * @Parameter(name = "AdminProductPage", value = "$adminProductPage")
+     * @Parameter(name = "AdminProductPage", value = "$I")
      * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
      * @Parameter(name = "StorefrontProductPage", value = "$storefrontProductPage")
      *
-     * @param AdminStep $I
+     * @param AdminStep $adminStep
      * @param AdminProductGridPage $adminProductGridPage
-     * @param AdminProductPage $adminProductPage
-     * @param StorefrontCategoryPage $storefrontCategoryPage
-     * @param StorefrontProductPage $storefrontProductPage
+     * @param AdminProductPage $I
+     * @param CategoryPage $storefrontCategoryPage
+     * @param ProductPage $storefrontProductPage
      * @return void
      */
     public function updateSimpleProductTest(
-        AdminStep $I,
+        AdminStep $adminStep,
         AdminProductGridPage $adminProductGridPage,
-        AdminProductPage $adminProductPage,
-        StorefrontCategoryPage $storefrontCategoryPage,
-        StorefrontProductPage $storefrontProductPage
+        AdminProductPage $I,
+        CategoryPage $storefrontCategoryPage,
+        ProductPage $storefrontProductPage
     ) {
-        $I->wantTo('update simple product in admin.');
+        $adminStep->wantTo('update simple product in admin.');
+        $I->goToTheAdminCatalogGrid();
         $adminProductGridPage->searchBySku($this->product['sku']);
         $adminProductGridPage->seeInCurrentGridNthRow(1, [$this->product['sku']]);
 
-        $I->wantTo('open product created from precondition.');
-        $adminProductPage->amOnAdminEditProductPageById($this->product['id']);
+        $adminStep->wantTo('open product created from precondition.');
+        $I->goToTheAdminProductForIdPage($this->product['id']);
 
-        $I->wantTo('update product data fields.');
-        $adminProductPage->fillFieldProductName($this->product['name'] . '-updated');
-        $adminProductPage->fillFieldProductSku($this->product['sku'] . '-updated');
-        $adminProductPage->fillFieldProductPrice($this->product['price']+10);
-        $adminProductPage->fillFieldProductQuantity(
+        $adminStep->wantTo('update product data fields.');
+        $I->fillFieldProductName($this->product['name'] . '-updated');
+        $I->fillFieldProductSku($this->product['sku'] . '-updated');
+        $I->fillFieldProductPrice($this->product['price']+10);
+        $I->fillFieldProductQuantity(
             $this->product['extension_attributes']['stock_item']['qty']+100
         );
-        $I->wantTo('save product data change.');
-        $adminProductPage->saveProduct();
-        $adminProductPage->seeSuccessMessage();
+        $adminStep->wantTo('save product data change.');
+        $I->saveProduct();
+        $I->seeGlobalAdminSuccessMessage();
 
-        $I->wantTo('see updated product data.');
-        $adminProductPage->amOnAdminEditProductPageById($this->product['id']);
-        $adminProductPage->seeInPageTitle($this->product['name'] . '-updated');
-        $adminProductPage->seeProductAttributeSet('Default');
-        $adminProductPage->seeProductName($this->product['name'] . '-updated');
-        $adminProductPage->seeProductSku($this->product['sku'] . '-updated');
-        $adminProductPage->seeProductPrice($this->product['price']+10);
-        $adminProductPage->seeProductQuantity($this->product['extension_attributes']['stock_item']['qty']+100);
-        $adminProductPage->seeProductStockStatus(
+        $adminStep->wantTo('see updated product data.');
+        $I->goToTheAdminProductForIdPage($this->product['id']);
+        $I->verifyGlobalAdminPageTitle($this->product['name'] . '-updated');
+        $I->seeProductAttributeSet('Default');
+        $I->seeProductName($this->product['name'] . '-updated');
+        $I->seeProductSku($this->product['sku'] . '-updated');
+        $I->seeProductPrice($this->product['price']+10);
+        $I->seeProductQuantity($this->product['extension_attributes']['stock_item']['qty']+100);
+        $I->seeProductStockStatus(
             $this->product['extension_attributes']['stock_item']['is_in_stock'] !== 0 ? 'In Stock' : 'Out of Stock'
         );
 
-        $I->wantTo('verify simple product data in frontend category page.');
+        $adminStep->wantTo('verify simple product data in frontend category page.');
         $storefrontCategoryPage->amOnCategoryPage($this->category['url_key']);
         $storefrontCategoryPage->seeProductNameInPage($this->product['name'] . '-updated');
         $storefrontCategoryPage->seeProductPriceInPage($this->product['name'] . '-updated', $this->product['price'] + 10);
 
-        $I->wantTo('verify simple product data in frontend product page.');
+        $adminStep->wantTo('verify simple product data in frontend product page.');
         $storefrontProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
         $storefrontProductPage->seeProductNameInPage($this->product['name'] . '-updated');
         $storefrontProductPage->seeProductPriceInPage($this->product['price'] + 10);
