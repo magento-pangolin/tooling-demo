@@ -1,8 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Backend;
 
-use Magento\Xxyyzz\Page\Backend\AdminSideNavigation as SideNav;
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\AcceptanceTester;
+use Magento\Xxyyzz\Page\Backend\AdminSideNavigation;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -28,7 +28,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class OpenEachSideNavMenuCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AcceptanceTester $I)
     {
         $I->loginAsAdmin();
     }
@@ -39,36 +39,36 @@ class OpenEachSideNavMenuCest
      * @Description("Attempt to open each of the Admin Nav Menus and verify all of the proper menus are displayed.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "SideNav", value = "$sideNavMenu")
+     * @Parameter(name = "AdminSideNavigation", value = "$I")
      *
      * Codeception annotations
-     * @param SideNav $sideNavMenu
+     * @param AdminSideNavigation $I
      * @return void
      */
-    public function shouldBeAbleToOpenEachSideNavMenu(SideNav $sideNavMenu)
+    public function shouldBeAbleToOpenEachSideNavMenu(AdminSideNavigation $I)
     {
-        $sideNavMenu->clickOnSalesInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheSalesNavMenu();
+        $I->clickOnSalesInTheSideNavMenu();
+        $I->shouldSeeTheSalesNavMenu();
 
-        $sideNavMenu->clickOnProductsInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheProductNavMenu();
+        $I->clickOnProductsInTheSideNavMenu();
+        $I->shouldSeeTheProductNavMenu();
 
-        $sideNavMenu->clickOnCustomersInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheCustomersNavMenu();
+        $I->clickOnCustomersInTheSideNavMenu();
+        $I->shouldSeeTheCustomersNavMenu();
 
-        $sideNavMenu->clickOnMarketingInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheMarketingNavMenu();
+        $I->clickOnMarketingInTheSideNavMenu();
+        $I->shouldSeeTheMarketingNavMenu();
 
-        $sideNavMenu->clickOnContentInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheContentNavMenu();
+        $I->clickOnContentInTheSideNavMenu();
+        $I->shouldSeeTheContentNavMenu();
 
-        $sideNavMenu->clickOnReportsInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheReportsNavMenu();
+        $I->clickOnReportsInTheSideNavMenu();
+        $I->shouldSeeTheReportsNavMenu();
 
-        $sideNavMenu->clickOnStoresInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheStoresNavMenu();
+        $I->clickOnStoresInTheSideNavMenu();
+        $I->shouldSeeTheStoresNavMenu();
 
-        $sideNavMenu->clickOnSystemInTheSideNavMenu();
-        $sideNavMenu->shouldSeeTheSystemNavMenu();
+        $I->clickOnSystemInTheSideNavMenu();
+        $I->shouldSeeTheSystemNavMenu();
     }
 }

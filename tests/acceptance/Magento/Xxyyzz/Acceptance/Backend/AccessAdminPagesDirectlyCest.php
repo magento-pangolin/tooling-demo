@@ -63,7 +63,7 @@ class AccessAdminPagesDirectlyCest
         $I->goToTheAdminTransactionsGrid();
         $I->shouldBeOnTheAdminTransactionsGrid();
 
-        $I->goToTheAdminCatalogPage();
+        $I->goToTheAdminCatalogGrid();
         $I->shouldBeOnTheAdminCatalogGrid();
 
         $I->goToTheAdminCategoriesPage();
