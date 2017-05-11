@@ -2,8 +2,8 @@
 namespace Magento\Xxyyzz\Acceptance\Customer;
 
 use Magento\Xxyyzz\AcceptanceTester;
-use Magento\Xxyyzz\Page\Customer\StorefrontCustomerAccountCreatePage;
-use Magento\Xxyyzz\Page\Customer\StorefrontCustomerAccountDashboardPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CustomerAccountCreatePage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CustomerAccountDashboardPage;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -52,33 +52,33 @@ class CreateNewCustomerFrontendCest
      * @Description("Create new customer storefront")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AcceptanceTester", value = "$I")
-     * @Parameter(name = "StorefrontCustomerAccountCreatePage", value = "$customerAccountCreatePage")
+     * @Parameter(name = "AcceptanceTester", value = "$adminStep")
+     * @Parameter(name = "StorefrontCustomerAccountCreatePage", value = "$I")
      * @Parameter(name = "StorefrontCustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
      *
-     * @param AcceptanceTester $I
-     * @param StorefrontCustomerAccountCreatePage $customerAccountCreatePage
-     * @param StorefrontCustomerAccountDashboardPage $customerAccountDashboardPage
+     * @param AcceptanceTester $adminStep
+     * @param CustomerAccountCreatePage $I
+     * @param CustomerAccountDashboardPage $customerAccountDashboardPage
      * @return void
      */
     public function createCustomerTest(
-        AcceptanceTester $I,
-        StorefrontCustomerAccountCreatePage $customerAccountCreatePage,
-        StorefrontCustomerAccountDashboardPage $customerAccountDashboardPage
+        AcceptanceTester $adminStep,
+        CustomerAccountCreatePage $I,
+        CustomerAccountDashboardPage $customerAccountDashboardPage
     ) {
-        $I->wantTo('create customer in frontend page.');
-        $customerAccountCreatePage->amOnCustomerAccountCreatePage();
-        $customerAccountCreatePage->fillFieldFirstName($this->customer['firstname']);
-        $customerAccountCreatePage->fillFieldLastName($this->customer['lastname']);
-        $customerAccountCreatePage->setNewsletterSubscribe(true);
-        $customerAccountCreatePage->fillFieldEmail($this->customer['email']);
-        $customerAccountCreatePage->fillFieldPassword($this->customer['password']);
-        $customerAccountCreatePage->fillFieldConfirmPassword($this->customer['password']);
-        $customerAccountCreatePage->clickCreateAccountButton();
+        $adminStep->wantTo('create customer in frontend page.');
+        $I->amOnCustomerAccountCreatePage();
+        $I->fillFieldFirstName($this->customer['firstname']);
+        $I->fillFieldLastName($this->customer['lastname']);
+        $I->setNewsletterSubscribe(true);
+        $I->fillFieldEmail($this->customer['email']);
+        $I->fillFieldPassword($this->customer['password']);
+        $I->fillFieldConfirmPassword($this->customer['password']);
+        $I->clickCreateAccountButton();
         $customerAccountDashboardPage->seeContactInformationName(
             $this->customer['firstname'] . ' ' .  $this->customer['lastname']
         );
         $customerAccountDashboardPage->seeContactInformationEmail($this->customer['email']);
-        $customerAccountDashboardPage->seeNewsletterText('subscribed');
+        $customerAccountDashboardPage->seeNewsletterText('You subscribe to');
     }
 }

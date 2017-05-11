@@ -2,8 +2,8 @@
 namespace Magento\Xxyyzz\Acceptance\Customer;
 
 use Magento\Xxyyzz\AcceptanceTester;
-use Magento\Xxyyzz\Page\Customer\StorefrontCustomerAccountLoginPage;
-use Magento\Xxyyzz\Page\Customer\StorefrontCustomerAccountDashboardPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CustomerAccountLoginPage;
+use Magento\Xxyyzz\Page\Storefront\Luma\CustomerAccountDashboardPage;
 use Magento\Xxyyzz\Step\Customer\Api\CustomerApiStep;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
@@ -36,6 +36,7 @@ class SignInCustomerFrontendCest
 
     /**
      * @param AcceptanceTester $I
+     * @param CustomerApiStep $api
      */
     public function _before(AcceptanceTester $I, CustomerApiStep $api)
     {
@@ -54,25 +55,25 @@ class SignInCustomerFrontendCest
      * @Description("Sign in existing customer storefront")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AcceptanceTester", value = "$I")
-     * @Parameter(name = "StorefrontCustomerAccountLoginPage", value = "$customerAccountLoginPage")
-     * @Parameter(name = "StorefrontCustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
+     * @Parameter(name = "AcceptanceTester", value = "$adminStep")
+     * @Parameter(name = "CustomerAccountLoginPage", value = "$I")
+     * @Parameter(name = "CustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
      *
-     * @param AcceptanceTester $I
-     * @param StorefrontCustomerAccountLoginPage $customerAccountLoginPage
-     * @param StorefrontCustomerAccountDashboardPage $customerAccountDashboardPage
+     * @param AcceptanceTester $adminStep
+     * @param CustomerAccountLoginPage $I
+     * @param CustomerAccountDashboardPage $customerAccountDashboardPage
      * @return void
      */
-    public function createCustomerTest(
-        AcceptanceTester $I,
-        StorefrontCustomerAccountLoginPage $customerAccountLoginPage,
-        StorefrontCustomerAccountDashboardPage $customerAccountDashboardPage
+    public function signInWithExistingCustomer(
+        AcceptanceTester $adminStep,
+        CustomerAccountLoginPage $I,
+        CustomerAccountDashboardPage $customerAccountDashboardPage
     ) {
-        $I->wantTo('create customer in frontend page.');
-        $customerAccountLoginPage->amOnCustomerAccountLoginPage();
-        $customerAccountLoginPage->fillFieldCustomerEmail($this->customer['email']);
-        $customerAccountLoginPage->fillFieldCustomerPassword($this->customer['password']);
-        $customerAccountLoginPage->clickSignInButton();
+        $adminStep->wantTo('create customer in frontend page.');
+        $I->amOnCustomerAccountLoginPage();
+        $I->fillFieldCustomerEmail($this->customer['email']);
+        $I->fillFieldCustomerPassword($this->customer['password']);
+        $I->clickSignInButton();
 
         $customerAccountDashboardPage->seeContactInformationName(
             $this->customer['firstname'] . ' ' .  $this->customer['lastname']

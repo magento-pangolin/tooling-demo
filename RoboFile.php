@@ -62,7 +62,7 @@ class RoboFile extends \Robo\Tasks
     }
 
     function phantomjs() {
-        $this->_exec('codecept run acceptance --env phantomjs');
+        $this->_exec('codecept run acceptance --env phantomjs --skip-group skip');
         $this->allureReport();
     }
 
