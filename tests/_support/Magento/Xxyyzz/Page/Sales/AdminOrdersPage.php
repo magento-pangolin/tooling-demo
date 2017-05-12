@@ -371,6 +371,7 @@ class AdminOrdersPage extends AbstractAdminPage
      */
     public function clickOnDefaultStoreView()
     {
+        // TODO: Add a check for the Number of Stores, config variable
         $I = $this->acceptanceTester;
         $I->waitForLoadingMaskToDisappear();
         $I->click(self::$defaultStoreViewLink);

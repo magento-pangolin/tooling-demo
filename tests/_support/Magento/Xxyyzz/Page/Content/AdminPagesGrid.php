@@ -15,7 +15,7 @@ class AdminPagesGrid extends AbstractAdminGrid
     public function clickOnActionSelectLinkFor($keyText)
     {
         $I = $this->acceptanceTester;
-        $selector = '.data-row[data-repeat-index="' . self::determineIndexBasedOnThisText($keyText) . '"] .action-select';
+        $selector = '.data-row[data-repeat-index="' . self::determineRowIndexBasedOn($keyText) . '"] .action-select';
 
         $I->click($selector);
         $I->waitForPageLoad();
@@ -24,7 +24,7 @@ class AdminPagesGrid extends AbstractAdminGrid
     public function clickOnActionEditFor($keyText)
     {
         $I = $this->acceptanceTester;
-        $selector = '.data-row[data-repeat-index="' . self::determineIndexBasedOnThisText($keyText) . '"] ' . self::$actionEdit;
+        $selector = '.data-row[data-repeat-index="' . self::determineRowIndexBasedOn($keyText) . '"] ' . self::$actionEdit;
 
         self::clickOnActionSelectLinkFor($keyText);
         $I->click($selector);
@@ -34,7 +34,7 @@ class AdminPagesGrid extends AbstractAdminGrid
     public function clickOnActionDeleteFor($keyText)
     {
         $I = $this->acceptanceTester;
-        $selector = '.data-row[data-repeat-index="' . self::determineIndexBasedOnThisText($keyText) . '"] ' . self::$actionEdit;
+        $selector = '.data-row[data-repeat-index="' . self::determineRowIndexBasedOn($keyText) . '"] ' . self::$actionEdit;
 
         self::clickOnActionSelectLinkFor($keyText);
         $I->click($selector);
@@ -44,7 +44,7 @@ class AdminPagesGrid extends AbstractAdminGrid
     public function clickOnActionViewFor($keyText)
     {
         $I = $this->acceptanceTester;
-        $selector = '.data-row[data-repeat-index="' . self::determineIndexBasedOnThisText($keyText) . '"] ' . self::$actionEdit;
+        $selector = '.data-row[data-repeat-index="' . self::determineRowIndexBasedOn($keyText) . '"] ' . self::$actionEdit;
 
         self::clickOnActionSelectLinkFor($keyText);
         $I->click($selector);
