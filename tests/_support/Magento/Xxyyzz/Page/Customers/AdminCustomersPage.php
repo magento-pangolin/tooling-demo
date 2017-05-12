@@ -209,6 +209,7 @@ class AdminCustomersPage extends AbstractAdminPage
         $I = $this->acceptanceTester;
         $I->scrollToTopOfPage();
         $I->click(self::$addressesLink);
+        $I->waitForPageLoad();
     }
 
     public function clickOnOrdersLink()
@@ -474,6 +475,7 @@ class AdminCustomersPage extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->click(self::$addNewAddressesButton);
+        $I->waitForPageLoad();
     }
 
     public function clickOnAddNewAddressDefaultBillingAddress()
