@@ -12,8 +12,8 @@ modules:
         - \Magento\Xxyyzz\Helper\Acceptance
         - \Magento\Xxyyzz\Module\MagentoRESTDriver:
             url: "%MAGENTO_BASE_URL%/rest/default/V1/"
-            username: "%MAGENTO_ADMIN_USERNAME%"
-            password: "%MAGENTO_ADMIN_PASSWORD%"
+            username: "%MAGENTO_API_USERNAME%"
+            password: "%MAGENTO_API_PASSWORD%"
             depends: PhpBrowser
             part: Json
         - \Magento\Xxyyzz\Module\MagentoFakerData
@@ -24,6 +24,6 @@ modules:
             backend_name: admin
             browser: chrome
             window_size: maximize
-            username: "%MAGENTO_ADMIN_USERNAME%"
-            password: "%MAGENTO_ADMIN_PASSWORD%"
+            username: "%MAGENTO_API_USERNAME%"
+            password: "%MAGENTO_API_PASSWORD%"
             pageload_timeout: 30
