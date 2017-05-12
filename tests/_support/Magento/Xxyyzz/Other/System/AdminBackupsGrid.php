@@ -43,4 +43,40 @@ class AdminBackupsGrid extends AbstractAdminGrid
         $I->click(self::$backupsDatabaseBackupButton);
         $I->waitForPageLoad();
     }
+
+    public static $quickSelectDropDown = '#backupsGrid_filter_massaction';
+    public static $timeFromField       = 'input[name="time[from]"]';
+    public static $timeToField         = 'input[name="time[to]"]';
+    public static $nameField           = '#backupsGrid_filter_display_name';
+    public static $typeDropDown        = '#backupsGrid_filter_type';
+
+    public function selectQuickSelectDropDown($value)
+    {
+        $I = $this->acceptanceTester;
+        $I->selectOption(self::$quickSelectDropDown, $value);
+    }
+
+    public function enterTimeFromField($value)
+    {
+        $I = $this->acceptanceTester;
+        $I->fillField(self::$timeFromField, $value);
+    }
+
+    public function enterTimeToField($value)
+    {
+        $I = $this->acceptanceTester;
+        $I->fillField(self::$timeToField, $value);
+    }
+
+    public function enterNameField($value)
+    {
+        $I = $this->acceptanceTester;
+        $I->fillField(self::$nameField, $value);
+    }
+
+    public function selectTypeDropDown($value)
+    {
+        $I = $this->acceptanceTester;
+        $I->selectOption(self::$typeDropDown, $value);
+    }
 }

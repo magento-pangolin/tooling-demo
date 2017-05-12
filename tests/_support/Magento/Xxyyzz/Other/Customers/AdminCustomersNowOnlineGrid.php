@@ -17,6 +17,5 @@ class AdminCustomersNowOnlineGrid extends AbstractAdminGrid
         $I = $this->acceptanceTester;
         $I->seeInCurrentUrl(AdminUrlList::$adminCustomersNowOnlineGrid);
         $I->see('Customers Now Online', self::$globalPageTitle);
-
     }
 }
