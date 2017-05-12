@@ -1,12 +1,11 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Sales;
 
-use Magento\Xxyyzz\Page\Catalog\AdminCategoryPage;
+use Magento\Xxyyzz\Page\Catalog\AdminCategoriesPage;
 use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
-use Magento\Xxyyzz\Page\Customer\AdminCustomerPage;
-use Magento\Xxyyzz\Page\Sales\AdminOrderAddPage;
+use Magento\Xxyyzz\Page\Customers\AdminCustomersPage;
+use Magento\Xxyyzz\Page\Sales\AdminOrdersPage;
 use Magento\Xxyyzz\Page\Sales\AdminOrderDetailsPage;
-use Magento\Xxyyzz\Page\Sales\AdminOrderGrid;
 use Magento\Xxyyzz\Step\Backend\AdminStep;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
@@ -43,74 +42,66 @@ class CreateOrderViaAdminCest
      * @Title("Create an Order via the Admin")
      * @Description("Setup a Category, Product, Customer and place an Order using them via the Admin.")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminCustomersPage", value = "$adminCustomerPage")
+     * @Parameter(name = "AdminCategoriesPage", value = "$adminCategoryPage")
      * @Parameter(name = "AdminOrderGrid", value = "$adminOrderGrid")
-     * @Parameter(name = "AdminOrderPage", value = "$adminOrderAddPage")
+     * @Parameter(name = "AdminOrderPage", value = "$I")
      * @Parameter(name = "AdminOrderDetailsPage", value = "$adminOrderDetailsPage")
      *
      * Codeception annotations
-     * @param AdminStep $I
-     * @param AdminCustomerPage $adminCustomerPage
-     * @param AdminCategoryPage $adminCategoryPage
+     * @param AdminStep $adminStep
+     * @param AdminCustomersPage $adminCustomerPage
+     * @param AdminCategoriesPage $adminCategoryPage
      * @param AdminProductPage $adminProductPage
-     * @param AdminOrderGrid $adminOrderGrid
-     * @param AdminOrderAddPage $adminOrderAddPage
+     * @param AdminOrdersPage $I
      * @param AdminOrderDetailsPage $adminOrderDetailsPage
      * @return void
      */
     public function createOrderViaAdmin(
-        AdminStep $I,
-        AdminCustomerPage $adminCustomerPage,
-        AdminCategoryPage $adminCategoryPage,
+        AdminStep $adminStep,
+        AdminCustomersPage $adminCustomerPage,
+        AdminCategoriesPage $adminCategoryPage,
         AdminProductPage $adminProductPage,
-        AdminOrderGrid $adminOrderGrid,
-        AdminOrderAddPage $adminOrderAddPage,
+        AdminOrdersPage $I,
         AdminOrderDetailsPage $adminOrderDetailsPage
     )
     {
-        $customerDetails = $I->getCustomerData();
-        $categoryDetails = $I->getCategoryData();
-        $productDetails  = $I->getProductData();
+        $customerDetails = $adminStep->getCustomerData();
+        $categoryDetails = $adminStep->getCategoryData();
+        $productDetails  = $adminStep->getProductData();
 
         $customerName = $customerDetails['firstname'] . " " . $customerDetails['lastname'];
 
-        $I->goToTheAdminAllCustomersGrid();
+        $adminCustomerPage->goToTheAdminAllCustomersGrid();
         $adminCustomerPage->addBasicCustomerWithAddress($customerDetails);
 
-        $I->goToTheAdminCategoriesPage();
+        $adminCategoryPage->goToTheAdminCategoriesPage();
         $adminCategoryPage->addBasicCategory($categoryDetails);
 
-        $I->goToTheAdminCatalogPage();
+        $adminProductPage->goToTheAdminCatalogGrid();
         $adminProductPage->addBasicProductUnderCategory($productDetails, $categoryDetails);
 
         $I->goToTheAdminOrdersGrid();
-        $adminOrderGrid->clickOnCreateNewOrderButton();
+        $I->clickOnCreateNewOrderButton();
 
-        $adminOrderAddPage->enterCustomerEmailSearchTerm($customerDetails['email']);
-        $adminOrderAddPage->clickOnCustomerSearchButton();
-        $adminOrderAddPage->clickOnCustomerFor($customerDetails['email']);
+        $I->enterCustomerEmailSearchTerm($customerDetails['email']);
+        $I->clickOnCustomerSearchButton();
+        $I->clickOnCustomerFor($customerDetails['email']);
 
-        $adminOrderAddPage->clickOnDefaultStoreView();
+        $I->clickOnAddProductsButton();
+        $I->enterProductSkuSearchField($productDetails['sku']);
+        $I->clickOnProductsSearchButton();
+        $I->clickOnProductSkuFor($productDetails['sku']);
+        $I->clickOnAddSelectedProductsToOrderButton();
 
-        $adminOrderAddPage->clickOnAddProductsButton();
-        $adminOrderAddPage->enterProductSkuSearchField($productDetails['sku']);
-        $adminOrderAddPage->clickOnProductsSearchButton();
-        $adminOrderAddPage->clickOnProductSkuFor($productDetails['sku']);
-        $adminOrderAddPage->clickOnAddSelectedProductsToOrderButton();
+        $I->clickOnGetShippingMethodsAndRatesLink();
+        $I->clickOnFixedShippingMethod();
 
-        $adminOrderAddPage->clickOnGetShippingMethodsAndRatesLink();
-        $adminOrderAddPage->clickOnFixedShippingMethod();
-
-        $adminOrderAddPage->clickOnBottomSubmitButton();
+        $I->clickOnBottomSubmitButton();
 
         $adminOrderDetailsPage->verifyThatYouCreatedAnOrderMessageIsPresent();
         $adminOrderDetailsPage->verifyThereIsAnOrderNumber();
-        $adminOrderDetailsPage->verifyThatTheOrderWasPlacedToday();
-        $adminOrderDetailsPage->verifyOrderStatusPending();
-        $adminOrderDetailsPage->verifyPurchasedFromDefaultStoreView();
-
-        $adminOrderDetailsPage->verifyThatYouCreatedAnOrderMessageIsPresent();
-        $adminOrderDetailsPage->verifyThatTheOrderWasPlacedToday();
         $adminOrderDetailsPage->verifyOrderStatusPending();
         $adminOrderDetailsPage->verifyPurchasedFromDefaultStoreView();
         $adminOrderDetailsPage->verifyCustomerName($customerName);
