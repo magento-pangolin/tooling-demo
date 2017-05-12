@@ -52,21 +52,21 @@ class CreateNewCustomerFrontendCest
      * @Description("Create new customer storefront")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AcceptanceTester", value = "$adminStep")
+     * @Parameter(name = "AcceptanceTester", value = "$acceptanceTester")
      * @Parameter(name = "StorefrontCustomerAccountCreatePage", value = "$I")
      * @Parameter(name = "StorefrontCustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
      *
-     * @param AcceptanceTester $adminStep
+     * @param AcceptanceTester $acceptanceTester
      * @param CustomerAccountCreatePage $I
      * @param CustomerAccountDashboardPage $customerAccountDashboardPage
      * @return void
      */
     public function createCustomerTest(
-        AcceptanceTester $adminStep,
+        AcceptanceTester $acceptanceTester,
         CustomerAccountCreatePage $I,
         CustomerAccountDashboardPage $customerAccountDashboardPage
     ) {
-        $adminStep->wantTo('create customer in frontend page.');
+        $acceptanceTester->wantTo('create customer in frontend page.');
         $I->amOnCustomerAccountCreatePage();
         $I->fillFieldFirstName($this->customer['firstname']);
         $I->fillFieldLastName($this->customer['lastname']);

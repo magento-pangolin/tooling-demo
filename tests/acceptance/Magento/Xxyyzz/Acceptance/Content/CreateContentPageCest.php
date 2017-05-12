@@ -1,7 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Cms;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\AcceptanceTester;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Magento\Xxyyzz\Page\Content\AdminPagesGrid;
 use Magento\Xxyyzz\Page\Content\AdminPagesPage;
 use Magento\Xxyyzz\Page\Storefront\Luma\ContentPage;
@@ -30,13 +31,13 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class CreateContentPageCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AcceptanceTester $I)
     {
         $I->am('an Admin');
         $I->loginAsAdmin();
     }
 
-    public function _after(AdminStep $I)
+    public function _after(AdminNavigation $I)
     {
         $I->goToTheAdminLogoutPage();
     }
@@ -47,25 +48,25 @@ class CreateContentPageCest
      * @Description("Enter text into ALL fields on the ADD Content Page and verify the content of the fields.")
      * @Severity(level = SeverityLevel::NORMAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCmsPage", value = "$I")
      *
      * Codeception annotations
      * @group fields
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminPagesPage $I
      * @return void
      */
     public function verifyThatEachFieldOnTheContentPageWorks(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminPagesPage $I
     ) 
     {
-        $adminStep->wantTo('verify that I can use all of the fields on the page.');
+        $adminNavigation->wantTo('verify that I can use all of the fields on the page.');
         $I->goToTheAdminPagesGrid();
         $I->clickOnPagesAddNewPageButton();
 
-        $pageData = $adminStep->getContentPage();
+        $pageData = $adminNavigation->getContentPage();
 
         $I->clickOnEnablePageToggle();
 
@@ -121,28 +122,28 @@ class CreateContentPageCest
      * @Description("Enter text into the REQUIRED fields, SAVE the content and VERIFY it on the Storefront.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminPagesGrid", value = "$adminPagesGrid")
      * @Parameter(name = "AdminCmsPage", value = "$I")
      * @Parameter(name = "StorefrontCmsPage", value = "$contentPage")
      *
      * Codeception annotations
      * @group add
-     * @param AdminStep $adminStep
+     * @param AcceptanceTester $acceptanceTester
      * @param AdminPagesGrid $adminPagesGrid
      * @param AdminPagesPage $I
      * @param ContentPage $contentPage
      * @return void
      */
     public function createContentPageTest(
-        AdminStep $adminStep,
+        AcceptanceTester $acceptanceTester,
         AdminPagesGrid $adminPagesGrid,
         AdminPagesPage $I,
         ContentPage $contentPage
     )
     {
-        $adminStep->wantTo('verify content page in admin');
-        $pageData = $adminStep->getContentPage();
+        $acceptanceTester->wantTo('verify content page in admin');
+        $pageData = $acceptanceTester->getContentPage();
 
         $I->goToTheAdminPagesGrid();
         $I->clickOnPagesAddNewPageButton();
@@ -158,10 +159,10 @@ class CreateContentPageCest
         $I->clickOnPageDetailsSavePageButton();
         $I->seeSaveSuccessMessage();
 
-        $adminStep->openNewTabGoToVerify($pageData['urlKey']);
+        $acceptanceTester->openNewTabGoToVerify($pageData['urlKey']);
         $contentPage->verifyContentPageTitle($pageData['contentHeading']);
         $contentPage->verifyContentPageBody($pageData['contentBody']);
-        $adminStep->closeNewTab();
+        $acceptanceTester->closeNewTab();
 
         $adminPagesGrid->performGridSearchByKeyword($pageData['urlKey']);
         $adminPagesGrid->clickOnActionEditFor($pageData['urlKey']);

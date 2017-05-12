@@ -1,7 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Backend;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\AcceptanceTester;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -28,7 +29,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class AccessAdminPagesDirectlyCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AcceptanceTester $I)
     {
         $I->loginAsAdmin();
     }
@@ -36,14 +37,14 @@ class AccessAdminPagesDirectlyCest
     /**
      * Allure annotations
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @TestCaseId("")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @return void
      */
-    public function shouldBeAbleToAccessEachAdminPageDirectly(AdminStep $I)
+    public function shouldBeAbleToAccessEachAdminPageDirectly(AdminNavigation $I)
     {
         $I->goToTheAdminOrdersGrid();
         $I->shouldBeOnTheAdminOrdersGrid();
@@ -277,14 +278,14 @@ class AccessAdminPagesDirectlyCest
     /**
      * Allure annotations
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @TestCaseId("")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @return void
      */
-    public function shouldBeAbleToAccessEachAdminAddPageDirectly(AdminStep $I)
+    public function shouldBeAbleToAccessEachAdminAddPageDirectly(AdminNavigation $I)
     {
         $I->goToTheAdminAddOrderPage();
         $I->shouldBeOnTheAdminAddOrderPage();

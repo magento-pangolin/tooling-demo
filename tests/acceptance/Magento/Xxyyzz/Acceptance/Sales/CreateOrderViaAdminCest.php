@@ -6,7 +6,7 @@ use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
 use Magento\Xxyyzz\Page\Customers\AdminCustomersPage;
 use Magento\Xxyyzz\Page\Sales\AdminOrdersPage;
 use Magento\Xxyyzz\Page\Sales\AdminOrderDetailsPage;
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -32,7 +32,7 @@ use Yandex\Allure\Adapter\Model\SeverityLevel;
  */
 class CreateOrderViaAdminCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AdminNavigation $I)
     {
         $I->loginAsAdmin();
     }
@@ -42,7 +42,7 @@ class CreateOrderViaAdminCest
      * @Title("Create an Order via the Admin")
      * @Description("Setup a Category, Product, Customer and place an Order using them via the Admin.")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCustomersPage", value = "$adminCustomerPage")
      * @Parameter(name = "AdminCategoriesPage", value = "$adminCategoryPage")
      * @Parameter(name = "AdminOrderGrid", value = "$adminOrderGrid")
@@ -50,7 +50,7 @@ class CreateOrderViaAdminCest
      * @Parameter(name = "AdminOrderDetailsPage", value = "$adminOrderDetailsPage")
      *
      * Codeception annotations
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $adminCustomerPage
      * @param AdminCategoriesPage $adminCategoryPage
      * @param AdminProductPage $adminProductPage
@@ -59,7 +59,7 @@ class CreateOrderViaAdminCest
      * @return void
      */
     public function createOrderViaAdmin(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $adminCustomerPage,
         AdminCategoriesPage $adminCategoryPage,
         AdminProductPage $adminProductPage,
@@ -67,9 +67,9 @@ class CreateOrderViaAdminCest
         AdminOrderDetailsPage $adminOrderDetailsPage
     )
     {
-        $customerDetails = $adminStep->getCustomerData();
-        $categoryDetails = $adminStep->getCategoryData();
-        $productDetails  = $adminStep->getProductData();
+        $customerDetails = $adminNavigation->getCustomerData();
+        $categoryDetails = $adminNavigation->getCategoryData();
+        $productDetails  = $adminNavigation->getProductData();
 
         $customerName = $customerDetails['firstname'] . " " . $customerDetails['lastname'];
 
@@ -115,7 +115,7 @@ class CreateOrderViaAdminCest
         $adminOrderDetailsPage->verifyPaymentCurrencyUSD();
 
         $adminOrderDetailsPage->verifyShippingMethodFixedRate();
-        $adminOrderDetailsPage->verifyShippingHandlingPrice('$0.00');
+        $adminOrderDetailsPage->verifyShippingHandlingPrice('$5.00');
         
         // TODO: Add verification for Product Details in the Order
         $adminOrderDetailsPage->verifyItemsOrderedFor($productDetails);
@@ -124,6 +124,6 @@ class CreateOrderViaAdminCest
         $adminOrderDetailsPage->verifyOrderComments('');
 
         $adminOrderDetailsPage->verifySubTotalPrice($productDetails['price']);
-        $adminOrderDetailsPage->verifyShippingHandlingPrice('$0.00');
+        $adminOrderDetailsPage->verifyShippingHandlingPrice('$5.00');
    }
 }

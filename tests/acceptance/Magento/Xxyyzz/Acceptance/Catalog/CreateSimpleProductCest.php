@@ -1,7 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Catalog;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Magento\Xxyyzz\Page\Catalog\AdminProductPage;
 use Magento\Xxyyzz\Page\Storefront\Luma\CategoryPage;
 use Magento\Xxyyzz\Page\Storefront\Luma\ProductPage;
@@ -41,7 +41,7 @@ class CreateSimpleProductCest
      */
     protected $product;
 
-    public function _before(AdminStep $I, CategoryApiStep $api)
+    public function _before(AdminNavigation $I, CategoryApiStep $api)
     {
         $I->loginAsAdmin();
         
@@ -59,7 +59,7 @@ class CreateSimpleProductCest
         $this->product['url_key'] = $this->product['custom_attributes'][0]['value'];
     }
 
-    public function _after(AdminStep $I)
+    public function _after(AdminNavigation $I)
     {
         $I->goToTheAdminLogoutPage();
     }
@@ -70,24 +70,24 @@ class CreateSimpleProductCest
      * @Description("Create a simple product in the Admin and verify the content on the Storefront.")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminProductPage", value = "$I")
      * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
      * @Parameter(name = "StorefrontProductPage", value = "$storefrontProductPage")
      *
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminProductPage $I
      * @param CategoryPage $storefrontCategoryPage
      * @param ProductPage $storefrontProductPage
      * @return void
      */
     public function createSimpleProductTest(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminProductPage $I,
         CategoryPage $storefrontCategoryPage,
         ProductPage $storefrontProductPage
     ) {
-        $adminStep->wantTo('create simple product with required fields in admin product page.');
+        $adminNavigation->wantTo('create simple product with required fields in admin product page.');
         $I->goToTheAdminCatalogGrid();
         $I->clickOnAddProductButton();
         $I->shouldBeOnTheAdminAddSimpleProductPage();
@@ -101,11 +101,11 @@ class CreateSimpleProductCest
         $I->selectProductCategories([$this->category['name']]);
         $I->fillFieldProductUrlKey($this->product['url_key']);
 
-        $adminStep->wantTo('see simple product successfully saved message.');
+        $adminNavigation->wantTo('see simple product successfully saved message.');
         $I->saveProduct();
         $I->seeGlobalAdminSuccessMessage();
 
-        $adminStep->wantTo('verify simple product data in admin product page.');
+        $adminNavigation->wantTo('verify simple product data in admin product page.');
         $I->seeProductAttributeSet('Default');
         $I->seeProductName($this->product['name']);
         $I->seeProductSku($this->product['sku']);
@@ -117,7 +117,7 @@ class CreateSimpleProductCest
         $I->seeProductCategories([$this->category['name']]);
         $I->seeProductUrlKey(str_replace('_', '-', $this->product['url_key']));
 
-        $adminStep->wantTo('verify simple product data in frontend category page.');
+        $adminNavigation->wantTo('verify simple product data in frontend category page.');
         $storefrontCategoryPage->amOnCategoryPage($this->category['url_key']);
         $storefrontCategoryPage->seeProductLinksInPage(
             $this->product['name'],
@@ -126,7 +126,7 @@ class CreateSimpleProductCest
         $storefrontCategoryPage->seeProductNameInPage($this->product['name']);
         $storefrontCategoryPage->seeProductPriceInPage($this->product['name'], $this->product['price']);
 
-        $adminStep->wantTo('verify simple product data in frontend product page.');
+        $adminNavigation->wantTo('verify simple product data in frontend product page.');
         $storefrontProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
         $storefrontProductPage->seeProductNameInPage($this->product['name']);
         $storefrontProductPage->seeProductPriceInPage($this->product['price']);

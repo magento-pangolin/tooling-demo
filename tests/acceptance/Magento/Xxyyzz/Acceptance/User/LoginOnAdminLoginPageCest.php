@@ -1,7 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\User;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -32,13 +32,13 @@ class LoginOnAdminLoginPageCest
      * @Description("You should land on the Admin Dashboard after Logging In.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @return void
      */
-    public function shouldBeAbleToLogin(AdminStep $I)
+    public function shouldBeAbleToLogin(AdminNavigation $I)
     {
         $I->loginAsAdmin();
         $I->shouldBeOnTheAdminDashboardPage();

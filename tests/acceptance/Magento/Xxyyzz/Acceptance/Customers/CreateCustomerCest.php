@@ -1,9 +1,9 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Customer;
 
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Magento\Xxyyzz\Page\Customers\AdminCustomersPage;
 use Magento\Xxyyzz\Page\Customers\AdminCustomersGrid;
-use Magento\Xxyyzz\Step\Backend\AdminStep;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -29,11 +29,11 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
 class CreateCustomerCest
 {
     public function _before(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $I
     )
     {
-        $adminStep->loginAsAdmin();
+        $adminNavigation->loginAsAdmin();
         $I->goToTheAdminAllCustomersGrid();
         $I->clickOnAddNewCustomerButton();
     }
@@ -44,21 +44,21 @@ class CreateCustomerCest
      * @Description("Enter text into ALL fields on the ADD Customer page and verify the content of the fields.")
      * @Severity(level = SeverityLevel::NORMAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCustomerPage", value = "$I")
      *
      * Codeception annotations
      * @group fields
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
      * @return void
      */
     public function verifyThatEachFieldOnTheCustomerAddPageWorks(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $I
     )
     {
-        $customerData = $adminStep->getCustomerData();
+        $customerData = $adminNavigation->getCustomerData();
 
         $I->selectAssociateToWebsiteMainWebsite();
         $I->selectGroupWholesale();
@@ -93,21 +93,21 @@ class CreateCustomerCest
      * @Description("Enter text into ALL fields on the ADD ADDRESS area on the Customer page and verify the content of the fields.")
      * @Severity(level = SeverityLevel::NORMAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCustomerPage", value = "$I")
      *
      * Codeception annotations
      * @group fields
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
      * @return void
      */
     public function verifyThatEachFieldOnTheCustomerAddAddressAreaWorks(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $I
     )
     {
-        $customerData = $adminStep->getCustomerData();
+        $customerData = $adminNavigation->getCustomerData();
 
         $I->clickOnAddressesLink();
         $I->clickOnAddNewAddressButton();
@@ -155,24 +155,24 @@ class CreateCustomerCest
      * @Description("Enter text into the REQUIRED fields, SAVE the content and VERIFY it on the Admin page.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCustomerPage", value = "$I")
      * @Parameter(name = "AdminCustomerGrid", value = "$adminCustomerGrid")
      *
      * Codeception annotations
      * @group add
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
      * @param AdminCustomersGrid $adminCustomerGrid
      * @return void
      */
     public function createBasicCustomerAccountTest(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $I,
         AdminCustomersGrid $adminCustomerGrid
     )
     {
-        $customerData = $adminStep->getCustomerData();
+        $customerData = $adminNavigation->getCustomerData();
 
         $I->enterFirstName($customerData['firstname']);
         $I->enterLastName($customerData['lastname']);
@@ -199,24 +199,24 @@ class CreateCustomerCest
      * @Description("Enter text into the REQUIRED fields, SAVE the content and VERIFY it on the Admin page.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminCustomerPage", value = "$I")
      * @Parameter(name = "AdminCustomerGrid", value = "$adminCustomerGrid")
      *
      * Codeception annotations
      * @group add
-     * @param AdminStep $adminStep
+     * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
      * @param AdminCustomersGrid $adminCustomerGrid
      * @return void
      */
     public function createBasicCustomerAccountWithAddressTest(
-        AdminStep $adminStep,
+        AdminNavigation $adminNavigation,
         AdminCustomersPage $I,
         AdminCustomersGrid $adminCustomerGrid
     )
     {
-        $customerData = $adminStep->getCustomerData();
+        $customerData = $adminNavigation->getCustomerData();
         
         $I->clickOnAddressesLink();
         $I->clickOnAddNewAddressButton();

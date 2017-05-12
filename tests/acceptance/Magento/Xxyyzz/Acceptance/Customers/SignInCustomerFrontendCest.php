@@ -55,21 +55,21 @@ class SignInCustomerFrontendCest
      * @Description("Sign in existing customer storefront")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AcceptanceTester", value = "$adminStep")
+     * @Parameter(name = "AcceptanceTester", value = "$acceptanceTester")
      * @Parameter(name = "CustomerAccountLoginPage", value = "$I")
      * @Parameter(name = "CustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
      *
-     * @param AcceptanceTester $adminStep
+     * @param AcceptanceTester $acceptanceTester
      * @param CustomerAccountLoginPage $I
      * @param CustomerAccountDashboardPage $customerAccountDashboardPage
      * @return void
      */
     public function signInWithExistingCustomer(
-        AcceptanceTester $adminStep,
+        AcceptanceTester $acceptanceTester,
         CustomerAccountLoginPage $I,
         CustomerAccountDashboardPage $customerAccountDashboardPage
     ) {
-        $adminStep->wantTo('create customer in frontend page.');
+        $acceptanceTester->wantTo('create customer in frontend page.');
         $I->amOnCustomerAccountLoginPage();
         $I->fillFieldCustomerEmail($this->customer['email']);
         $I->fillFieldCustomerPassword($this->customer['password']);

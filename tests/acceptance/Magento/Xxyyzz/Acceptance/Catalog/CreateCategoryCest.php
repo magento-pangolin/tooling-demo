@@ -1,7 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Catalog;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\AcceptanceTester;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Magento\Xxyyzz\Page\Catalog\AdminCategoriesPage;
 use Magento\Xxyyzz\Page\Storefront\Luma\CategoryPage;
 use Yandex\Allure\Adapter\Annotation\Stories;
@@ -29,12 +30,12 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class CreateCategoryCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AcceptanceTester $I)
     {
         $I->loginAsAdmin();
     }
 
-    public function _after(AdminStep $I)
+    public function _after(AdminNavigation $I)
     {
         $I->goToTheAdminLogoutPage();
     }
@@ -45,23 +46,23 @@ class CreateCategoryCest
      * @Description("Create sub category with required fields")
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
-     * @Parameter(name = "AdminStep", value = "$adminStep")
+     * @Parameter(name = "AdminNavigation", value = "$acceptanceTester")
      * @Parameter(name = "AdminCategoryPage", value = "$I")
      * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
      *
      * Codeception annotations
-     * @param AdminStep $adminStep
+     * @param AcceptanceTester $acceptanceTester
      * @param AdminCategoriesPage $I
      * @param CategoryPage $storefrontCategoryPage
      * @return void
      */
     public function createCategoryTest(
-        AdminStep $adminStep,
+        AcceptanceTester $acceptanceTester,
         AdminCategoriesPage $I,
         CategoryPage $storefrontCategoryPage
     ) {
-        $adminStep->wantTo('create sub category with required fields in admin Category page.');
-        $category = $adminStep->getCategoryApiData();
+        $acceptanceTester->wantTo('create sub category with required fields in admin Category page.');
+        $category = $acceptanceTester->getCategoryApiData();
         
         $I->goToTheAdminCategoriesPage();
         $I->clickOnSddSubCategoryButton();
@@ -72,7 +73,7 @@ class CreateCategoryCest
         $I->saveCategory();
         $I->seeGlobalAdminSuccessMessage();
 
-        $adminStep->wantTo('verify created category in frontend category page.');
+        $acceptanceTester->wantTo('verify created category in frontend category page.');
         $storefrontCategoryPage->amOnCategoryPage(str_replace('_', '-', $category['custom_attributes'][0]['value']));
         $storefrontCategoryPage->seeCategoryNameInTitleHeading($category['name']);
     }

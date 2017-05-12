@@ -1,8 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\Backend;
 
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use Magento\Xxyyzz\Page\Backend\AdminSideNavigation as SideNav;
-use Magento\Xxyyzz\Step\Backend\AdminStep;
 use Yandex\Allure\Adapter\Annotation\Features;
 use Yandex\Allure\Adapter\Annotation\Stories;
 use Yandex\Allure\Adapter\Annotation\Title;
@@ -28,7 +28,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  */
 class AccessAdminPagesViaNavMenuCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AdminNavigation $I)
     {
         $I->loginAsAdmin();
     }
@@ -39,15 +39,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access the DASHBOARD via the Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnTheDashboardPage(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnTheDashboardPage(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access the DASHBOARD Page using the Side Nav Menu.');
         $I->goToRandomAdminPage();
@@ -61,15 +61,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the SALES pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheSalesPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheSalesPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the SALES Admin Pages using the Side Nav Menus');
         $sideNavMenu->clickOnSalesInTheSideNavMenu();
@@ -103,15 +103,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the PRODUCT pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheProductsPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheProductsPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the PRODUCT Admin Pages using the Side Nav Menus');
         $sideNavMenu->clickOnProductsInTheSideNavMenu();
@@ -129,15 +129,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the CUSTOMER pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLanOnEachOfTheCustomersPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLanOnEachOfTheCustomersPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the CUSTOMER Admin Pages using the Side Nav Menus');
         $sideNavMenu->clickOnCustomersInTheSideNavMenu();
@@ -156,15 +156,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the MARKETING pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheMarketingPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheMarketingPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the MARKETING Admin Pages using the Side Nav Menus');
         $sideNavMenu->clickOnMarketingInTheSideNavMenu();
@@ -219,15 +219,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the CONTENT pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheContentPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheContentPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the CONTENT Admin Pages using the Side Nav Menus');
         $sideNavMenu->clickOnContentInTheSideNavMenu();
@@ -261,15 +261,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the REPORT pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheReportsPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheReportsPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the REPORT Admin Pages using the Side Nav Menu');
         $sideNavMenu->clickOnReportsInTheSideNavMenu();
@@ -371,15 +371,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the STORE pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheStoresPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheStoresPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the STORE Admin Pages using the Side Nav Menu');
         $sideNavMenu->clickOnStoresInTheSideNavMenu();
@@ -438,15 +438,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the SYSTEM pages using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnEachOfTheSystemPages(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnEachOfTheSystemPages(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access each of the SYSTEM Admin Pages using the Side Nav Menu');
         $sideNavMenu->clickOnSystemInTheSideNavMenu();
@@ -512,15 +512,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the WEB SETUP WIZARD page using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnTheWebSetupWizardPage(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnTheWebSetupWizardPage(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access the WEB SETUP WIZARD Admin Page using the Side Nav Menu');
         $sideNavMenu->clickOnSystemInTheSideNavMenu();
@@ -535,15 +535,15 @@ class AccessAdminPagesViaNavMenuCest
      * @Description("Attempt to access all of the PARTNERS & EXTENSIONS page using the Side Nav Menu.")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @TestCaseId("")
-     * @Parameter(name = "AdminStep", value = "$I")
+     * @Parameter(name = "AdminNavigation", value = "$I")
      * @Parameter(name = "SideNav", value = "$sideNavMenu")
      *
      * Codeception annotations
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @param SideNav $sideNavMenu
      * @return void
      */
-    public function shouldLandOnThePartnersAndExtensionsPage(AdminStep $I, SideNav $sideNavMenu)
+    public function shouldLandOnThePartnersAndExtensionsPage(AdminNavigation $I, SideNav $sideNavMenu)
     {
         $I->wantTo('see if I can access the Partners and Extensions Admin Page using the Side Nav Menu');
         $sideNavMenu->clickOnFindPartnersAndExtensionsInTheSideNavMenu();

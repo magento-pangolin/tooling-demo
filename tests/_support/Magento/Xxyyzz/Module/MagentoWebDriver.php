@@ -162,6 +162,7 @@ class MagentoWebDriver extends WebDriver
     {
         $this->waitForJS('return document.readyState == "complete"', $timeout);
         $this->waitAjaxLoad($timeout);
+        $this->waitForLoadingMaskToDisappear();
     }
 
     public function dontSeeJsError()
@@ -222,6 +223,22 @@ class MagentoWebDriver extends WebDriver
     public function scrollToTopOfPage()
     {
         $this->executeJS('window.scrollTo(0,0);');
+        $this->wait(1);
+    }
+
+    public function openNewTabGoToVerify($url)
+    {
+        $I = $this;
+        $I->openNewTab();
+        $I->amOnPage($url);
+        $I->waitForPageLoad();
+        $I->seeInCurrentUrl($url);
+    }
+
+    public function closeNewTab()
+    {
+        $I = $this;
+        $I->closeTab();
     }
 
     /**
