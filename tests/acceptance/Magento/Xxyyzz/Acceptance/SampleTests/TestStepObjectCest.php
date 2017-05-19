@@ -1,7 +1,7 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\SampleTests;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 use \Codeception\Scenario;
 
 class AdminCest
@@ -13,10 +13,10 @@ class AdminCest
      * @group skip
      * @group sample
      * @param Scenario $scenario
-     * @param AdminStep $I
+     * @param AdminNavigation $I
      * @return void
      */
-    public function amStepObject(Scenario $scenario, AdminStep $I)
+    public function amStepObject(Scenario $scenario, AdminNavigation $I)
     {
         $I->wantTo('demo the usage of StepObject in Cest');
         $I->loginAsAdmin();

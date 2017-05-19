@@ -1,14 +1,14 @@
 <?php
 namespace Magento\Xxyyzz\Acceptance\SampleTests;
 
-use Magento\Xxyyzz\Step\Backend\AdminStep;
+use Magento\Xxyyzz\Helper\AdminNavigation;
 
 /**
  * @group skip
  */
 class TestCest
 {
-    public function _before(AdminStep $I)
+    public function _before(AdminNavigation $I)
     {
         $I->goToTheAdminLoginPage();
         $I->loginAsAdmin();
@@ -18,8 +18,10 @@ class TestCest
      * @env phantomjs
      * @env chrome
      * @group example
+     *
+     * @param AdminNavigation $I
      */
-    public function accessTheSalesOrdersPage(AdminStep $I)
+    public function accessTheSalesOrdersPage(AdminNavigation $I)
     {
         $I->goToTheAdminOrdersGrid();
         $I->shouldBeOnTheAdminOrdersGrid();
@@ -29,8 +31,10 @@ class TestCest
      * @env phantomjs
      * @env chrome
      * @group example
+     *
+     * @param AdminNavigation $I
      */
-    public function accessTheProductsCatalogPage(AdminStep $I)
+    public function accessTheProductsCatalogPage(AdminNavigation $I)
     {
         $I->goToTheAdminCatalogGrid();
         $I->shouldBeOnTheAdminCatalogGrid();
