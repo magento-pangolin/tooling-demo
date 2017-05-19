@@ -128,3 +128,5 @@
 * System PATH - Make sure you have `vendor/bin/` and `vendor/` listed in your system path so you can run the  `codecept` and `robo` commands directly:
 
     `sudo nano /etc/private/paths`
+
+* Selenium Server needs to be v2.51.0 in order to run Codeception tests correctly. The newest version isn't compatible with the Codeception amOnPage() function.
