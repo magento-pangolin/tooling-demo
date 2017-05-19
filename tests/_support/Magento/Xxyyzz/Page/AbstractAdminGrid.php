@@ -61,6 +61,7 @@ abstract class AbstractAdminGrid
     public function performGridSearchByKeyword($searchKeyword)
     {
         $I = $this->acceptanceTester;
+        $I->waitForLoadingMaskToDisappear();
         self::enterGridSearchByKeyword($searchKeyword);
         self::clickOnGridSearchByKeywordSearchButton();
         $I->waitForLoadingMaskToDisappear();
@@ -77,6 +78,13 @@ abstract class AbstractAdminGrid
         $I = $this->acceptanceTester;
         $I->click(self::$gridResetFilterButton);
     }
+
+    public function clickOnGridApplyFiltersButton()
+    {
+        $I = $this->acceptanceTester;
+        $I->click(self::$gridSearchButton);
+    }
+
     /**
      * End of Grid Search Controls
      */

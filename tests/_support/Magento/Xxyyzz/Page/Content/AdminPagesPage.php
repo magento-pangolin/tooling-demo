@@ -1,8 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Page\Content;
 
-use Magento\Xxyyzz\Page\AbstractAdminPage;
 use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminPage;
 
 class AdminPagesPage extends AbstractAdminPage
 {
@@ -252,7 +252,7 @@ class AdminPagesPage extends AbstractAdminPage
     {
         $I = $this->acceptanceTester;
         $I->selectOption(self::$storeViewMainArea, $storeView);
-        $I->waitForLoadingMaskToDisappear();
+        $I->waitForPageLoad();
     }
 
     public function selectDefaultStoreView()
