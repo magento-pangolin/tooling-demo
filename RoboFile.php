@@ -16,6 +16,11 @@ class RoboFile extends \Robo\Tasks
         $this->_exec('cp -vn tests/acceptance.suite.dist.yml tests/acceptance.suite.yml');
     }
 
+    function clonePhpstormProfiles()
+    {
+        $this->_exec('cp -R tests/_support/PHPStorm/ .idea/runConfigurations/');
+    }
+
     function allureGenerate() {
         return $this->_exec('allure generate tests/_output/allure-results/ -o tests/_output/allure-report/');
     }

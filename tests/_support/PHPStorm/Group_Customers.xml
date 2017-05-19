@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Group Customers" type="CodeceptionConfigurationType" factoryName="Codeception">
+    <PhpTestRunnerSettings method="" scope="Type" selected_type="acceptance" options="--env chrome --group customers" />
+    <method />
+  </configuration>
+</component>
