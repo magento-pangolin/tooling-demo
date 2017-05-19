@@ -122,6 +122,14 @@
     $this->_exec('codecept run --env chrome');
     ```
 
+### PHPStorm 2017 Codeception Runner Profiles
+
+* PHPStorm 2017 includes a built in Codeception Test Runner that makes debugging Tests MUCH EASIER. To clone a few Pre-Built Profiles please run the following command in Terminal. To setup your own please refer to the PHPStorm Documentation: https://www.jetbrains.com/help/phpstorm/2017.1/run-debug-configuration-codeception.html
+
+    ```
+    robo clone:phpstorm-profiles
+    ```
+ 
 ### TROUBLESHOOTING
 * TimeZone Error - http://stackoverflow.com/questions/18768276/codeception-datetime-error
 * TimeZone List - http://php.net/manual/en/timezones.america.php
