@@ -1,5 +1,7 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Stores;
+
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
 class AdminCustomerGroupsGrid extends AbstractAdminGrid
 {

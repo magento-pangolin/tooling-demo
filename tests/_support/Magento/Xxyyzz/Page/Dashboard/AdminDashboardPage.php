@@ -1,7 +1,8 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Dashboard;
 
 use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminPage;
 
 class AdminDashboardPage extends AbstractAdminPage
 {

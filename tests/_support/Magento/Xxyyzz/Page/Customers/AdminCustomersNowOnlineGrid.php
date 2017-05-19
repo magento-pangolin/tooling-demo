@@ -1,7 +1,8 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Customers;
 
 use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
 class AdminCustomersNowOnlineGrid extends AbstractAdminGrid
 {

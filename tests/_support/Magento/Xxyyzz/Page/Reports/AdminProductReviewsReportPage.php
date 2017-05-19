@@ -1,7 +1,7 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Reports;
 
-use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminPage;
 
 class AdminProductReviewsReportPage extends AbstractAdminPage
 {

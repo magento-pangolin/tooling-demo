@@ -1,8 +1,8 @@
 <?php
 namespace Magento\Xxyyzz\Page\Customers;
 
-use Magento\Xxyyzz\Page\AbstractAdminPage;
 use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminPage;
 
 class AdminCustomersPage extends AbstractAdminPage
 {

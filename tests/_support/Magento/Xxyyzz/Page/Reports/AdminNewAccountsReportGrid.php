@@ -1,7 +1,8 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Reports;
 
 use Magento\Xxyyzz\Helper\AdminUrlList;
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
 class AdminNewAccountsReportGrid extends AbstractAdminGrid
 {

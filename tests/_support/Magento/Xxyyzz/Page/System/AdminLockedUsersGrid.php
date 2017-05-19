@@ -1,5 +1,7 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\System;
+
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
 class AdminLockedUsersGrid extends AbstractAdminGrid
 {

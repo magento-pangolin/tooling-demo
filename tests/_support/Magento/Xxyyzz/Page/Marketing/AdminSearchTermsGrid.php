@@ -1,5 +1,7 @@
 <?php
-namespace Magento\Xxyyzz\Page;
+namespace Magento\Xxyyzz\Page\Marketing;
+
+use Magento\Xxyyzz\Page\AbstractAdminGrid;
 
 class AdminSearchTermsGrid extends AbstractAdminGrid
 {
