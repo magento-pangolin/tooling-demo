@@ -21,7 +21,7 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Exercise all Customer fields", "Create a basic Customer", "Create a basic Customer with an Address"})
  *
  * Codeception annotations
- * @group customer
+ * @group customers
  * @env chrome
  * @env firefox
  * @env phantomjs
@@ -160,6 +160,7 @@ class CreateCustomerCest
      * @Parameter(name = "AdminCustomerGrid", value = "$adminCustomerGrid")
      *
      * Codeception annotations
+     * @group simple_customer
      * @group add
      * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
@@ -205,6 +206,7 @@ class CreateCustomerCest
      *
      * Codeception annotations
      * @group add
+     * @group simple_customer
      * @param AdminNavigation $adminNavigation
      * @param AdminCustomersPage $I
      * @param AdminCustomersGrid $adminCustomerGrid

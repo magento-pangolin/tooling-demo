@@ -20,9 +20,11 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Access Admin pages via the Admin Nav Menu"})
  *
  * Codeception annotations
- * @group skip
+ * @group admin_nav_menu
+ * @group ui
+ * @group access
  * @group slow
- * @group nav-menu-access
+ * @group skip
  * @env chrome
  * @env firefox
  */

@@ -25,7 +25,11 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Create configurable product"})
  *
  * Codeception annotations
- * @group configurable
+ * @group catalog
+ * @group products
+ * @group categories
+ * @group configurable_product
+ * @group storefront_luma
  * @group add
  * @group no_sample_data
  * @group skip
@@ -129,22 +133,22 @@ class CreateConfigurableProductCest
      * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminProductPage", value = "$adminProductPage")
      * @Parameter(name = "AdminConfigurableProductPage", value = "$I")
-     * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
-     * @Parameter(name = "StorefrontProductPage", value = "$storefrontProductPage")
+     * @Parameter(name = "CategoryPage", value = "$lumaCategoryPage")
+     * @Parameter(name = "ProductPage", value = "$lumaProductPage")
      *
      * @param AdminNavigation $adminNavigation
      * @param AdminProductPage $adminProductPage
      * @param AdminConfigurableProductPage $I
-     * @param CategoryPage $storefrontCategoryPage
-     * @param ProductPage $storefrontProductPage
+     * @param CategoryPage $lumaCategoryPage
+     * @param ProductPage $lumaProductPage
      * @return void
      */
     public function createConfigurableProductTest(
         AdminNavigation $adminNavigation,
         AdminProductPage $adminProductPage,
         AdminConfigurableProductPage $I,
-        CategoryPage $storefrontCategoryPage,
-        ProductPage $storefrontProductPage
+        CategoryPage $lumaCategoryPage,
+        ProductPage $lumaProductPage
     ) {
         $adminNavigation->wantTo('create configurable product with required fields in admin product page.');
         $adminProductPage->goToTheAdminCatalogGrid();
@@ -212,20 +216,20 @@ class CreateConfigurableProductCest
         }
 
         $adminNavigation->wantTo('verify configurable product data in frontend category page.');
-        $storefrontCategoryPage->amOnCategoryPage($this->category['url_key']);
-        $storefrontCategoryPage->seeProductLinksInPage(
+        $lumaCategoryPage->amOnCategoryPage($this->category['url_key']);
+        $lumaCategoryPage->seeProductLinksInPage(
             $this->product['name'],
             str_replace('_', '-', $this->product['url_key'])
         );
-        $storefrontCategoryPage->seeProductNameInPage($this->product['name']);
-        $storefrontCategoryPage->seeProductPriceInPage($this->product['name'], $this->variationPrice[0]);
+        $lumaCategoryPage->seeProductNameInPage($this->product['name']);
+        $lumaCategoryPage->seeProductPriceInPage($this->product['name'], $this->variationPrice[0]);
 
         $adminNavigation->wantTo('verify configurable product data in frontend product page.');
-        $storefrontProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
-        $storefrontProductPage->seeProductNameInPage($this->product['name']);
-        $storefrontProductPage->seeProductPriceInPage($this->variationPrice[0]);
-        $storefrontProductPage->seeProductStockStatusInPage($this->product['stock_status']);
-        $storefrontProductPage->seeProductSkuInPage($this->productVariations[0]['sku']);
-        $storefrontProductPage->seeProductOptions($this->attributeValues);
+        $lumaProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
+        $lumaProductPage->seeProductNameInPage($this->product['name']);
+        $lumaProductPage->seeProductPriceInPage($this->variationPrice[0]);
+        $lumaProductPage->seeProductStockStatusInPage($this->product['stock_status']);
+        $lumaProductPage->seeProductSkuInPage($this->productVariations[0]['sku']);
+        $lumaProductPage->seeProductOptions($this->attributeValues);
     }
 }

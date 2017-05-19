@@ -22,7 +22,11 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Create a sub-Category"})
  *
  * Codeception annotations
+ * @group catalog
+ * @group products
  * @group categories
+ * @group simple_category
+ * @group storefront_luma
  * @group add
  * @env chrome
  * @env firefox
@@ -48,18 +52,18 @@ class CreateCategoryCest
      * @Severity(level = SeverityLevel::CRITICAL)
      * @Parameter(name = "AdminNavigation", value = "$acceptanceTester")
      * @Parameter(name = "AdminCategoryPage", value = "$I")
-     * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
+     * @Parameter(name = "StorefrontCategoryPage", value = "$lumaCategoryPage")
      *
      * Codeception annotations
      * @param AcceptanceTester $acceptanceTester
      * @param AdminCategoriesPage $I
-     * @param CategoryPage $storefrontCategoryPage
+     * @param CategoryPage $lumaCategoryPage
      * @return void
      */
     public function createCategoryTest(
         AcceptanceTester $acceptanceTester,
         AdminCategoriesPage $I,
-        CategoryPage $storefrontCategoryPage
+        CategoryPage $lumaCategoryPage
     ) {
         $acceptanceTester->wantTo('create sub category with required fields in admin Category page.');
         $category = $acceptanceTester->getCategoryApiData();
@@ -74,7 +78,7 @@ class CreateCategoryCest
         $I->seeGlobalAdminSuccessMessage();
 
         $acceptanceTester->wantTo('verify created category in frontend category page.');
-        $storefrontCategoryPage->amOnCategoryPage(str_replace('_', '-', $category['custom_attributes'][0]['value']));
-        $storefrontCategoryPage->seeCategoryNameInTitleHeading($category['name']);
+        $lumaCategoryPage->amOnCategoryPage(str_replace('_', '-', $category['custom_attributes'][0]['value']));
+        $lumaCategoryPage->seeCategoryNameInTitleHeading($category['name']);
     }
 }

@@ -23,9 +23,10 @@ use Yandex\Allure\Adapter\Model\SeverityLevel;
  * @Stories({"Create an Order via the Admin"})
  *
  * Codeception annotations
- * @group add
  * @group sales
  * @group orders
+ * @group add
+ * @group simple_order
  * @env chrome
  * @env firefox
  * @env phantomjs

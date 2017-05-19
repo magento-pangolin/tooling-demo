@@ -26,6 +26,11 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  *
  * Codeception Annotations
  * @group catalog
+ * @group products
+ * @group categories
+ * @group simple_product
+ * @group storefront_luma
+ * @group update
  * @env chrome
  * @env firefox
  * @env phantomjs
@@ -89,22 +94,22 @@ class UpdateSimpleProductCest
      * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminProductGridPage", value = "$adminProductGridPage")
      * @Parameter(name = "AdminProductPage", value = "$I")
-     * @Parameter(name = "StorefrontCategoryPage", value = "$storefrontCategoryPage")
-     * @Parameter(name = "StorefrontProductPage", value = "$storefrontProductPage")
+     * @Parameter(name = "CategoryPage", value = "$lumaCategoryPage")
+     * @Parameter(name = "ProductPage", value = "$lumaProductPage")
      *
      * @param AdminNavigation $adminNavigation
      * @param AdminProductGridPage $adminProductGridPage
      * @param AdminProductPage $I
-     * @param CategoryPage $storefrontCategoryPage
-     * @param ProductPage $storefrontProductPage
+     * @param CategoryPage $lumaCategoryPage
+     * @param ProductPage $lumaProductPage
      * @return void
      */
     public function updateSimpleProductTest(
         AdminNavigation $adminNavigation,
         AdminProductGridPage $adminProductGridPage,
         AdminProductPage $I,
-        CategoryPage $storefrontCategoryPage,
-        ProductPage $storefrontProductPage
+        CategoryPage $lumaCategoryPage,
+        ProductPage $lumaProductPage
     ) {
         $adminNavigation->wantTo('update simple product in admin.');
         $I->goToTheAdminCatalogGrid();
@@ -138,14 +143,14 @@ class UpdateSimpleProductCest
         );
 
         $adminNavigation->wantTo('verify simple product data in frontend category page.');
-        $storefrontCategoryPage->amOnCategoryPage($this->category['url_key']);
-        $storefrontCategoryPage->seeProductNameInPage($this->product['name'] . '-updated');
-        $storefrontCategoryPage->seeProductPriceInPage($this->product['name'] . '-updated', $this->product['price'] + 10);
+        $lumaCategoryPage->amOnCategoryPage($this->category['url_key']);
+        $lumaCategoryPage->seeProductNameInPage($this->product['name'] . '-updated');
+        $lumaCategoryPage->seeProductPriceInPage($this->product['name'] . '-updated', $this->product['price'] + 10);
 
         $adminNavigation->wantTo('verify simple product data in frontend product page.');
-        $storefrontProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
-        $storefrontProductPage->seeProductNameInPage($this->product['name'] . '-updated');
-        $storefrontProductPage->seeProductPriceInPage($this->product['price'] + 10);
-        $storefrontProductPage->seeProductSkuInPage($this->product['sku'] . '-updated');
+        $lumaProductPage->amOnProductPage(str_replace('_', '-', $this->product['url_key']));
+        $lumaProductPage->seeProductNameInPage($this->product['name'] . '-updated');
+        $lumaProductPage->seeProductPriceInPage($this->product['price'] + 10);
+        $lumaProductPage->seeProductSkuInPage($this->product['sku'] . '-updated');
     }
 }

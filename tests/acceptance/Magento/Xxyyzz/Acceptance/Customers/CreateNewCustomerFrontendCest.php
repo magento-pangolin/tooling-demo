@@ -21,7 +21,8 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Create new customer storefront"})
  *
  * Codeception annotations
- * @group customer
+ * @group customers
+ * @group storefront_luma
  * @group add
  * @env chrome
  * @env firefox
@@ -53,18 +54,18 @@ class CreateNewCustomerFrontendCest
      * @TestCaseId("")
      * @Severity(level = SeverityLevel::CRITICAL)
      * @Parameter(name = "AcceptanceTester", value = "$acceptanceTester")
-     * @Parameter(name = "StorefrontCustomerAccountCreatePage", value = "$I")
-     * @Parameter(name = "StorefrontCustomerAccountDashboardPage", value = "$customerAccountDashboardPage")
+     * @Parameter(name = "CustomerAccountCreatePage", value = "$I")
+     * @Parameter(name = "CustomerAccountDashboardPage", value = "$lumaCustomerAccountDashboardPage")
      *
      * @param AcceptanceTester $acceptanceTester
      * @param CustomerAccountCreatePage $I
-     * @param CustomerAccountDashboardPage $customerAccountDashboardPage
+     * @param CustomerAccountDashboardPage $lumaCustomerAccountDashboardPage
      * @return void
      */
     public function createCustomerTest(
         AcceptanceTester $acceptanceTester,
         CustomerAccountCreatePage $I,
-        CustomerAccountDashboardPage $customerAccountDashboardPage
+        CustomerAccountDashboardPage $lumaCustomerAccountDashboardPage
     ) {
         $acceptanceTester->wantTo('create customer in frontend page.');
         $I->amOnCustomerAccountCreatePage();
@@ -75,10 +76,10 @@ class CreateNewCustomerFrontendCest
         $I->fillFieldPassword($this->customer['password']);
         $I->fillFieldConfirmPassword($this->customer['password']);
         $I->clickCreateAccountButton();
-        $customerAccountDashboardPage->seeContactInformationName(
+        $lumaCustomerAccountDashboardPage->seeContactInformationName(
             $this->customer['firstname'] . ' ' .  $this->customer['lastname']
         );
-        $customerAccountDashboardPage->seeContactInformationEmail($this->customer['email']);
-        $customerAccountDashboardPage->seeNewsletterText('You subscribe to');
+        $lumaCustomerAccountDashboardPage->seeContactInformationEmail($this->customer['email']);
+        $lumaCustomerAccountDashboardPage->seeNewsletterText('You subscribe to');
     }
 }

@@ -20,9 +20,9 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * @Stories({"Direct Admin Access"})
  *
  * Codeception annotations
- * @group skip
+ * @group access
  * @group slow
- * @group admin-direct-access
+ * @group skip
  * @env chrome
  * @env firefox
  * @env phantomjs

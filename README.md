@@ -24,6 +24,8 @@
     MAGENTO_BACKEND_NAME=admin
     MAGENTO_ADMIN_USERNAME=admin
     MAGENTO_ADMIN_PASSWORD=123123q
+    MAGENTO_API_USERNAME=admin
+    MAGENTO_API_PASSWORD=123123q
     
     DB_DSN=''
     DB_USERNAME=''
@@ -102,17 +104,25 @@
         * *slow*
         * *example*
         * *sample*
-        * *admin-direct-access*
-        * *nav-menu-access*
-        * *sampleData*
-        * *nav-menu*
+        * *access*
+        * *admin_nav_menu*
+        * *no_sample_data*
         * *add*
+        * *update*
         * *fields*
+        * *ui*
         * *catalog*
-        * *configurable*
+        * *products*
+        * *simple_product*
+        * *configurable_product*
+        * *categories*
+        * *simple_category*
         * *customer*
+        * *simple_customer*
         * *sales*
         * *orders*
+        * *simple_order*
+        * *storefront_luma*
 
 ### RoboFile.php
 
@@ -133,7 +143,7 @@
 ### TROUBLESHOOTING
 * TimeZone Error - http://stackoverflow.com/questions/18768276/codeception-datetime-error
 * TimeZone List - http://php.net/manual/en/timezones.america.php
-* System PATH - Make sure you have `vendor/bin/` and `vendor/` listed in your system path so you can run the  `codecept` and `robo` commands directly:
+* System PATH - Make sure you have `bin`, `vendor/bin/` and `vendor/` listed in your system path so you can run the  `codecept` and `robo` commands directly:
 
     `sudo nano /etc/private/paths`
 

@@ -25,6 +25,8 @@ use Yandex\Allure\Adapter\Annotation\TestCaseId;
  * Codeception annotations
  * @group cms
  * @group pages
+ * @group content
+ * @group simple_page
  * @env chrome
  * @env firefox
  * @env phantomjs
@@ -125,21 +127,22 @@ class CreateContentPageCest
      * @Parameter(name = "AdminNavigation", value = "$adminNavigation")
      * @Parameter(name = "AdminPagesGrid", value = "$adminPagesGrid")
      * @Parameter(name = "AdminCmsPage", value = "$I")
-     * @Parameter(name = "StorefrontCmsPage", value = "$contentPage")
+     * @Parameter(name = "ContentPage", value = "$lumaContentPage")
      *
      * Codeception annotations
      * @group add
+     * @group storefront_luma
      * @param AcceptanceTester $acceptanceTester
      * @param AdminPagesGrid $adminPagesGrid
      * @param AdminPagesPage $I
-     * @param ContentPage $contentPage
+     * @param ContentPage $lumaContentPage
      * @return void
      */
     public function createContentPageTest(
         AcceptanceTester $acceptanceTester,
         AdminPagesGrid $adminPagesGrid,
         AdminPagesPage $I,
-        ContentPage $contentPage
+        ContentPage $lumaContentPage
     )
     {
         $acceptanceTester->wantTo('verify content page in admin');
@@ -160,8 +163,8 @@ class CreateContentPageCest
         $I->seeSaveSuccessMessage();
 
         $acceptanceTester->openNewTabGoToVerify($pageData['urlKey']);
-        $contentPage->verifyContentPageTitle($pageData['contentHeading']);
-        $contentPage->verifyContentPageBody($pageData['contentBody']);
+        $lumaContentPage->verifyContentPageTitle($pageData['contentHeading']);
+        $lumaContentPage->verifyContentPageBody($pageData['contentBody']);
         $acceptanceTester->closeNewTab();
 
         $adminPagesGrid->performGridSearchByKeyword($pageData['urlKey']);
