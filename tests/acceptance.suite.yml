@@ -1,0 +1,17 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+actor: AcceptanceTester
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver
+        - \Helper\Acceptance
+        - Asserts
+    config:
+        WebDriver:
+            url: "%MAGENTO_BASE_URL%"
+            browser: chrome
