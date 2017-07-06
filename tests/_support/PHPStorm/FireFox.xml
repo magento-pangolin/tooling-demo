@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="FireFox" type="CodeceptionConfigurationType" factoryName="Codeception">
-    <PhpTestRunnerSettings method="" scope="Type" selected_type="acceptance" options="--env firefox --skip-group skip" />
-    <method />
-  </configuration>
-</component>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test XML Example -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../_support/Generators/testXML.xsd">
+    <annotations>
+        <features>Customer</features>
+        <stories>Exercise all Customer fields</stories>
+        <stories>Create a basic Customer</stories>
+        <stories>Create a basic Customer with an Address</stories>
+        <group>customers</group>
+        <env>chrome</env>
+        <env>firefox</env>
+        <env>phantomjs</env>
+    </annotations>
+
+    <before>
+        <dependency type="AdminNavigation">I</dependency>
+        <step actor="I" function="loginAsAdmin"                name="loginAsAdmin"/>
+        <step actor="I" function="goToTheAdminAddCustomerPage" name="goToTheAdminAddCustomerPage"/>
+    </before>
+
+    <test name="verifyThatEachFieldOnTheCustomerAddPageWorks">
+        <annotations>
+            <title>Enter text into every field on the ADD Customer page.</title>
+            <description>Enter text into ALL fields on the ADD Customer page and verify the content of the fields.</description>
+            <severity>NORMAL</severity>
+            <testCaseId>#</testCaseId>
+            <group>fields</group>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="FakerDataGenerator">faker</dependency>
+        <dependency type="AdminCustomerPage">I</dependency>
+
+        <step actor="faker" function="getFakerCustomerData" variable="customerData" name="getFakerCustomerData"/>
+
+        <step actor="I" function="selectAssociateToWebsiteDropdown"             parameter="'MainWebsite'"                 name="selectAssociateToWebsiteDropdown"/>
+        <step actor="I" function="selectGroupDropdown"                          parameter="'Wholesale'"                   name="selectGroupDropdown"/>
+        <step actor="I" function="enterPrefixField"                             parameter="$customerData['prefix']"       name="enterPrefixField"/>
+        <step actor="I" function="enterFirstNameField"                          parameter="$customerData['firstname']"    name="enterFirstNameField"/>
+        <step actor="I" function="enterMiddleNameField"                         parameter="$customerData['middlename']"   name="enterMiddleNameField"/>
+        <step actor="I" function="enterLastNameField"                           parameter="$customerData['lastname']"     name="enterLastNameField"/>
+        <step actor="I" function="enterSuffixField"                             parameter="$customerData['suffix']"       name="enterSuffixField"/>
+        <step actor="I" function="enterEmailField"                              parameter="$customerData['email']"        name="enterEmailField"/>
+        <step actor="I" function="enterDateOfBirthField"                        parameter="$customerData['dateOfBirth']"  name="enterDateOfBirthField"/>
+        <step actor="I" function="enterTaxVatNumberField"                       parameter="$customerData['taxVatNumber']" name="enterTaxVatNumberField"/>
+        <step actor="I" function="selectGenderDropdown"                         parameter="'Female'"                      name="selectGenderDropdown"/>
+        <step actor="I" function="selectSendWelcomeEmailFromDropdown"           parameter="'Default Store View'"          name="selectSendWelcomeEmailFromDropdown"/>
+
+        <step actor="I" function="verifyAssociateToWebsiteDropdownIsSelected"   parameter="'Main Website'"                name="verifyAssociateToWebsiteDropdownIsSelected"/>
+        <step actor="I" function="verifyGroupDropdownIsSelected"                parameter="'Wholesale'"                   name="verifyGroupDropdownIsSelected"/>
+        <step actor="I" function="verifyPrefixFieldContains"                    parameter="$customerData['prefix']"       name="verifyPrefixFieldContains"/>
+        <step actor="I" function="verifyFirstNameFieldContains"                 parameter="$customerData['firstname']"    name="verifyFirstNameFieldContains"/>
+        <step actor="I" function="verifyMiddleNameFieldContains"                parameter="$customerData['middlename']"   name="verifyMiddleNameFieldContains"/>
+        <step actor="I" function="verifyLastNameFieldContains"                  parameter="$customerData['lastname']"     name="verifyLastNameFieldContains"/>
+        <step actor="I" function="verifySuffixFieldContains"                    parameter="$customerData['suffix']"       name="verifySuffixFieldContains"/>
+        <step actor="I" function="verifyEmailFieldContains"                     parameter="$customerData['email']"        name="verifyEmailFieldContains"/>
+        <step actor="I" function="verifyDateOfBirthFieldContains"               parameter="$customerData['dateOfBirth']"  name="verifyDateOfBirthFieldContains"/>
+        <step actor="I" function="verifyTaxVatNumberFieldContains"              parameter="$customerData['taxVatNumber']" name="verifyTaxVatNumberFieldContains"/>
+        <step actor="I" function="verifyGenderDropdownIsSelected"               parameter="'Female'"                      name="verifyGenderDropdownIsSelected"/>
+        <step actor="I" function="verifySendWelcomeEmailFromDropdownIsSelected" parameter="'Default Store View'"          name="verifySendWelcomeEmailFromDropdownIsSelected"/>
+    </test>
+
+    <test name="verifyThatEachFieldOnTheCustomerAddAddressAreaWorks">
+        <annotations>
+            <title>Enter text into every field on the ADD ADDRESS area of the Customer page.</title>
+            <description>Enter text into ALL fields on the ADD ADDRESS area on the Customer page and verify the content of the fields.</description>
+            <severity>NORMAL</severity>
+            <testCaseId>#</testCaseId>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="FakerDataGenerator">faker</dependency>
+        <dependency type="AdminCustomerPage">I</dependency>
+
+        <step actor="faker" function="getFakerCustomerData" variable="customerData" name="getFakerCustomerData"/>
+
+        <step actor="I" function="clickAddressesTab"                             name="clickAddressesTab"/>
+
+        <step actor="I" function="clickAddNewAddressesButton"                    name="clickAddNewAddressesButton"/>
+        <step actor="I" function="checkDefaultBillingAddressCheckbox"            name="checkDefaultBillingAddressCheckbox"/>
+        <step actor="I" function="checkDefaultShippingAddressCheckbox"           name="checkDefaultShippingAddressCheckbox"/>
+
+        <step actor="I" function="enterAddPrefixField"                           parameter="$customerData['prefix']"              name="enterAddPrefixField"/>
+        <step actor="I" function="enterAddFirstNameField"                        parameter="$customerData['firstname']"           name="enterAddFirstNameField"/>
+        <step actor="I" function="enterAddMiddleNameField"                       parameter="$customerData['middlename']"          name="enterAddMiddleNameField"/>
+        <step actor="I" function="enterAddLastNameField"                         parameter="$customerData['lastname']"            name="enterAddLastNameField"/>
+        <step actor="I" function="enterAddSuffixField"                           parameter="$customerData['suffix']"              name="enterAddSuffixField"/>
+        <step actor="I" function="enterAddCompanyField"                          parameter="$customerData['company']"             name="enterAddCompanyField"/>
+        <step actor="I" function="enterAddAddress1Field"                         parameter="$customerData['address']['address1']" name="enterAddAddress1Field"/>
+        <step actor="I" function="enterAddAddress2Field"                         parameter="$customerData['address']['address2']" name="enterAddAddress2Field"/>
+        <step actor="I" function="enterAddCityField"                             parameter="$customerData['address']['city']"     name="enterAddCityField"/>
+        <step actor="I" function="selectAddCountryDropdown"                      parameter="$customerData['address']['country']"  name="selectAddCountryDropdown"/>
+        <step actor="I" function="enterAddStateField"                            parameter="$customerData['address']['state']"    name="enterAddStateField"/>
+        <step actor="I" function="enterAddZipPostalCodeField"                    parameter="$customerData['address']['zipCode']"  name="enterAddZipPostalCodeField"/>
+        <step actor="I" function="enterAddPhoneNumberField"                      parameter="$customerData['phoneNumber']"         name="enterAddPhoneNumberField"/>
+        <step actor="I" function="enterAddVatNumberField"                        parameter="$customerData['taxVatNumber']"        name="enterAddVatNumberField"/>
+
+        <step actor="I" function="verifyDefaultBillingAddressCheckboxIsChecked"  name="verifyDefaultBillingAddressCheckboxIsChecked"/>
+        <step actor="I" function="verifyDefaultShippingAddressCheckboxIsChecked" name="verifyDefaultShippingAddressCheckboxIsChecked"/>
+
+        <step actor="I" function="verifyAddPrefixFieldContains"                  parameter="$customerData['prefix']"              name="verifyAddPrefixFieldContains"/>
+        <step actor="I" function="verifyAddFirstNameFieldContains"               parameter="$customerData['firstname']"           name="verifyAddFirstNameFieldContains"/>
+        <step actor="I" function="verifyAddMiddleNameFieldContains"              parameter="$customerData['middlename']"          name="verifyAddMiddleNameFieldContains"/>
+        <step actor="I" function="verifyAddLastNameFieldContains"                parameter="$customerData['lastname']"            name="verifyAddLastNameFieldContains"/>
+        <step actor="I" function="verifyAddSuffixFieldContains"                  parameter="$customerData['suffix']"              name="verifyAddSuffixFieldContains"/>
+        <step actor="I" function="verifyAddCompanyFieldContains"                 parameter="$customerData['company']"             name="verifyAddCompanyFieldContains"/>
+        <step actor="I" function="verifyAddAddress1FieldContains"                parameter="$customerData['address']['address1']" name="verifyAddAddress1FieldContains"/>
+        <step actor="I" function="verifyAddAddress2FieldContains"                parameter="$customerData['address']['address2']" name="verifyAddAddress2FieldContains"/>
+        <step actor="I" function="verifyAddCityFieldContains"                    parameter="$customerData['address']['city']"     name="verifyAddCityFieldContains"/>
+        <step actor="I" function="verifyAddCountryDropdownIsSelected"            parameter="$customerData['address']['country']"  name="verifyAddCountryDropdownIsSelected"/>
+        <step actor="I" function="verifyAddStateFieldContains"                   parameter="$customerData['address']['state']"    name="verifyAddStateFieldContains"/>
+        <step actor="I" function="verifyAddZipPostalCodeFieldContains"           parameter="$customerData['address']['zipCode']"  name="verifyAddZipPostalCodeFieldContains"/>
+        <step actor="I" function="verifyAddPhoneNumberFieldContains"             parameter="$customerData['phoneNumber']"         name="verifyAddPhoneNumberFieldContains"/>
+        <step actor="I" function="verifyAddVatNumberFieldContains"               parameter="$customerData['taxVatNumber']"        name="verifyAddVatNumberFieldContains"/>
+    </test>
+
+    <test name="createBasicCustomerAccountTest">
+        <annotations>
+            <title>>Create a new Customer account using the REQUIRED fields only.</title>
+            <description>Enter text into the REQUIRED fields, SAVE the content and VERIFY it on the Admin page.</description>
+            <severity>CRITICAL</severity>
+            <testCaseId>#</testCaseId>
+            <group>simple_customer</group>
+            <group>add</group>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="FakerDataGenerator">faker</dependency>
+        <dependency type="AdminCustomerPage">I</dependency>
+        <dependency type="AdminCustomerGrid">adminCustomerGrid</dependency>
+
+        <step actor="faker" function="getFakerCustomerData" variable="customerData" name="getFakerCustomerData"/>
+
+        <step actor="I" function="enterFirstNameField"                                parameter="$customerData['firstname']" name="enterFirstNameField"/>
+        <step actor="I" function="enterLastNameField"                                 parameter="$customerData['lastname']"  name="enterLastNameField"/>
+        <step actor="I" function="enterEmailField"                                    parameter="$customerData['email']"     name="enterEmailAddressField"/>
+        <step actor="I" function="selectAssociateToWebsiteDropdown"                   parameter="'Main Website'"             name="selectAssociateToWebsiteDropdown"/>
+        <step actor="I" function="selectGroupDropdown"                                parameter="'General'"                  name="selectGroupDropdown"/>
+
+        <step actor="I" function="clickSaveCustomerButton"                            name="clickSaveCustomerButton"/>
+
+        <step actor="adminCustomerGrid" function="performGridSearchByKeyword"         parameter="$customerData['email']"               name="performGridSearchByKeyword"/>
+        <step actor="adminCustomerGrid" function="clickOnGridRowActionLinkContaining" parameter="$customerData['email']"               name="clickOnGridRowActionLinkContaining"/>
+
+        <step actor="I" function="clickAccountInformationTab"                         name="clickAccountInformationTab"/>
+        <step actor="I" function="verifyFirstNameFieldContains"                       parameter="$customerData['firstname']" name="verifyFirstNameFieldContains"/>
+        <step actor="I" function="verifyLastNameFieldContains"                        parameter="$customerData['lastname']"  name="verifyLastNameFieldContains"/>
+        <step actor="I" function="verifyEmailFieldContains"                           parameter="$customerData['email']"     name="verifyEmailFieldContains"/>
+        <step actor="I" function="verifyAssociateToWebsiteDropdownIsSelected"         parameter="'Main Website'"             name="verifyAssociateDropdownToWebsiteIsSelected"/>
+        <step actor="I" function="verifyGroupDropdownIsSelected"                      parameter="'General'"                  name="verifyGroupDropdownIsSelected"/>
+    </test>
+
+    <test name="createBasicCustomerAccountWithAddressTest">
+        <annotations>
+            <title>Create a new Customer account using the REQUIRED fields with an Address.</title>
+            <description>Enter text into the REQUIRED fields, SAVE the content and VERIFY it on the Admin page.</description>
+            <severity>CRITICAL</severity>
+            <testCaseId>#</testCaseId>
+            <group>add</group>
+            <group>simple_customer</group>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="FakerDataGenerator">faker</dependency>
+        <dependency type="AdminCustomerPage">I</dependency>
+        <dependency type="AdminCustomerGrid">adminCustomerGrid</dependency>
+
+        <step actor="faker" function="getFakerCustomerData" variable="customerData" name="getFakerCustomerData"/>
+
+        <step actor="I" function="clickAddressesTab"                                  name="clickAddressesTab"/>
+        <step actor="I" function="clickAddNewAddressesButton"                         name="clickAddNewAddressesButton"/>
+
+        <step actor="I" function="checkDefaultBillingAddressCheckbox"                 name="checkDefaultBillingAddressCheckbox"/>
+        <step actor="I" function="checkDefaultShippingAddressCheckbox"                name="checkDefaultShippingAddressCheckbox"/>
+
+        <step actor="I" function="enterAddPrefixField"                                parameter="$customerData['prefix']"              name="enterAddPrefixField"/>
+        <step actor="I" function="enterAddFirstNameField"                             parameter="$customerData['firstname']"           name="enterAddFirstNameField"/>
+        <step actor="I" function="enterAddMiddleNameField"                            parameter="$customerData['middlename']"          name="enterAddFirstNameField"/>
+        <step actor="I" function="enterAddLastNameField"                              parameter="$customerData['lastname']"            name="enterAddLastNameField"/>
+        <step actor="I" function="enterAddSuffixField"                                parameter="$customerData['suffix']"              name="enterAddSuffixField"/>
+        <step actor="I" function="enterAddCompanyField"                               parameter="$customerData['company']"             name="enterAddCompanyField"/>
+        <step actor="I" function="enterAddAddress1Field"                              parameter="$customerData['address']['address1']" name="enterAddAddress1Field"/>
+        <step actor="I" function="enterAddAddress2Field"                              parameter="$customerData['address']['address2']" name="enterAddAddress2Field"/>
+        <step actor="I" function="enterAddCityField"                                  parameter="$customerData['address']['city']"     name="enterAddCityField"/>
+        <step actor="I" function="selectAddCountryDropdown"                           parameter="$customerData['address']['country']"  name="selectAddCountryDropdown"/>
+        <step actor="I" function="selectAddStateDropdown"                             parameter="$customerData['address']['state']"    name="selectAddStateDropdown"/>
+        <step actor="I" function="enterAddZipPostalCodeField"                         parameter="$customerData['address']['zipCode']"  name="enterAddZipPostalCodeField"/>
+        <step actor="I" function="enterAddPhoneNumberField"                           parameter="$customerData['phoneNumber']"         name="enterAddPhoneNumberField"/>
+        <step actor="I" function="enterAddVatNumberField"                             parameter="$customerData['taxVatNumber']"        name="enterAddVatNumberField"/>
+
+        <step actor="I" function="clickAccountInformationTab"                         name="clickAccountInformationTab"/>
+
+        <step actor="I" function="enterFirstNameField"                                parameter="$customerData['firstname']"           name="enterFirstNameField"/>
+        <step actor="I" function="enterLastNameField"                                 parameter="$customerData['lastname']"            name="enterLastNameField"/>
+        <step actor="I" function="enterEmailField"                                    parameter="$customerData['email']"               name="enterEmailField"/>
+        <step actor="I" function="selectAssociateToWebsiteDropdown"                   parameter="'Main Website'"                       name="selectAssociateToWebsiteDropdown"/>
+        <step actor="I" function="selectGroupDropdown"                                parameter="'General'"                            name="selectGroupDropdown"/>
+
+        <step actor="adminCustomerGrid" function="performGridSearchByKeyword"         parameter="$customerData['email']"               name="performGridSearchByKeyword"/>
+        <step actor="adminCustomerGrid" function="clickOnGridRowActionLinkContaining" parameter="$customerData['email']"               name="clickOnGridRowActionLinkContaining"/>
+
+        <step actor="I" function="clickAddressesTab"                                  name="clickAddressesTab"/>
+        <step actor="I" function="verifyDefaultBillingAddressCheckboxIsChecked"       name="verifyAddAddressDefaultBillingAddress"/>
+        <step actor="I" function="verifyDefaultShippingAddressCheckboxIsChecked"      name="verifyAddAddressDefaultShippingAddress"/>
+
+        <step actor="I" function="verifyAddPrefixFieldContains"                       parameter="$customerData['prefix']"              name="verifyAddPrefixFieldContains"/>
+        <step actor="I" function="verifyAddFirstNameFieldContains"                    parameter="$customerData['firstname']"           name="verifyAddFirstNameFieldContains"/>
+        <step actor="I" function="verifyAddMiddleNameFieldContains"                   parameter="$customerData['middlename']"          name="verifyAddMiddleNameFieldContains"/>
+        <step actor="I" function="verifyAddLastNameFieldContains"                     parameter="$customerData['lastname']"            name="verifyAddLastNameFieldContains"/>
+        <step actor="I" function="verifyAddSuffixFieldContains"                       parameter="$customerData['suffix']"              name="verifyAddSuffixFieldContains"/>
+        <step actor="I" function="verifyAddCompanyFieldContains"                      parameter="$customerData['company']"             name="verifyAddCompanyFieldContains"/>
+        <step actor="I" function="verifyAddAddress1FieldContains"                     parameter="$customerData['address']['address1']" name="verifyAddAddress1FieldContains"/>
+        <step actor="I" function="verifyAddAddress2FieldContains"                     parameter="$customerData['address']['address2']" name="verifyAddAddress2FieldContains"/>
+        <step actor="I" function="verifyAddCityFieldContains"                         parameter="$customerData['address']['city']"     name="verifyAddCityFieldContains"/>
+        <step actor="I" function="verifyAddCountryDropdownIsSelected"                 parameter="$customerData['address']['country']"  name="verifyAddCountryDropdownIsSelected"/>
+        <step actor="I" function="verifyAddStateDropdownIsSelected"                   parameter="$customerData['address']['state']"    name="verifyAddStateDropdownIsSelected"/>
+        <step actor="I" function="verifyAddZipPostalCodeFieldContains"                parameter="$customerData['address']['zipCode']"  name="verifyAddZipPostalCodeFieldContains"/>
+        <step actor="I" function="verifyAddPhoneNumberFieldContains"                  parameter="$customerData['phoneNumber']"         name="verifyAddPhoneNumberFieldContains"/>
+        <step actor="I" function="verifyAddVatNumberFieldContains"                    parameter="$customerData['taxVatNumber']"        name="verifyAddVatNumberFieldContains"/>
+    </test>
+</config>

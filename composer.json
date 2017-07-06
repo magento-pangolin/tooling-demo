@@ -1,23 +1,21 @@
 {
-    "name": "tooling-demo",
+    "name": "jstennett/xml-to-php",
+    "description": "Prototype Codeception XML to Codeception PHP generator.",
+    "type": "project",
     "require": {
-	    "php": ">=5.4.0",
-        "codeception/codeception": "~2.2",
-        "symfony/filesystem": "~2.6",
-        "symfony/finder": "~2.6",
+        "php": ">=5.4.0",
+        "codeception/codeception": "~2.3",
+        "fzaninotto/faker": "^1.6",
         "consolidation/robo": "^1.0.0",
         "allure-framework/allure-codeception": "dev-master",
-        "flow/jsonpath": ">0.2",
         "vlucas/phpdotenv": "~2.4",
-        "fzaninotto/faker": "^1.6"
+        "henrikbjorn/lurker": "^1.2"
     },
-    "autoload": {
-        "psr-0": {
-            "Yandex": "vendor/allure-framework/allure-codeception/src/"
-        },
-        "psr-4": {
-            "Magento\\Xxyyzz\\": "tests/_support/Magento/Xxyyzz",
-            "Magento\\Xxyyzz\\Acceptance\\": "tests/acceptance/Magento/Xxyyzz/Acceptance"
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "John Stennett",
+            "email": "john00ivy@gmail.com"
         }
-    }
+    ]
 }

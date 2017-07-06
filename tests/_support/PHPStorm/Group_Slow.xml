@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Group Slow" type="CodeceptionConfigurationType" factoryName="Codeception">
-    <PhpTestRunnerSettings method="" scope="Type" selected_type="acceptance" options="--env chrome --group slow" />
-    <method />
-  </configuration>
-</component>

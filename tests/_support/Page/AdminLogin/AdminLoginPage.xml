@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../_support/Generators/pageSelectors.xsd">-->
+    <selectors page="AdminLoginPage">
+        <element name="mainArea"           type="region" waitForPageLoad="false" selector="#adminhtml-auth-login .page-wrapper" />
+        <element name="logo"               type="link"   waitForPageLoad="true"  selector=".logo" />
+        <element name="logo"               type="image"  waitForPageLoad="true"  selector=".logo-img" />
+        <element name="welcome"            type="title"  waitForPageLoad="false" selector=".admin__legend" />
+        <element name="username"           type="title"  waitForPageLoad="false" selector=".field-username label" />
+        <element name="username"           type="field"  waitForPageLoad="false" selector="#username" variable="username" />
+        <element name="password"           type="title"  waitForPageLoad="false" selector=".field-password label" />
+        <element name="password"           type="field"  waitForPageLoad="false" selector="#login" variable="password" />
+        <element name="forgotYourPassword" type="link"   waitForPageLoad="false" selector=".action-forgotpassword" />
+        <element name="signIn"             type="button" waitForPageLoad="true"  selector=".actions .action-primary" />
+        <element name="copyright"          type="text"   waitForPageLoad="false" selector=".login-footer" />
+
+        <element name="forgotPassword"     type="region" waitForPageLoad="false" selector=".adminhtml-auth-forgotpassword" />
+        <element name="forgotPassword"     type="title"  waitForPageLoad="false" selector=".admin__field-info" />
+        <element name="emailAddress"       type="title"  waitForPageLoad="false" selector=".field-email label" />
+        <element name="emailAddress"       type="field"  waitForPageLoad="false" selector="#email" variable="emailAddress" />
+        <element name="retrievePassword"   type="button" waitForPageLoad="true"  selector=".actions .action-primary" />
+        <element name="backToSignIn"       type="link"   waitForPageLoad="false" selector=".action-back" />
+    </selectors>
+<!--</config>-->

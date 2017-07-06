@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test XML Example -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../_support/Generators/testXML.xsd">
+    <annotations>
+        <env>chrome</env>
+        <group>example</group>
+    </annotations>
+
+    <test name="MinimumFieldsTest">
+        <annotations>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="AcceptanceTester">I</dependency>
+
+        <step actor="I" function="amOnUrl"         parameter="'http://127.0.0.1:32770/admin/'" name="amOnPage"/>
+        <step actor="I" function="fillField"       selector="#username" parameter="admin"      name="fillField"/>
+        <step actor="I" function="fillField"       selector="#login"    parameter="123123q"    name="fillField"/>
+        <step actor="I" function="click"           selector=".actions .action-primary"         name="clickOnSignIn"/>
+        <step actor="I" function="waitForPageLoad" name="waitForPageLoad"/>
+    </test>
+</config>

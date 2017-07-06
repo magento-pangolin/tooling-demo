@@ -16,11 +16,6 @@ class RoboFile extends \Robo\Tasks
         $this->_exec('cp -vn tests/acceptance.suite.dist.yml tests/acceptance.suite.yml');
     }
 
-    function clonePhpstormProfiles()
-    {
-        $this->_exec('cp -R tests/_support/PHPStorm/ .idea/runConfigurations/');
-    }
-
     function allureGenerate() {
         return $this->_exec('allure generate tests/_output/allure-results/ -o tests/_output/allure-report/');
     }
@@ -67,7 +62,7 @@ class RoboFile extends \Robo\Tasks
     }
 
     function phantomjs() {
-        $this->_exec('codecept run acceptance --env phantomjs --skip-group skip');
+        $this->_exec('codecept run acceptance --env phantomjs');
         $this->allureReport();
     }
 
@@ -80,5 +75,45 @@ class RoboFile extends \Robo\Tasks
     function folder($args = '')
     {
         $this->taskExec('codecept run acceptance --env chrome')->args($args)->run();
+    }
+
+    function generateTests()
+    {
+        $this->_exec('cd tests/_support/Generators && php testGenerator.php');
+    }
+
+    function generatePageObjects()
+    {
+        $this->_exec('cd tests/_support/Generators && php pageObjectGenerator.php');
+    }
+
+    function generateAll()
+    {
+        $this->generateTests();
+        $this->generatePageObjects();
+    }
+
+    function watchTests()
+    {
+        $this->taskWatch()
+            ->monitor('tests/acceptance/', function() {
+                $date = date_create();
+
+                $this->taskExec('cd tests/_support/Generators && php testGenerator.php')->run();
+                $this->say('PHP Tests Generated ');
+                $this->say(date_format($date, 'Y-m-d H:i:s') . "\n");
+            })->run();
+    }
+
+    function watchPageObjects()
+    {
+        $this->taskWatch()
+            ->monitor('tests/_support/Page/', function() {
+                $date = date_create();
+
+                $this->taskExec('cd tests/_support/Generators && php pageObjectGenerator.php')->run();
+                $this->say('PHP PageObjects Generated ');
+                $this->say(date_format($date, 'Y-m-d H:i:s') . "\n");
+            })->run();
     }
 }

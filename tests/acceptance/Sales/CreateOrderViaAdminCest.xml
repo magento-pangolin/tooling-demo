@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test XML Example -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../_support/Generators/testXML.xsd">
+    <annotations>
+        <features>Features</features>
+        <stories>Create an Order via the Admin</stories>
+        <group>skip</group>
+        <group>add</group>
+        <group>sales</group>
+        <group>orders</group>
+        <env>chrome</env>
+        <env>firefox</env>
+        <env>phantomjs</env>
+    </annotations>
+
+    <before>
+        <dependency type="AdminStep">I</dependency>
+        <step actor="I" function="loginAsAdmin" name="loginAsAdmin"/>
+    </before>
+
+    <test name="createOrderViaAdmin">
+        <annotations>
+            <title>Create an Order via the Admin</title>
+            <description>Setup a Category, Product, Customer and place an Order using them via the Admin.</description>
+            <severity>CRITICAL</severity>
+            <testCaseId>#</testCaseId>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="AdminStep">I</dependency>
+        <dependency type="AdminCustomerPage">adminCustomerPage</dependency>
+        <dependency type="AdminCategoryPage">adminCategoryPage</dependency>
+        <dependency type="AdminProductPage">adminProductPage</dependency>
+        <dependency type="AdminOrderGrid">adminOrderGrid</dependency>
+        <dependency type="AdminOrderAddPage">adminOrderAddPage</dependency>
+        <dependency type="AdminOrderDetailsPage">adminOrderDetailsPage</dependency>
+
+        <step actor="I" function="getCustomerData" variable="customerDetails" name="getCustomerData"/>
+        <step actor="I" function="getCustomerData" variable="categoryDetails" name="getCategoryData"/>
+        <step actor="I" function="getCustomerData" variable="productDetails" name="getProductData"/>
+
+        <!--<step actor="" function="" selector="" parameter="" name=""/>-->
+
+        <step actor="I" function="goToTheAdminAllCustomersGrid" name="goToTheAdminAllCustomersGrid"/>
+        <step actor="adminCustomerPage" function="addBasicCustomerWithAddress" variable="$customerDetails" name="addBasicCustomerWithAddress"/>
+
+        <step actor="I" function="goToTheAdminCategoriesPage" name="goToTheAdminCategoriesPage"/>
+        <step actor="adminCategoryPage" function="addBasicCategory" variable="$categoryDetails" name="addBasicCategory"/>
+
+        <step actor="I" function="goToTheAdminCatalogPage" name="goToTheAdminCatalogPage"/>
+        <step actor="adminProductPage" function="addBasicProductUnderCategory" parameter="$productDetails, $categoryDetails" name="addBasicProductUnderCategory"/>
+
+        <step actor="I" function="goToTheAdminOrdersGrid" name="goToTheAdminOrdersGrid"/>
+        <step actor="adminOrderGrid" function="clickOnCreateNewOrderButton" name="clickOnCreateNewOrderButton"/>
+
+        <step actor="adminOrderAddPage" function="enterCustomerEmailSearchTerm" parameter="$customerDetails['email']" name="enterCustomerEmailSearchTerm"/>
+        <step actor="adminOrderAddPage" function="clickOnCustomerSearchButton" name="clickOnCustomerSearchButton"/>
+        <step actor="adminOrderAddPage" function="clickOnCustomerFor" parameter="$customerDetails['email']" name="clickOnCustomerFor"/>
+
+        <step actor="adminOrderAddPage" function="clickOnDefaultStoreView" name="clickOnDefaultStoreView"/>
+
+        <step actor="adminOrderAddPage" function="clickOnAddProductsButton" name="clickOnAddProductsButton"/>
+        <step actor="adminOrderAddPage" function="enterProductSkuSearchField" parameter="$productDetails['sku']" name="enterProductSkuSearchField"/>
+        <step actor="adminOrderAddPage" function="clickOnProductsSearchButton" name="clickOnProductsSearchButton"/>
+        <step actor="adminOrderAddPage" function="clickOnProductSkuFor" parameter="$productDetails['sku']" name="clickOnProductSkuFor"/>
+        <step actor="adminOrderAddPage" function="clickOnAddSelectedProductsToOrderButton" name="clickOnAddSelectedProductsToOrderButton"/>
+
+        <step actor="adminOrderAddPage" function="clickOnGetShippingMethodsAndRatesLink" name="clickOnGetShippingMethodsAndRatesLink"/>
+        <step actor="adminOrderAddPage" function="clickOnFixedShippingMethod" name="clickOnFixedShippingMethod"/>
+
+        <step actor="adminOrderAddPage" function="clickOnBottomSubmitButton" name="clickOnBottomSubmitButton"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyThatYouCreatedAnOrderMessageIsPresent" name="verifyThatYouCreatedAnOrderMessageIsPresent"/>
+        <step actor="adminOrderDetailsPage" function="verifyThereIsAnOrderNumber" name="verifyThereIsAnOrderNumber"/>
+        <step actor="adminOrderDetailsPage" function="verifyThatTheOrderWasPlacedToday" name="verifyThatTheOrderWasPlacedToday"/>
+        <step actor="adminOrderDetailsPage" function="verifyOrderStatusPending" name="verifyOrderStatusPending"/>
+        <step actor="adminOrderDetailsPage" function="verifyPurchasedFromDefaultStoreView" name="verifyPurchasedFromDefaultStoreView"/>
+
+        <!--<step actor="adminOrderDetailsPage" function="verifyCustomerName"  parameter="$customerName" name="verifyCustomerName"/>-->
+        <step actor="adminOrderDetailsPage" function="verifyCustomerEmail" parameter="$customerDetails['email']" name="verifyCustomerEmail"/>
+        <step actor="adminOrderDetailsPage" function="verifyCustomerGroup" parameter="'General'" name="verifyCustomerGroup"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyBillingAddressInformation"  parameter="$customerDetails" name="verifyBillingAddressInformation"/>
+        <step actor="adminOrderDetailsPage" function="verifyShippingAddressInformation" parameter="$customerDetails" name="verifyShippingAddressInformation"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyPaymentTypeCheckMoneyOrder" name="verifyPaymentTypeCheckMoneyOrder"/>
+        <step actor="adminOrderDetailsPage" function="verifyPaymentCurrencyUSD" name="verifyPaymentCurrencyUSD"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyShippingMethodFixedRate" name="verifyShippingMethodFixedRate"/>
+        <step actor="adminOrderDetailsPage" function="verifyShippingHandlingPrice"   parameter="'$0.00'" name="verifyShippingHandlingPrice"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyItemsOrderedFor" parameter="$productDetails" name="verifyItemsOrderedFor"/>
+
+        <step actor="adminOrderDetailsPage" function="verifyOrderStatusDropDownPending" name="verifyOrderStatusDropDownPending"/>
+        <step actor="adminOrderDetailsPage" function="verifyOrderComments" parameter="''" name="verifyOrderComments"/>
+
+        <step actor="adminOrderDetailsPage" function="verifySubTotalPrice"         parameter="$productDetails['price']" name="verifySubTotalPrice"/>
+        <step actor="adminOrderDetailsPage" function="verifyShippingHandlingPrice" parameter="'$0.00'" name="verifyShippingHandlingPrice"/>
+    </test>
+</config>

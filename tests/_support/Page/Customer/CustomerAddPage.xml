@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../_support/Generators/pageSelectors.xsd">-->
+    <selectors page="AdminCustomerPage">
+        <element name="deleteCustomer"         type="button"   waitForPageLoad="true"  selector="#customer-edit-delete-button" />
+        <element name="createOrder"            type="button"   waitForPageLoad="true"  selector="#order" />
+        <element name="resetPassword"          type="button"   waitForPageLoad="true"  selector="#resetPassword" />
+        <element name="forceSignIn"            type="button"   waitForPageLoad="true"  selector="#invalidateToken" />
+        <element name="saveCustomer"           type="button"   waitForPageLoad="true"  selector="#save" />
+
+        <element name="customerInformation"    type="tab"      waitForPageLoad="true"  selector=".admin__page-nav" />
+        <element name="customerView"           type="tab"      waitForPageLoad="true"  selector="#tab_block_customer_edit_tab_view" />
+        <element name="accountInformation"     type="tab"      waitForPageLoad="true"  selector="#tab_customer" />
+        <element name="addresses"              type="tab"      waitForPageLoad="true"  selector="#tab_address" />
+        <element name="orders"                 type="tab"      waitForPageLoad="true"  selector="#tab_block_orders" />
+        <element name="billingAgreements"      type="tab"      waitForPageLoad="true"  selector="#tab_block_customer_edit_tab_agreements" />
+        <element name="newsletter"             type="tab"      waitForPageLoad="true"  selector="#tab_block_newsletter" />
+        <element name="productReviews"         type="tab"      waitForPageLoad="true"  selector="#tab_block_reviews" />
+        <element name="wishList"               type="tab"      waitForPageLoad="true"  selector="#tab_block_wishlist" />
+
+        <element name="associateToWebsite"     type="dropdown" waitForPageLoad="false" selector='.admin__control-select[name="customer[website_id]"]'                             variable="website" />
+        <element name="group"                  type="dropdown" waitForPageLoad="false" selector='.admin__control-select[name="customer[group_id]"]'                               variable="group" />
+        <element name="disableAutomaticGroup"  type="checkbox" waitForPageLoad="false" selector='.admin__field[data-index="disable_auto_group_change"] .admin__field-label' />
+        <element name="prefix"                 type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[prefix]"]'                                   variable="prefix" />
+        <element name="firstName"              type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[first_name]"]'                               variable="firstName" />
+        <element name="middleName"             type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[middlename]"]'                               variable="middleName" />
+        <element name="lastName"               type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[lastname]"]'                                 variable="lastName" />
+        <element name="suffix"                 type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[suffix]"]'                                   variable="suffix" />
+        <element name="email"                  type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[email]"]'                                    variable="email" />
+        <element name="dateOfBirth"            type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[dob]"]'                                      variable="dob" />
+        <element name="gender"                 type="dropdown" waitForPageLoad="false" selector='.admin__control-select[name="customer[gender]"]'                                 variable="gender" />
+        <element name="taxVatNumber"           type="field"    waitForPageLoad="false" selector='.admin__control-text[name="customer[taxvat]"]'                                   variable="taxVat" />
+        <element name="sendWelcomeEmailFrom"   type="dropdown" waitForPageLoad="false" selector='.admin__control-select[name="customer[sendemail_store_id]"]'                     variable="store" />
+
+        <element name="addNewAddresses"        type="button"   waitForPageLoad="true"  selector='.add' />
+
+        <element name="newAddressType"         type="region"   waitForPageLoad="false" selector='.address-list-item.ui-state-active' />
+        <element name="defaultBillingAddress"  type="checkbox" waitForPageLoad="false" selector='.admin__control-checkbox[name*="[default_billing]"]' />
+        <element name="defaultShippingAddress" type="checkbox" waitForPageLoad="false" selector='.admin__control-checkbox[name*="[default_shipping]"]' />
+
+        <element name="addPrefix"              type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[prefix]"]'               variable="prefix" />
+        <element name="addFirstName"           type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[firstname]"]'            variable="firstName" />
+        <element name="addMiddleName"          type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[middlename]"]'           variable="middleName" />
+        <element name="addLastName"            type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[lastname]"]'             variable="lastName" />
+        <element name="addSuffix"              type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[suffix]"]'               variable="suffix" />
+        <element name="addAddress1"            type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[street][0]"]'            variable="address1" />
+        <element name="addAddress2"            type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[street][1]"]'            variable="address2" />
+        <element name="addCompany"             type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[company]"]'              variable="company" />
+        <element name="addCountry"             type="dropdown" waitForPageLoad="false" selector='.address-item-edit-content .admin__control-select[name*="[country_id]"]'         variable="country" />
+        <element name="addCity"                type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[city]"]'                 variable="city" />
+        <element name="addState"               type="dropdown" waitForPageLoad="false" selector='.address-item-edit-content .admin__control-select[name*="[region_id]"]'          variable="state" />
+        <element name="addState"               type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="address[new_0][region]"]' variable="state" />
+        <element name="addZipPostalCode"       type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[postcode]"]'             variable="zipPostalCode" />
+        <element name="addProvince"            type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[region]"]'               variable="province" />
+        <element name="addPhoneNumber"         type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[telephone]"]'            variable="phoneNumber" />
+        <element name="addVatNumber"           type="field"    waitForPageLoad="false" selector='.address-item-edit-content .admin__control-text[name*="[vat_id]"]'               variable="vatNumber" />
+    </selectors>
+<!--</config>-->

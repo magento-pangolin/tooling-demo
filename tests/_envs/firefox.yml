@@ -1,9 +1,4 @@
-# `firefox` environment config goes here
 modules:
-    enabled:
-        - \Magento\Xxyyzz\Module\MagentoWebDriver
-        - \Magento\Xxyyzz\Helper\Acceptance
     config:
-        \Magento\Xxyyzz\Module\MagentoWebDriver:
-            browser: firefox
-            window_size: maximize
+        WebDriver:
+            browser: 'firefox'

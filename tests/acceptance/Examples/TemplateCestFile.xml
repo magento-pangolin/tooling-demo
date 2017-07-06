@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test XML Example -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../_support/Generators/testXML.xsd">
+    <use path="AcceptanceTester"/>
+
+    <annotations>
+        <features></features>
+        <stories></stories>
+        <group></group>
+        <env></env>
+    </annotations>
+
+    <before>
+        <dependency type=""></dependency>
+
+        <step actor="" function="" name=""/>
+    </before>
+
+    <test name="">
+        <annotations>
+            <title></title>
+            <description></description>
+            <severity></severity>
+            <testCaseId></testCaseId>
+            <return>void</return>
+        </annotations>
+
+        <dependency type=""></dependency>
+
+        <step actor="" function="" parameter="" name=""/>
+        <step actor="" function="" selector="" parameter="" name=""/>
+    </test>
+
+    <after>
+        <dependency type=""></dependency>
+
+        <step actor="" function="" name=""/>
+    </after>
+</config>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test XML Example -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../_support/Generators/testXML.xsd">
+    <annotations>
+        <features>Admin Login</features>
+        <stories>Logging In using raw Codeception commands.</stories>
+        <stories>Logging In using Codeception PageObject methods.</stories>
+        <group>banana</group>
+        <env>chrome</env>
+        <env>firefox</env>
+        <env>phantomjs</env>
+    </annotations>
+
+    <before>
+        <dependency type="AdminNavigation">I</dependency>
+
+        <step actor="I" function="goToTheAdminLoginPage" name="goToTheAdminLoginPage"/>
+    </before>
+
+    <test name="shouldBeAbleToLoginUsingCodeceptionCommands">
+        <annotations>
+            <title>You should be able to Login to the Admin</title>
+            <description>You should land on the Admin Dashboard after Logging In</description>
+            <severity>CRITICAL</severity>
+            <testCaseId>#</testCaseId>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="AcceptanceTester">I</dependency>
+
+        <step name="enterTheUsername" actor="I" function="fillField" selector="#username" parameter="admin"/>
+        <step name="enterThePassword" actor="I" function="fillField" selector="#login" parameter="123123q"/>
+        <step name="clickOnSignIn"    actor="I" function="click"     selector=".actions .action-primary"/>
+        <step name="waitForPageLoad"  actor="I" function="waitForPageLoad"/>
+    </test>
+
+    <test name="shouldBeAbleToLoginUsingPageObjects">
+        <annotations>
+            <title>You should be able to Login to the Admin</title>
+            <description>You should land on the Admin Dashboard after Logging In.</description>
+            <severity>CRITICAL</severity>
+            <testCaseId>#</testCaseId>
+            <return>void</return>
+        </annotations>
+
+        <dependency type="AdminLoginPage">I</dependency>
+
+        <step name="enterUsernameField" actor="I" function="enterUsernameField" parameter="'admin'"/>
+        <step name="enterPasswordField" actor="I" function="enterPasswordField" parameter="'123123q'"/>
+        <step name="clickSignInButton"  actor="I" function="clickSignInButton"/>
+    </test>
+
+    <after>
+        <dependency type="AdminNavigation">I</dependency>
+
+        <step actor="I" function="shouldBeOnTheAdminDashboardPage" name="shouldBeOnTheAdminDashboardPage"/>
+    </after>
+</config>
